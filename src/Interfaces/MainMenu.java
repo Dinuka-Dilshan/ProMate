@@ -21,7 +21,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     int x,y;
     
-    
+    //comment
    
     
     public MainMenu() {
