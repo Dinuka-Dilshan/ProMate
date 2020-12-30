@@ -274,7 +274,7 @@ public class Login extends javax.swing.JFrame {
         boolean pwCorrect=false;
         String inputPw=new String(pw.getPassword());
         String usern=userName.getText();    
-        String query = "SELECT username,type FROM users WHERE Password = '"+inputPw+"'  AND Username='"+usern+"';";
+        String query = "SELECT userName,Type FROM user WHERE Password = '"+inputPw+"'  AND userName='"+usern+"';";
         
         
 
@@ -286,7 +286,7 @@ public class Login extends javax.swing.JFrame {
             try{if (rt.next()){
                            
                 this.dispose();
-                new MainMenu(usern,rt.getString("type")).setVisible(true);
+                new MainMenu(usern,rt.getString("Type")).setVisible(true);
                 con.close();
                 
             }
