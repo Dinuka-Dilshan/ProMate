@@ -927,19 +927,19 @@ public class MainMenu extends javax.swing.JFrame {
        
        
        String typeOfTheUser=myTable.getValueAt(rawIndex, 4).toString();
+
        
-       
-       if(typeOfTheUser.equals("Admin")){
+       if(typeOfTheUser.equals("admin")){
            typeComboBox.setSelectedIndex(3);
        }
        if(typeOfTheUser.equals("User")){
-           typeComboBox.setSelectedIndex(3);
+           typeComboBox.setSelectedIndex(0);
        }
        if(typeOfTheUser.equals("TempAdmin")){
-           typeComboBox.setSelectedIndex(3);
+           typeComboBox.setSelectedIndex(1);
        }
        if(typeOfTheUser.equals("TempUser")){
-           typeComboBox.setSelectedIndex(3);
+           typeComboBox.setSelectedIndex(2);
        }
        
     }//GEN-LAST:event_userDetailsTableMouseClicked
