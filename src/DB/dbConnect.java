@@ -10,7 +10,7 @@ public class dbConnect {
     public static Connection getConnection(){
         Connection con=null;
         try {
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/geelssuper","root","1234");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/geelssuper","root","");
         } catch (Exception e) {
             
         }
