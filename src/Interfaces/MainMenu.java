@@ -121,7 +121,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
-        //users.setVisible(false);
+        users.setVisible(false);
 
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_logout_rounded_left_26px.png"))); // NOI18N
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
