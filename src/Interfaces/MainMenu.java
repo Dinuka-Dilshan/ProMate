@@ -203,6 +203,7 @@ public class MainMenu extends javax.swing.JFrame {
         userPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Home.setBackground(new java.awt.Color(62, 74, 87));
+        Home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         statPanel.setBackground(new java.awt.Color(204, 204, 204));
         statPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -232,6 +233,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(Statics, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
+
+        Home.add(statPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 136, 350, -1));
 
         inventoryPanel.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -265,6 +268,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        Home.add(inventoryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 246, -1, -1));
+
         promotionPanle.setBackground(new java.awt.Color(204, 204, 204));
 
         Promotions.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -292,6 +297,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(Promotions, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
+
+        Home.add(promotionPanle, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 246, 342, -1));
 
         supplierPanel.setBackground(new java.awt.Color(204, 204, 204));
         supplierPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -324,36 +331,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(SuppliersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
-        Home.setLayout(HomeLayout);
-        HomeLayout.setHorizontalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(statPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inventoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(promotionPanle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(supplierPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61))
-        );
-        HomeLayout.setVerticalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
-                .addGroup(HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(supplierPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inventoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(promotionPanle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(117, 117, 117))
-        );
+        Home.add(supplierPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 136, -1, -1));
 
-        userPane.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
+        userPane.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 450));
 
         userControl.setBackground(new java.awt.Color(62, 74, 87));
         userControl.setVisible(false);
@@ -930,7 +910,7 @@ public class MainMenu extends javax.swing.JFrame {
         settingsPanel.setVisible(false);
         showInventory.setVisible(false);
         userControl.setVisible(false);
-        supplierPanel.setVisible(false);
+        SuppliersPanel.setVisible(false);
     }
     
     //added
@@ -1286,10 +1266,9 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void SuppliersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuppliersButtonMouseClicked
         switchPanels();
-        SuppliersPanel.setVisible(true);
-        
         ResultSet rst= Suppliers.getSupplierDetails();
         Suppliers.insertDataToTable(supplierTable, rst);
+        SuppliersPanel.setVisible(true);
     }//GEN-LAST:event_SuppliersButtonMouseClicked
 
     private void txtSupplierIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSupplierIdActionPerformed
