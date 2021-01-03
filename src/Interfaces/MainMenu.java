@@ -232,6 +232,9 @@ public class MainMenu extends javax.swing.JFrame {
         Statics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/Finance.png"))); // NOI18N
         Statics.setText("Statistics");
         Statics.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StaticsMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 StaticsMouseEntered(evt);
             }
@@ -1020,8 +1023,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGroup(SuppliersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addSupplierButton)
                             .addComponent(suppliersUpdateButton)
-                            .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton4))))
                 .addGap(54, 54, 54))
         );
 
@@ -1601,6 +1603,11 @@ public class MainMenu extends javax.swing.JFrame {
     private void homeLabelButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeLabelButtonMouseExited
         MouseEffect(homeLabelButton, -1);
     }//GEN-LAST:event_homeLabelButtonMouseExited
+
+    private void StaticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StaticsMouseClicked
+        // TODO add your handling code here:
+        new Graph.MyFrame();
+    }//GEN-LAST:event_StaticsMouseClicked
 
     
 

@@ -56,41 +56,31 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jSeparator6" min="-2" pref="2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cusSearcPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="30" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Component id="searchCusOrderPanel1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="searchCusOrderPanel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cusOrderEditPanle" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cusOrderPanel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cusOrderPanel" max="32767" attributes="0"/>
+                                  <Component id="cusSearcPanel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="searchCusOrderPanel2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="searchCusOrderPanel1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cancelReciptPanel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="searchCusOrderPanel" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="changeItemPanel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="removeItemPanel" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="returnPanel1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="changeItemPricePanel1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cancelReciptPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="searchCusOrderPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="totalPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="returnPanel1" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="changeItemPricePanel1" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="removeItemPanel" max="32767" attributes="0"/>
+                                  <Component id="cusOrderEditPanle" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="changeItemPanel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="totalPanel" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="30" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -106,38 +96,35 @@
                               <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="cusOrderPanel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cusOrderPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="removeItemPanel" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cusOrderEditPanle" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="changeItemPanel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="changeItemPricePanel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="returnPanel1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="cusOrderEditPanle" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                       <Component id="searchCusOrderPanel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="cusSearcPanel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="searchCusOrderPanel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="searchCusOrderPanel2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="searchCusOrderPanel1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="returnPanel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cancelReciptPanel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="searchCusOrderPanel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cusSearcPanel" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Component id="totalPanel" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="cancelReciptPanel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="totalPanel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jSeparator6" alignment="0" min="-2" pref="658" max="-2" attributes="0"/>
@@ -151,23 +138,23 @@
             <Container class="javax.swing.JPanel" name="cusOrderPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="33" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="cusOrderLable" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="30" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cusOrderLable" alignment="0" pref="56" max="32767" attributes="0"/>
+                      <Component id="cusOrderLable" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -191,7 +178,7 @@
             <Container class="javax.swing.JPanel" name="cusOrderEditPanle">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="66" red="ff" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -201,7 +188,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="editCusOrder" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="49" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -231,7 +218,7 @@
             <Container class="javax.swing.JPanel" name="cusSearcPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -241,13 +228,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cusSearchLable" min="-2" pref="151" max="-2" attributes="0"/>
-                          <EmptySpace pref="82" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cusSearchLable" alignment="0" pref="90" max="32767" attributes="0"/>
+                      <Component id="cusSearchLable" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -271,7 +258,7 @@
             <Container class="javax.swing.JPanel" name="searchCusOrderPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="0" red="ff" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -281,13 +268,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="searchCusOrderLable" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="searchCusOrderLable" alignment="0" pref="59" max="32767" attributes="0"/>
+                      <Component id="searchCusOrderLable" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -311,7 +298,7 @@
             <Container class="javax.swing.JPanel" name="searchCusOrderPanel1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f" green="9e" red="f" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -319,15 +306,15 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="searchCusOrderLable1" min="-2" pref="93" max="-2" attributes="0"/>
-                          <EmptySpace pref="56" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="searchCusOrderLable1" alignment="0" pref="64" max="32767" attributes="0"/>
+                      <Component id="searchCusOrderLable1" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -351,7 +338,7 @@
             <Container class="javax.swing.JPanel" name="removeItemPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="33" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -361,13 +348,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="removeItemlable" min="-2" pref="118" max="-2" attributes="0"/>
-                          <EmptySpace pref="116" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="removeItemlable" alignment="0" pref="68" max="32767" attributes="0"/>
+                      <Component id="removeItemlable" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -391,7 +378,7 @@
             <Container class="javax.swing.JPanel" name="changeItemPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="33" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -401,13 +388,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="changeItemQtylabel" min="-2" pref="188" max="-2" attributes="0"/>
-                          <EmptySpace pref="116" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="changeItemQtylabel" alignment="0" pref="72" max="32767" attributes="0"/>
+                      <Component id="changeItemQtylabel" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -431,7 +418,7 @@
             <Container class="javax.swing.JPanel" name="cancelReciptPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="33" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
@@ -443,14 +430,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cancelReciptLabel" min="-2" pref="165" max="-2" attributes="0"/>
-                          <EmptySpace pref="117" max="32767" attributes="0"/>
+                          <Component id="cancelReciptLabel" min="-2" pref="117" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cancelReciptLabel" alignment="0" pref="90" max="32767" attributes="0"/>
+                      <Component id="cancelReciptLabel" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -474,7 +461,7 @@
             <Container class="javax.swing.JPanel" name="changeItemPricePanel1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="33" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -484,13 +471,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="changeItemPriceLabel1" min="-2" pref="157" max="-2" attributes="0"/>
-                          <EmptySpace pref="145" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="changeItemPriceLabel1" alignment="0" pref="65" max="32767" attributes="0"/>
+                      <Component id="changeItemPriceLabel1" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -514,7 +501,7 @@
             <Container class="javax.swing.JPanel" name="returnPanel1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="33" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -524,13 +511,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="returnLabel1" min="-2" pref="136" max="-2" attributes="0"/>
-                          <EmptySpace pref="146" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="returnLabel1" alignment="0" pref="55" max="32767" attributes="0"/>
+                      <Component id="returnLabel1" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -554,7 +541,7 @@
             <Container class="javax.swing.JPanel" name="searchCusOrderPanel2">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f" green="9e" red="f" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -564,13 +551,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="searchCusOrderLable2" min="-2" pref="145" max="-2" attributes="0"/>
-                          <EmptySpace pref="68" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="searchCusOrderLable2" alignment="0" pref="59" max="32767" attributes="0"/>
+                      <Component id="searchCusOrderLable2" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -713,7 +700,7 @@
             <Container class="javax.swing.JPanel" name="totalPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                  <Color blue="7c" green="5b" red="37" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -723,7 +710,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="totalLabel" min="-2" pref="69" max="-2" attributes="0"/>
-                          <EmptySpace pref="114" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
