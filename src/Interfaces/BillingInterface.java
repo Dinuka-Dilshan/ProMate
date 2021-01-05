@@ -97,7 +97,7 @@ public class BillingInterface extends javax.swing.JFrame {
         ItemNameDisplay = new javax.swing.JTextArea();
         ItemTypeDisplay = new javax.swing.JTextField();
         ItemIDDisplay1 = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
+        printPanel = new javax.swing.JPanel();
         PrintBill = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
 
@@ -437,7 +437,7 @@ public class BillingInterface extends javax.swing.JFrame {
         reciptNoText.setText("5645646");
 
         dateText.setForeground(new java.awt.Color(255, 255, 255));
-        dateText.setText("Mar-15-2020  02:55:13 PM");
+        dateText.setText("2020-12-14  02:55:13 ");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Cashier:");
@@ -592,13 +592,13 @@ public class BillingInterface extends javax.swing.JFrame {
             BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BillPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codeInput)
+                .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BillPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(scanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cancelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cancelPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(codeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -613,7 +613,7 @@ public class BillingInterface extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Name", "QTY", "Unit Price", "Total"
+                "Product Name", "ProCode", "QTY", "Unit Price", "Total"
             }
         ));
         jScrollPane1.setViewportView(DisplayItems);
@@ -697,19 +697,25 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addGap(33, 33, 33))))
         );
 
+        printPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                printPanelMouseClicked(evt);
+            }
+        });
+
         PrintBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_print_32px.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout printPanelLayout = new javax.swing.GroupLayout(printPanel);
+        printPanel.setLayout(printPanelLayout);
+        printPanelLayout.setHorizontalGroup(
+            printPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(printPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PrintBill)
                 .addContainerGap(68, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        printPanelLayout.setVerticalGroup(
+            printPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PrintBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
@@ -727,7 +733,7 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -766,7 +772,7 @@ public class BillingInterface extends javax.swing.JFrame {
                             .addComponent(TotalText))
                         .addGap(21, 21, 21))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -819,11 +825,12 @@ public class BillingInterface extends javax.swing.JFrame {
             Statement st = con.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
             result.next();
-            String tbData[] = new String[4];
+            String tbData[] = new String[5];
             tbData[0] = result.getString("name");
-            tbData[1] = Integer.toString(quantity);
-            tbData[2] = result.getString("unit_price");;
-            tbData[3] = Double.toString(Double.valueOf(tbData[2])*quantity);
+            tbData[1] = codeInput.getText();
+            tbData[2] = Integer.toString(quantity);
+            tbData[3] = result.getString("unit_price");;
+            tbData[4] = Double.toString(Double.valueOf(tbData[2])*quantity);
             //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
             itemLog.addRow(tbData);
             ItemIDDisplay1.setText(code);
@@ -949,6 +956,32 @@ public class BillingInterface extends javax.swing.JFrame {
         insertPanel.setBackground(new Color(153,153,153));
     }//GEN-LAST:event_insertPanelMouseExited
 
+    private void printPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPanelMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
+        try{
+            
+            Connection con = dbConnect.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rt = st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
+            rt.next();
+            //save the payment in the payment table
+            int payID = Integer.valueOf(rt.getString("max"))+1; //refers to the max value in the payment table
+            //allows to create an auto increment value.
+            //the same id is used to save details in the payment details table.
+            //filling the payment details table 
+            String query = "INSERT INTO payment VALUES('"+Integer.toString(payID) +"','546561565V','"+dateText.getText()+"',"+TotalText.getText()+","+"'984120220v'"+",null);";
+            System.out.println(query);
+            st.executeUpdate(query);
+            for (int i=0; i < saveOrder.getRowCount(); i++){
+                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+",'"+Integer.toString(payID)+"','"+saveOrder.getValueAt(i, 1)+"')";
+                    st.executeUpdate(query);
+            } 
+        }catch (Exception e){
+        
+        }
+    }//GEN-LAST:event_printPanelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1028,7 +1061,6 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -1042,6 +1074,7 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel newOrderIcon;
     private javax.swing.JLabel newOrderText;
     private javax.swing.JLabel printIcon;
+    private javax.swing.JPanel printPanel;
     private javax.swing.JTextField qtyInputLabel;
     private javax.swing.JLabel qtyLabel;
     private javax.swing.JLabel reciptNoText;
