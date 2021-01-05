@@ -5,7 +5,7 @@
  */
 package Interfaces;
 
-import Alerts.logoutAlert;
+import Alerts.*;
 import DB.dbConnect;
 import java.awt.Color;
 import java.sql.Connection;
@@ -81,10 +81,10 @@ public class BillingInterface extends javax.swing.JFrame {
         codeInput = new javax.swing.JTextField();
         qtyLabel = new javax.swing.JLabel();
         qtyInputLabel = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
+        insertPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        cancelPanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -102,6 +102,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAutoRequestFocus(false);
         setUndecorated(true);
         setResizable(false);
 
@@ -187,8 +188,14 @@ public class BillingInterface extends javax.swing.JFrame {
 
         LogoutPanel.setBackground(new java.awt.Color(99, 110, 114));
         LogoutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogoutPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 LogoutPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LogoutPanelMouseExited(evt);
             }
         });
 
@@ -214,20 +221,20 @@ public class BillingInterface extends javax.swing.JFrame {
         LogoutPanelLayout.setHorizontalGroup(
             LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LogoutPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(logout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         LogoutPanelLayout.setVerticalGroup(
             LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogoutPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LogoutPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(logout))
-                .addGap(0, 0, 0))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         HoldOrderPanel.setBackground(new java.awt.Color(99, 110, 114));
@@ -317,7 +324,7 @@ public class BillingInterface extends javax.swing.JFrame {
                             .addComponent(CustomerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(HoldOrderPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(47, 47, 47)
                         .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -332,12 +339,12 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addComponent(CustomerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(HoldOrderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(20, 20, 20))
         );
 
-        jLayeredPane1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 660));
+        jLayeredPane1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 670));
 
         jPanel1.setBackground(new java.awt.Color(62, 74, 87));
 
@@ -515,40 +522,52 @@ public class BillingInterface extends javax.swing.JFrame {
             }
         });
 
-        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel4.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        insertPanel.setBackground(new java.awt.Color(153, 153, 153));
+        insertPanel.setForeground(new java.awt.Color(204, 204, 204));
+        insertPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel4MouseClicked(evt);
+                insertPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                insertPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                insertPanelMouseExited(evt);
             }
         });
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        insertPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("INSERT");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 20));
+        insertPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 20));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_more_details_32px.png"))); // NOI18N
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 42));
+        insertPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 42));
 
-        jPanel6.setBackground(new java.awt.Color(255, 0, 0));
-        jPanel6.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel6.setPreferredSize(new java.awt.Dimension(107, 42));
-        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancelPanel.setBackground(new java.awt.Color(255, 0, 0));
+        cancelPanel.setForeground(new java.awt.Color(204, 204, 204));
+        cancelPanel.setPreferredSize(new java.awt.Dimension(107, 42));
+        cancelPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel6MouseClicked(evt);
+                cancelPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cancelPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cancelPanelMouseExited(evt);
             }
         });
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        cancelPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("CANCEL");
-        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, 40));
+        cancelPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, 40));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_close_window_32px.png"))); // NOI18N
-        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        cancelPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
         javax.swing.GroupLayout BillPanelLayout = new javax.swing.GroupLayout(BillPanel);
         BillPanel.setLayout(BillPanelLayout);
@@ -565,8 +584,8 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addComponent(codeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(insertPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cancelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         BillPanelLayout.setVerticalGroup(
@@ -579,13 +598,13 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(scanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cancelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(qtyInputLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(qtyLabel))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(insertPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -687,7 +706,7 @@ public class BillingInterface extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PrintBill)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -698,19 +717,19 @@ public class BillingInterface extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(totalLable, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(116, 116, 116)
-                    .addComponent(rslable, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(totalLable, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(rslable, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,7 +804,8 @@ public class BillingInterface extends javax.swing.JFrame {
         object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
     }
     
-    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+    
+    private void insertPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseClicked
         //TAKE THE CODE
         //TAKE THE QUANTITY
         //log details in the table
@@ -826,19 +846,18 @@ public class BillingInterface extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_jPanel4MouseClicked
+    }//GEN-LAST:event_insertPanelMouseClicked
 
     private void codeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeInputActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_codeInputActionPerformed
 
     private void qtyInputLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyInputLabelActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_qtyInputLabelActionPerformed
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        this.remove(jPanel1);
-        new logoutAlert(this,jPanel1).setVisible(true);
+        
     }//GEN-LAST:event_logoutMouseClicked
 
     private void logoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseEntered
@@ -850,56 +869,85 @@ public class BillingInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseExited
 
     private void ItemTypeDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTypeDisplayActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_ItemTypeDisplayActionPerformed
 
     private void ItemIDDisplay1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemIDDisplay1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_ItemIDDisplay1ActionPerformed
 
     private void qtyInputLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qtyInputLabelMousePressed
-        // TODO add your handling code here:
         qtyInputLabel.setText("");
     }//GEN-LAST:event_qtyInputLabelMousePressed
 
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel6MouseClicked
+    private void cancelPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseClicked
+        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+    }//GEN-LAST:event_cancelPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
-        // TODO add your handling code here:
+
         NewOrder.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_NewOrderMouseEntered
 
     private void NewOrderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseExited
-        // TODO add your handling code here:
+
         NewOrder.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_NewOrderMouseExited
 
     private void CustomerPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerPanelMouseEntered
-        // TODO add your handling code here:
+
         CustomerPanel.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_CustomerPanelMouseEntered
 
     private void CustomerPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerPanelMouseExited
-        // TODO add your handling code here:
+
         CustomerPanel.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_CustomerPanelMouseExited
 
     private void HoldOrderPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseEntered
-        // TODO add your handling code here:
+
         HoldOrderPanel.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_HoldOrderPanelMouseEntered
 
     private void HoldOrderPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseExited
-        // TODO add your handling code here:
+
         HoldOrderPanel.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_HoldOrderPanelMouseExited
 
     private void LogoutPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutPanelMouseEntered
-        // TODO add your handling code here:
-        MouseEffect(LogoutPanel, 1);
+        LogoutPanel.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_LogoutPanelMouseEntered
+
+    private void LogoutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutPanelMouseClicked
+        // TODO add your handling code here:
+        this.remove(jPanel1);
+        new logoutAlert(this,jPanel1).setVisible(true);
+    }//GEN-LAST:event_LogoutPanelMouseClicked
+
+    private void LogoutPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutPanelMouseExited
+        // TODO add your handling code here:
+        LogoutPanel.setBackground(new Color(99,110,114));
+    }//GEN-LAST:event_LogoutPanelMouseExited
+
+    private void cancelPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseEntered
+        // TODO add your handling code here:
+        cancelPanel.setBackground(new Color(200,0,0));
+    }//GEN-LAST:event_cancelPanelMouseEntered
+
+    private void cancelPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseExited
+        // TODO add your handling code here:
+        cancelPanel.setBackground(new Color(255,0,0));
+    }//GEN-LAST:event_cancelPanelMouseExited
+
+    private void insertPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseEntered
+        // TODO add your handling code here:
+        insertPanel.setBackground(new Color(120,120,120));
+    }//GEN-LAST:event_insertPanelMouseEntered
+
+    private void insertPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseExited
+        // TODO add your handling code here:
+        insertPanel.setBackground(new Color(153,153,153));
+    }//GEN-LAST:event_insertPanelMouseExited
 
     /**
      * @param args the command line arguments
@@ -954,12 +1002,14 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel PrintBill;
     private javax.swing.JLabel TotalText;
     private javax.swing.JPanel billHeading;
+    private javax.swing.JPanel cancelPanel;
     private javax.swing.JLabel cashierNameText;
     private javax.swing.JTextField codeInput;
     private javax.swing.JLabel customerLabel;
     private javax.swing.JLabel dateText;
     private javax.swing.JLabel geelsSuperLabel;
     private javax.swing.JLabel homeIcon;
+    private javax.swing.JPanel insertPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -977,9 +1027,7 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
