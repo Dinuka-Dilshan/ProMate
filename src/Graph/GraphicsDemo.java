@@ -33,6 +33,7 @@ public class GraphicsDemo extends javax.swing.JPanel{
             g2d.drawLine(50, 350, 50, 50);
             
             g2d.drawPolyline(xpoints, ypoints, npoints);
+            //g2d.drawArc(50, 50, 12, 50, 60, 180);
             
         
         
