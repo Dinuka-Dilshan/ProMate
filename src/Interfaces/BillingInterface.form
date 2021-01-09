@@ -445,7 +445,6 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-
                       <Component id="jPanel2" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -453,7 +452,6 @@
                               <Component id="jScrollPane1" alignment="0" min="-2" pref="595" max="-2" attributes="0"/>
                               <Component id="ItemDetailsAreaPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="BillPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -667,14 +665,16 @@
                       </Group>
                       <EmptySpace pref="167" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Component id="customerLabel" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="dateText" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Component id="dateText" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="timeText" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="customerLabel" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -687,6 +687,7 @@
                           <Component id="jLabel1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="reciptNoText" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="dateText" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="timeText" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -730,7 +731,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="2020-12-14  02:55:13 "/>
+                <Property name="text" type="java.lang.String" value="2020-12-15 "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
@@ -755,6 +756,14 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Customer"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="timeText">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="02:13:50 "/>
               </Properties>
             </Component>
           </SubComponents>
@@ -992,7 +1001,7 @@
                     <Column editable="true" title="ProCode" type="java.lang.Object"/>
                     <Column editable="true" title="QTY" type="java.lang.Object"/>
                     <Column editable="true" title="Unit Price" type="java.lang.Object"/>
-                    <Column editable="true" title="Total" type="java.lang.Object"/>
+                    <Column editable="true" title="Total" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

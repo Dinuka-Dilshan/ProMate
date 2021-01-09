@@ -31,6 +31,7 @@ public class OnCloseAlert extends javax.swing.JFrame {
     public OnCloseAlert() {
         initComponents();
         //setBackground(new Color(0,0,0,0));
+
         
     }
     public  OnCloseAlert(JTable table,JTextArea name, JTextField id,JTextField type, JTextField code,JLabel total) {
