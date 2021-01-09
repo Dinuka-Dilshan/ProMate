@@ -76,6 +76,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cashierNameText = new javax.swing.JLabel();
         customerLabel = new javax.swing.JLabel();
+        timeText = new javax.swing.JLabel();
         BillPanel = new javax.swing.JPanel();
         scanLabel = new javax.swing.JLabel();
         codeInput = new javax.swing.JTextField();
@@ -435,7 +436,7 @@ public class BillingInterface extends javax.swing.JFrame {
         reciptNoText.setText("5645646");
 
         dateText.setForeground(new java.awt.Color(255, 255, 255));
-        dateText.setText("2020-12-14  02:55:13 ");
+        dateText.setText("2020-12-15 ");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Cashier:");
@@ -445,6 +446,9 @@ public class BillingInterface extends javax.swing.JFrame {
 
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
         customerLabel.setText("Customer");
+
+        timeText.setForeground(new java.awt.Color(255, 255, 255));
+        timeText.setText("02:13:50 ");
 
         javax.swing.GroupLayout billHeadingLayout = new javax.swing.GroupLayout(billHeading);
         billHeading.setLayout(billHeadingLayout);
@@ -463,12 +467,14 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                        .addComponent(dateText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeText)))
+                .addGap(46, 46, 46))
         );
         billHeadingLayout.setVerticalGroup(
             billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,7 +484,8 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addComponent(lableReciptNo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reciptNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -613,7 +620,15 @@ public class BillingInterface extends javax.swing.JFrame {
             new String [] {
                 "Product Name", "ProCode", "QTY", "Unit Price", "Total"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(DisplayItems);
 
         ItemDetailsAreaPanel.setBackground(new java.awt.Color(62, 74, 87));
@@ -723,7 +738,6 @@ public class BillingInterface extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(totalLable, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -829,7 +843,7 @@ public class BillingInterface extends javax.swing.JFrame {
             tbData[1] = codeInput.getText();
             tbData[2] = Integer.toString(quantity);
             tbData[3] = result.getString("unit_price");;
-            tbData[4] = Double.toString(Double.valueOf(tbData[2])*quantity);
+            tbData[4] = Double.toString(Double.valueOf(tbData[3])*quantity);
             //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
             itemLog.addRow(tbData);
             ItemIDDisplay1.setText(code);
@@ -969,7 +983,7 @@ public class BillingInterface extends javax.swing.JFrame {
             //allows to create an auto increment value.
             //the same id is used to save details in the payment details table.
             //filling the payment details table 
-            String query = "INSERT INTO payment VALUES('"+Integer.toString(payID) +"','546561565V','"+dateText.getText()+"',"+TotalText.getText()+","+"'984120220v'"+",null);";
+            String query = "INSERT INTO payment VALUES('"+Integer.toString(payID) +"','546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
             System.out.println(query);
             st.executeUpdate(query);
             for (int i=0; i < saveOrder.getRowCount(); i++){
@@ -977,7 +991,7 @@ public class BillingInterface extends javax.swing.JFrame {
                     st.executeUpdate(query);
             } 
         }catch (Exception e){
-        
+            e.printStackTrace();
         }
     }//GEN-LAST:event_printPanelMouseClicked
 
@@ -1080,6 +1094,7 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel rslable;
     private javax.swing.JLabel scanLabel;
     private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel timeText;
     private javax.swing.JLabel totalLable;
     private javax.swing.JLabel userIcon;
     // End of variables declaration//GEN-END:variables
