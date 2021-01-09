@@ -25,7 +25,7 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
     }
-
+    
     public MainMenu(String user, String type) {
         initComponents();
         unScreen.setText("User - "+user);
@@ -228,9 +228,9 @@ public class MainMenu extends javax.swing.JFrame {
         statPanel.setBackground(new java.awt.Color(204, 204, 204));
         statPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        Statics.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        Statics.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
         Statics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/Finance.png"))); // NOI18N
-        Statics.setText("Statistics");
+        Statics.setText("         Statistics");
         Statics.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 StaticsMouseClicked(evt);
@@ -262,9 +262,9 @@ public class MainMenu extends javax.swing.JFrame {
         inventoryPanel.setBackground(new java.awt.Color(204, 204, 204));
 
         Inventory.setBackground(new java.awt.Color(255, 51, 204));
-        Inventory.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        Inventory.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
         Inventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/Intentory.png"))); // NOI18N
-        Inventory.setText("Inventory");
+        Inventory.setText("         Inventory");
         Inventory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 InventoryMouseClicked(evt);
@@ -295,9 +295,9 @@ public class MainMenu extends javax.swing.JFrame {
 
         promotionPanle.setBackground(new java.awt.Color(204, 204, 204));
 
-        Promotions.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        Promotions.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
         Promotions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/Promotion.png"))); // NOI18N
-        Promotions.setText("  Promotions");
+        Promotions.setText("       Promotions");
         Promotions.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PromotionsMouseEntered(evt);
@@ -326,9 +326,9 @@ public class MainMenu extends javax.swing.JFrame {
         supplierPanel.setBackground(new java.awt.Color(204, 204, 204));
         supplierPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        SuppliersButton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        SuppliersButton.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
         SuppliersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/Supplies.png"))); // NOI18N
-        SuppliersButton.setText("Suppliers");
+        SuppliersButton.setText("       Suppliers");
         SuppliersButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SuppliersButtonMouseClicked(evt);
@@ -1056,15 +1056,10 @@ public class MainMenu extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(unScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(power))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(geelsSuperLabel)
-                        .addGap(24, 24, 24)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(power)
+                    .addComponent(geelsSuperLabel)
+                    .addComponent(unScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(userPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1204,7 +1199,7 @@ public class MainMenu extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        
+        //heyyyy
         
     }//GEN-LAST:event_usersMouseClicked
 
@@ -1606,7 +1601,9 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void StaticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StaticsMouseClicked
         // TODO add your handling code here:
-        new Graph.MyFrame();
+       // new Graph.MyFrame();
+       this.dispose();
+       new Statistics().setVisible(true);
     }//GEN-LAST:event_StaticsMouseClicked
 
     
