@@ -365,8 +365,6 @@ public class BillingInterface extends javax.swing.JFrame {
 
         printIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_print_32px.png"))); // NOI18N
 
-        userIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lasith\\Desktop\\Project\\ProMate\\src\\Interfaces\\BillingIMGs\\icons8_male_user_32px.png")); // NOI18N
-
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Lasith");
 
@@ -725,6 +723,7 @@ public class BillingInterface extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(totalLable, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
