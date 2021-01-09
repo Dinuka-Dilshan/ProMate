@@ -77,18 +77,10 @@
               <Component id="jPanel2" alignment="1" pref="561" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="unScreen" min="-2" pref="44" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="power" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="geelsSuperLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="power" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="geelsSuperLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="unScreen" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="userPane" min="-2" pref="453" max="-2" attributes="0"/>
@@ -275,12 +267,12 @@
                     <Component class="javax.swing.JLabel" name="Statics">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="18" style="1"/>
+                          <Font name="Trebuchet MS" size="20" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Interfaces/img/Finance.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Statistics"/>
+                        <Property name="text" type="java.lang.String" value="         Statistics"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="StaticsMouseClicked"/>
@@ -325,12 +317,12 @@
                           <Color blue="cc" green="33" red="ff" type="rgb"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="18" style="1"/>
+                          <Font name="Trebuchet MS" size="20" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Interfaces/img/Intentory.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Inventory"/>
+                        <Property name="text" type="java.lang.String" value="         Inventory"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="InventoryMouseClicked"/>
@@ -372,12 +364,12 @@
                     <Component class="javax.swing.JLabel" name="Promotions">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="18" style="1"/>
+                          <Font name="Trebuchet MS" size="20" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Interfaces/img/Promotion.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="  Promotions"/>
+                        <Property name="text" type="java.lang.String" value="       Promotions"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PromotionsMouseEntered"/>
@@ -422,12 +414,12 @@
                     <Component class="javax.swing.JLabel" name="SuppliersButton">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="18" style="1"/>
+                          <Font name="Trebuchet MS" size="20" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Interfaces/img/Supplies.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Suppliers"/>
+                        <Property name="text" type="java.lang.String" value="       Suppliers"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SuppliersButtonMouseClicked"/>

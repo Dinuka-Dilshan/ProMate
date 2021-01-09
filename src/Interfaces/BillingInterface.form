@@ -26,7 +26,7 @@
           <Group type="102" attributes="0">
               <Component id="jLayeredPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="610" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -413,9 +413,8 @@
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator5" alignment="0" min="-2" pref="600" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jSeparator5" alignment="0" pref="600" max="32767" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="totalLable" min="-2" pref="96" max="-2" attributes="0"/>
@@ -427,14 +426,13 @@
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="billHeading" alignment="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" alignment="0" pref="595" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="ItemDetailsAreaPanel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="BillPanel" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="ItemDetailsAreaPanel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="BillPanel" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -497,7 +495,7 @@
                       <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="timeLabel" min="-2" pref="96" max="-2" attributes="0"/>
-                      <EmptySpace pref="101" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -566,11 +564,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="userIcon">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Lasith\Desktop\Project\ProMate\src\Interfaces\BillingIMGs\icons8_male_user_32px.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -636,22 +629,23 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lableReciptNo" pref="60" max="32767" attributes="0"/>
+                          <Component id="jLabel2" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="44" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="cashierNameText" min="-2" pref="116" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lableReciptNo" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Component id="reciptNoText" min="-2" pref="93" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="186" max="32767" attributes="0"/>
                               <Component id="jLabel1" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="dateText" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="cashierNameText" min="-2" pref="116" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -668,9 +662,9 @@
                           <Component id="dateText" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cashierNameText" max="32767" attributes="0"/>
-                          <Component id="jLabel2" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cashierNameText" alignment="3" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -896,10 +890,10 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="0">
-                    <Column editable="true" title="Product Name" type="java.lang.Object"/>
-                    <Column editable="true" title="QTY" type="java.lang.Object"/>
-                    <Column editable="true" title="Unit Price" type="java.lang.Object"/>
-                    <Column editable="true" title="Total" type="java.lang.Object"/>
+                    <Column editable="true" title="           Product Name" type="java.lang.Object"/>
+                    <Column editable="true" title="                Quantity" type="java.lang.Object"/>
+                    <Column editable="true" title="                Unit Price" type="java.lang.Object"/>
+                    <Column editable="true" title="                   Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -977,10 +971,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="ItemIDDisplay1" alignment="1" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ItemIDText" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ItemTypeLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="ItemIDDisplay1" alignment="1" pref="31" max="32767" attributes="0"/>
                           </Group>
                           <Component id="ItemTypeDisplay" max="32767" attributes="0"/>
                       </Group>
