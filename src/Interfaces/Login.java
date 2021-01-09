@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
-         setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0,0,0,0));
          
     }
 
@@ -274,31 +274,28 @@ public class Login extends javax.swing.JFrame {
         boolean pwCorrect=false;
         String inputPw=new String(pw.getPassword());
         String usern=userName.getText();    
-        String query = "SELECT username,type FROM users WHERE Password = '"+inputPw+"'  AND Username='"+usern+"';";
+        String query = "SELECT userName,Type FROM user WHERE Password = '"+inputPw+"'  AND userName='"+usern+"';";
         
-        
-
-         
         try {
             Connection con= dbConnect.getConnection();
             Statement st=con.createStatement();
             ResultSet rt = st.executeQuery(query);
-            try{if (rt.next()){
-                           
+            rt.next();
+            try{
+                if (rt.getString("Type").equals("Admin")){ 
+                    new MainMenu(usern,rt.getString("Type")).setVisible(true);
+                }
+                else if(rt.getString("Type").equals("User")){
+                    new BillingInterface().setVisible(true);
+                } 
                 this.dispose();
-                new MainMenu(usern,rt.getString("type")).setVisible(true);
                 con.close();
-                
-            }
-            else{
-                new accountDetailsMissMatchError().setVisible(true);
-                con.close();
-            }}catch(Exception e){
+                    
+            }catch(Exception e){
                 new accountDetailsMissMatchError().setVisible(true);
                 con.close();
             }
         } catch (Exception e) {
-            //e.printStackTrace();
             new dbError().setVisible(true);
         }
 

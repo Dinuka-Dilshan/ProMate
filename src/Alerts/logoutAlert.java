@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Alerts;
-
+import javax.swing.*;
 import Errors.*;
 import Interfaces.Login;
 import Interfaces.MainMenu;
@@ -22,7 +22,7 @@ public class logoutAlert extends javax.swing.JFrame {
      * Creates new form dbError
      */
     
-    MainMenu m;
+    JFrame m;
     JPanel j;
     
     public logoutAlert() {
@@ -30,12 +30,11 @@ public class logoutAlert extends javax.swing.JFrame {
         setBackground(new Color(0,0,0,0));
         
     }
-    public logoutAlert(MainMenu m,JPanel j) {
+    public logoutAlert(JFrame m,JPanel j) {
         initComponents();
         setBackground(new Color(0,0,0,0));
         this.m=m;
         this.j=j;
-        
     }
 
     /**
@@ -165,6 +164,10 @@ public class logoutAlert extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(logoutAlert.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
