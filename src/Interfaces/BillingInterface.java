@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -814,6 +815,19 @@ public class BillingInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean isExist(String code,int qty, JTable table){
+        boolean exist = false;
+        DefaultTableModel tb = (DefaultTableModel)table.getModel();
+        for (int i=0; i<tb.getRowCount(); i++){
+            if (code.equals(tb.getValueAt(i, 1))){
+                tb.setValueAt(Integer.valueOf(tb.getValueAt(i, 2).toString())+qty, i, 2);
+                tb.setValueAt(Integer.valueOf(tb.getValueAt(i, 2).toString())*(Double.valueOf(tb.getValueAt(i, 3).toString())), i, 4);
+                exist = true;
+                return exist;
+            }
+        }
+        return exist;
+    }
     private void MouseEffect(JLabel object, int i){
         object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
         object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
@@ -839,30 +853,33 @@ public class BillingInterface extends javax.swing.JFrame {
             ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
             result.next();
             String tbData[] = new String[5];
-            tbData[0] = result.getString("name");
-            tbData[1] = codeInput.getText();
-            tbData[2] = Integer.toString(quantity);
-            tbData[3] = result.getString("unit_price");;
-            tbData[4] = Double.toString(Double.valueOf(tbData[3])*quantity);
-            //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
-            itemLog.addRow(tbData);
+            if (!isExist(code, quantity, DisplayItems)){
+                tbData[0] = result.getString("name");
+                tbData[1] = codeInput.getText();
+                tbData[2] = Integer.toString(quantity);
+                tbData[3] = result.getString("unit_price");;
+                tbData[4] = Double.toString(Double.valueOf(tbData[3])*quantity);
+                //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
+                itemLog.addRow(tbData);
+            }
+            double total=0;
+            for (int i=0; i<itemLog.getRowCount(); i++){
+                total+=Double.valueOf(itemLog.getValueAt(i, 4).toString());
+            }
+            TotalText.setText(Double.toString(total));
             ItemIDDisplay1.setText(code);
-            ItemNameDisplay.setText(tbData[0]);
+            ItemNameDisplay.setText(result.getString("name"));
             ItemTypeDisplay.setText(result.getString("type"));
             codeInput.setText("");
             qtyInputLabel.setText("1");
-            
-            
+
         }catch(Exception e){
                 e.printStackTrace();
+
+        }
         
-        }
         //calculating the total
-        double total=0;
-        for (int i=0; i<itemLog.getRowCount(); i++){
-            total+=Double.valueOf(itemLog.getValueAt(i, 3).toString());
-        }
-        TotalText.setText(Double.toString(total));
+        
         
         
         

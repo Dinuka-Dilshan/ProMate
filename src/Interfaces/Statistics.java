@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import Graphics.jPanelGradient;
 import DB.dbConnect;
 import java.awt.BorderLayout;
 import java.awt.Color;
