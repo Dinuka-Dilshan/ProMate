@@ -5,10 +5,12 @@
  */
 package Interfaces;
 
+import Graphics.jPanelGradient;
 import DB.dbConnect;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.*;
+import org.jfree.chart.*;
 //to show charts
 import org.jfree.chart.*;
 import org.jfree.chart.ChartFactory;
@@ -22,6 +24,22 @@ import javax.swing.JOptionPane;
 //to round double
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+import java.util.Date;
+import jdk.internal.org.jline.reader.LineReader;
+import org.jfree.chart.axis.AxisLocation;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.StandardGradientPaintTransformer;
 //236,233,230,255,255,255
 
 /**
@@ -34,7 +52,16 @@ public class Statistics extends javax.swing.JFrame {
      * Creates new form Statistics
      */
     public Statistics() {
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH); 
         initComponents(); // 
+        try{
+        defaultScreen();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        //this.pack();
+        
+        
     }
     
     int x,y;
@@ -48,25 +75,21 @@ public class Statistics extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new jPanelGradient(195,207,226,245,247,250);
-        ChartsPanel = new jPanelGradient(207,217,223,226,235,240);
-        jPanel7 = new jPanelGradient(207,217,223,226,235,240);
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jPanel2 = new jPanelGradient(207,217,223,226,235,240);
-        jPanel3 = new jPanelGradient(207,217,223,226,235,240);
+        jPanel1 = new jPanelGradient(195,207,226,52,73,94);
+        jPanel2 = new jPanelGradient(150,150,223,226,235,240);
+        jPanel3 = new jPanelGradient(150,150,150,62,74,87);
         jLabel4 = new javax.swing.JLabel();
         Customerlabel = new javax.swing.JLabel();
         Customerlabel1 = new javax.swing.JLabel();
-        jPanel4 = new jPanelGradient(207,217,223,226,235,240);
+        jPanel4 = new jPanelGradient(150,150,150,62,74,87);
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         TotalIncomelabel = new javax.swing.JLabel();
-        jPanel5 = new jPanelGradient(207,217,223,226,235,240);
+        jPanel5 = new jPanelGradient(150,150,150,62,74,87);
         jLabel10 = new javax.swing.JLabel();
         Dailyincomelabel = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jPanel6 = new jPanelGradient(207,217,223,226,235,240);
+        jPanel6 = new jPanelGradient(150,150,150,62,74,87);
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -77,13 +100,22 @@ public class Statistics extends javax.swing.JFrame {
         MainMenu = new javax.swing.JButton();
         Datefrom = new com.toedter.calendar.JDateChooser();
         Dateto = new com.toedter.calendar.JDateChooser();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        defaultPanel = new javax.swing.JPanel();
+        Yearly = new javax.swing.JPanel();
+        daily = new jPanelGradient(207,217,223,226,235,240);
+        monthly = new javax.swing.JPanel();
+        SelectedDays = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        geelsSuperLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(52, 73, 94));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -97,47 +129,11 @@ public class Statistics extends javax.swing.JFrame {
                 jPanel1MousePressed(evt);
             }
         });
-
-        ChartsPanel.setBackground(new java.awt.Color(204, 204, 204));
-        ChartsPanel.setLayout(new java.awt.BorderLayout());
-
-        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/Asset 4.png"))); // NOI18N
-
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(130, 128, 128));
-        jLabel15.setText("Please Select your date range");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(265, 265, 265)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
-        );
-
-        ChartsPanel.add(jPanel7, java.awt.BorderLayout.CENTER);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(128, 128, 128));
 
-        jPanel3.setBackground(new java.awt.Color(144, 148, 169));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setPreferredSize(new java.awt.Dimension(0, 120));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
@@ -146,12 +142,12 @@ public class Statistics extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_user_64px.png"))); // NOI18N
 
         Customerlabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        Customerlabel.setForeground(new java.awt.Color(130, 128, 128));
+        Customerlabel.setForeground(new java.awt.Color(255, 255, 255));
         Customerlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Customerlabel.setText("   ");
 
         Customerlabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        Customerlabel1.setForeground(new java.awt.Color(130, 128, 128));
+        Customerlabel1.setForeground(new java.awt.Color(255, 255, 255));
         Customerlabel1.setText("         Customers");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -180,7 +176,7 @@ public class Statistics extends javax.swing.JFrame {
                 .addComponent(Customerlabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Customerlabel)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(144, 148, 169));
@@ -190,16 +186,17 @@ public class Statistics extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_transaction_60px.png"))); // NOI18N
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 60, 60));
+        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 60, 60));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(130, 128, 128));
-        jLabel11.setText("     Total Income $");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 120, 20));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("     Total Income Rs:");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 140, 20));
 
         TotalIncomelabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        TotalIncomelabel.setForeground(new java.awt.Color(130, 128, 128));
-        jPanel4.add(TotalIncomelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 100, 110, 14));
+        TotalIncomelabel.setForeground(new java.awt.Color(255, 255, 255));
+        TotalIncomelabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(TotalIncomelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 170, 30));
 
         jPanel5.setBackground(new java.awt.Color(144, 148, 169));
         jPanel5.setPreferredSize(new java.awt.Dimension(0, 118));
@@ -209,60 +206,74 @@ public class Statistics extends javax.swing.JFrame {
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 90, 72));
 
         Dailyincomelabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        Dailyincomelabel.setForeground(new java.awt.Color(130, 128, 128));
+        Dailyincomelabel.setForeground(new java.awt.Color(255, 255, 255));
+        Dailyincomelabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel5.add(Dailyincomelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 106, 17));
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(130, 128, 128));
-        jLabel16.setText("      Daily icnome $");
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("      Daily icnome Rs:");
         jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 130, 20));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(9, 9, 9))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(28, 28, 28)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
-        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 167, -1, -1));
+
+        jPanel6.setBackground(new java.awt.Color(52, 73, 94));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(151, 150, 150));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Select up to a Maximum of 31 days");
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 392, 19));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(130, 128, 128));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Date From*           :");
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 104, 22));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(130, 128, 128));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Date to*                :");
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 102, 22));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(130, 128, 128));
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Format : (yyyy-mm-dd)");
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, -1, 23));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(130, 128, 128));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Format : (yyyy-mm-dd)");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, 23));
 
         Show.setBackground(new java.awt.Color(204, 204, 204));
         Show.setText("Submit");
@@ -271,6 +282,7 @@ public class Statistics extends javax.swing.JFrame {
                 ShowActionPerformed(evt);
             }
         });
+        jPanel6.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 95, -1));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Reset");
@@ -279,6 +291,7 @@ public class Statistics extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 95, -1));
 
         MainMenu.setBackground(new java.awt.Color(204, 204, 204));
         MainMenu.setText("Main Menu");
@@ -287,110 +300,113 @@ public class Statistics extends javax.swing.JFrame {
                 MainMenuActionPerformed(evt);
             }
         });
+        jPanel6.add(MainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 95, -1));
 
         Datefrom.setDateFormatString("y-M-dd");
+        jPanel6.add(Datefrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 147, -1));
 
         Dateto.setDateFormatString("y-M-dd");
+        jPanel6.add(Dateto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 147, -1));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Datefrom, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(Dateto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                        .addGap(82, 82, 82)))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Show, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(MainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 19, 940, 130));
+
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Yearly.setBackground(new java.awt.Color(51, 204, 255));
+        Yearly.setLayout(new java.awt.BorderLayout());
+
+        daily.setBackground(new java.awt.Color(204, 204, 204));
+        daily.setPreferredSize(new java.awt.Dimension(536, 404));
+        daily.setLayout(new java.awt.BorderLayout());
+
+        monthly.setBackground(new java.awt.Color(102, 255, 255));
+        monthly.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout defaultPanelLayout = new javax.swing.GroupLayout(defaultPanel);
+        defaultPanel.setLayout(defaultPanelLayout);
+        defaultPanelLayout.setHorizontalGroup(
+            defaultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(defaultPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(defaultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Yearly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(defaultPanelLayout.createSequentialGroup()
+                        .addComponent(monthly, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(daily, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MainMenu)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(Show)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(Datefrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Dateto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        defaultPanelLayout.setVerticalGroup(
+            defaultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, defaultPanelLayout.createSequentialGroup()
+                .addGroup(defaultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(monthly, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(daily, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Yearly, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(110, 107, 107));
-        jLabel5.setText("     Geels Super");
+        jLayeredPane1.add(defaultPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 1120, -1));
+
+        SelectedDays.setPreferredSize(new java.awt.Dimension(1116, 556));
+        SelectedDays.setLayout(new java.awt.BorderLayout());
+        jLayeredPane1.add(SelectedDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, -1));
+
+        jPanel1.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 166, -1, 580));
+
+        jPanel7.setBackground(new java.awt.Color(99, 110, 114));
+        jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+
+        jLabel12.setFont(new java.awt.Font("Leelawadee", 1, 36)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("SUPER");
+
+        geelsSuperLabel.setFont(new java.awt.Font("Leelawadee", 1, 36)); // NOI18N
+        geelsSuperLabel.setForeground(new java.awt.Color(255, 255, 255));
+        geelsSuperLabel.setText("GEELS");
+
+        jLabel5.setFont(new java.awt.Font("Leelawadee", 1, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("DASHBOARD");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_financial_analytics_64px.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ChartsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(geelsSuperLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(geelsSuperLabel)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ChartsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 380, 130));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -403,14 +419,106 @@ public class Statistics extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(978, 580));
+        setSize(new java.awt.Dimension(1366, 768));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void populate(DefaultPieDataset pieDataset,LocalDate date, String key) throws  SQLException{
+        Statement st = dbConnect.getConnection().createStatement();
+        ResultSet rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
+        rt.next();
+        if(rt.getString("Amount")!=null){
+            pieDataset.setValue(key, Double.valueOf(rt.getString("Amount")));
+        }
+    }
     
+    private String calTotal(String sql,String key) throws SQLException{
+        Statement stmt3 = dbConnect.getConnection().createStatement();
+        ResultSet rt = stmt3.executeQuery(sql);
+        rt.next();
+        String total = String.valueOf(rt.getInt(key));
+        return total;
+    }
+    
+    private void defaultScreen() throws SQLException{
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+        //set number of customers, daily income , total income
+        Customerlabel.setText(calTotal("SELECT COUNT(Pay_ID) AS COUNT FROM payment WHERE Pay_Date ='"+formatter.format(today)+"'", "COUNT"));
+        
+        TotalIncomelabel.setText(calTotal("SELECT SUM(Amount) AS amount FROM payment", "amount"));
+        
+        Dailyincomelabel.setText(calTotal("SELECT SUM(Amount) AS amount FROM payment WHERE Pay_Date ='"+formatter.format(today)+"'", "amount"));
+        
+        formatter = new SimpleDateFormat("yyyy-MM"); 
+        LocalDate currentDate = LocalDate.now();
+        LocalDate monday = currentDate;
+        String days[] = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+
+        while (monday.getDayOfWeek() != DayOfWeek.MONDAY) {
+          monday = monday.minusDays(1);
+        }
+        DefaultPieDataset pieDataset = new DefaultPieDataset();
+        for (int i=0; i<7; i++){
+            populate(pieDataset, monday, days[i]);
+            System.out.println(monday);
+            monday = monday.plusDays(1);
+        }
+        JFreeChart pieChart = ChartFactory.createPieChart("Weekly Sales", pieDataset);
+
+
+        String monthlySql = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" + formatter.format(today) +"-%' GROUP BY DAY (Pay_Date)";
+        formatter = new SimpleDateFormat("yyyy");
+        String yearlySql = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" + formatter.format(today) +"-%' GROUP BY MONTH (Pay_Date)";
+
+        //creating the sql connection to create dataset
+        //JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection(),monthlySql);
+        JDBCCategoryDataset Monthlydataset = new JDBCCategoryDataset(dbConnect.getConnection(),monthlySql);
+        JDBCCategoryDataset YearlyDataset = new JDBCCategoryDataset(dbConnect.getConnection(),yearlySql);
+        //creating a line chart 
+        //JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Today","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
+        JFreeChart monthlyChart = ChartFactory.createBarChart("Daily Sales", "Date", "Sales", Monthlydataset,PlotOrientation.VERTICAL,true,false,true);
+        JFreeChart yearlyChart = ChartFactory.createBarChart("Monthly Sales", "Month", "Sales", YearlyDataset,PlotOrientation.VERTICAL,true,false,true);
+
+
+        //getting the line chart plot
+        //CategoryPlot linechrt = linechart.getCategoryPlot();
+        CategoryPlot monthlyChrt = monthlyChart.getCategoryPlot();
+        CategoryPlot yearlyChrt = yearlyChart.getCategoryPlot();
+
+
+        BarRenderer renderM = (BarRenderer) monthlyChrt.getRenderer();
+        renderM.setMaximumBarWidth(0.1);
+        renderM.setDrawBarOutline(false);
+        renderM.setSeriesPaint(0, Color.green);
+        renderM.setBarPainter(new StandardBarPainter());
+
+        BarRenderer renderY = (BarRenderer) yearlyChrt.getRenderer();
+        renderY.setSeriesPaint(0, Color.green);
+        renderY.setBarPainter(new StandardBarPainter());
+        renderY.setMaximumBarWidth(0.06);
+        renderY.setDrawBarOutline(false);
+
+        ChartPanel linePanel2 = new ChartPanel(monthlyChart);
+        ChartPanel linePanel3 = new ChartPanel(yearlyChart);
+        ChartPanel linePanel = new ChartPanel(pieChart);
+        //removing the previous panel
+        daily.removeAll();
+        monthly.removeAll();
+        Yearly.removeAll();
+        //adding a new line chart to the panel
+        //daily.add(linePanel,BorderLayout.CENTER);
+        daily.add(linePanel,BorderLayout.CENTER);
+        monthly.add(linePanel2,BorderLayout.CENTER);
+        Yearly.add(linePanel3,BorderLayout.CENTER);
+        //display the contains
+        daily.validate();
+        monthly.validate();
+        Yearly.validate();
+        defaultPanel.setVisible(true);
+    }
     private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed
         // TODO add your handling code here:
-       
+       defaultPanel.setVisible(false);
         try{
             
             //getting the data on required 
@@ -446,26 +554,22 @@ public class Statistics extends javax.swing.JFrame {
                 sql3 = "";
                 sql4 = "";
             }
-            
-            //creating the sql connection to create dataset
+            //getting the date from the system
             JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection(),sql2);
-            //creating a line chart 
-            JFreeChart linechart = ChartFactory.createLineChart("Sales Income","Date","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
-           
+            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
             //getting the line chart plot
             CategoryPlot linechrt = linechart.getCategoryPlot();
-            //setting the backgraound color of the line chart 
             linechrt.setRangeGridlinePaint(Color.BLACK);
+             //adding a new line chart to the panel
+            BarRenderer render = (BarRenderer) linechrt.getRenderer();
+            render.setSeriesPaint(0, Color.green);
+            render.setBarPainter(new StandardBarPainter());
+            render.setMaximumBarWidth(0.1);
+            render.setDrawBarOutline(false);
             
-            //assining the line chart to the chart panel
             ChartPanel linePanel = new ChartPanel(linechart);
-            //removing the previous panel
-            ChartsPanel.removeAll();
-            //adding a new line chart to the panel
-            ChartsPanel.add(linePanel, BorderLayout.CENTER);
-            //display the contains
-            ChartsPanel.validate();
-            
+            SelectedDays.add(linePanel,BorderLayout.CENTER);
+            SelectedDays.validate();
             //counting the number of customers
             Statement stmt2 = conn.createStatement();
             ResultSet rs2 = stmt2.executeQuery(sql3);
@@ -504,7 +608,7 @@ public class Statistics extends javax.swing.JFrame {
             
         }
         catch(Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Input is wrong");
         }
         
@@ -514,6 +618,12 @@ public class Statistics extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Datefrom.removeAll();
         //Dateto.setName("");
+        try{
+            defaultScreen();
+        }
+        catch(Exception e){
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void MainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuActionPerformed
@@ -576,6 +686,7 @@ public class Statistics extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Statistics().setVisible(true);
+                
             }
             
             
@@ -583,21 +694,24 @@ public class Statistics extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ChartsPanel;
     private javax.swing.JLabel Customerlabel;
     private javax.swing.JLabel Customerlabel1;
     private javax.swing.JLabel Dailyincomelabel;
     private com.toedter.calendar.JDateChooser Datefrom;
     private com.toedter.calendar.JDateChooser Dateto;
     private javax.swing.JButton MainMenu;
+    private javax.swing.JPanel SelectedDays;
     private javax.swing.JButton Show;
     private javax.swing.JLabel TotalIncomelabel;
+    private javax.swing.JPanel Yearly;
+    private javax.swing.JPanel daily;
+    private javax.swing.JPanel defaultPanel;
+    private javax.swing.JLabel geelsSuperLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -607,6 +721,7 @@ public class Statistics extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -614,5 +729,6 @@ public class Statistics extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel monthly;
     // End of variables declaration//GEN-END:variables
 }
