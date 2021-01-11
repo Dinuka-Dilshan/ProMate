@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -114,6 +116,9 @@ public class BillingInterface extends javax.swing.JFrame {
 
         NewOrder.setBackground(new java.awt.Color(99, 110, 114));
         NewOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NewOrderMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 NewOrderMouseEntered(evt);
             }
@@ -814,7 +819,7 @@ public class BillingInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private boolean isExist(String code,int qty, JTable table){
         boolean exist = false;
         DefaultTableModel tb = (DefaultTableModel)table.getModel();
@@ -1011,6 +1016,18 @@ public class BillingInterface extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_printPanelMouseClicked
+
+    private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked
+        // TODO add your handling code here:
+        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+        //Update date and time.
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
+        dateText.setText(date.format(today));
+        timeText.setText(time.format(today));
+        
+    }//GEN-LAST:event_NewOrderMouseClicked
 
     /**
      * @param args the command line arguments
