@@ -1005,11 +1005,11 @@ public class BillingInterface extends javax.swing.JFrame {
             //allows to create an auto increment value.
             //the same id is used to save details in the payment details table.
             //filling the payment details table 
-            String query = "INSERT INTO payment VALUES('"+Integer.toString(payID) +"','546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
+            String query = "INSERT INTO payment VALUES("+Integer.toString(payID) +",'546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
             System.out.println(query);
             st.executeUpdate(query);
             for (int i=0; i < saveOrder.getRowCount(); i++){
-                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+",'"+Integer.toString(payID)+"','"+saveOrder.getValueAt(i, 1)+"')";
+                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+","+Integer.toString(payID)+",'"+saveOrder.getValueAt(i, 1)+"')";
                     st.executeUpdate(query);
             } 
         }catch (Exception e){
