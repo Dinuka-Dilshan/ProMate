@@ -7,6 +7,7 @@ package Interfaces;
 
 import Alerts.*;
 import DB.dbConnect;
+import PopUps.ItemDetailsPopUp;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -127,7 +128,7 @@ public class BillingInterface extends javax.swing.JFrame {
             }
         });
 
-        newOrderIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_document_64px.png"))); // NOI18N
+        newOrderIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_transaction_60px.png"))); // NOI18N
 
         newOrderText.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         newOrderText.setForeground(new java.awt.Color(255, 255, 255));
@@ -346,7 +347,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addComponent(CustomerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(HoldOrderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -633,6 +634,11 @@ public class BillingInterface extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        DisplayItems.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DisplayItemsMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(DisplayItems);
@@ -1001,15 +1007,20 @@ public class BillingInterface extends javax.swing.JFrame {
             ResultSet rt = st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
             rt.next();
             //save the payment in the payment table
-            int payID = Integer.valueOf(rt.getString("max"))+1; //refers to the max value in the payment table
+            int payID;
+            try{
+                 payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
+            }catch(NumberFormatException e){
+                payID = 1;
+            }
             //allows to create an auto increment value.
             //the same id is used to save details in the payment details table.
             //filling the payment details table 
-            String query = "INSERT INTO payment VALUES('"+Integer.toString(payID) +"','546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
+            String query = "INSERT INTO payment VALUES("+Integer.toString(payID) +",'546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
             System.out.println(query);
             st.executeUpdate(query);
             for (int i=0; i < saveOrder.getRowCount(); i++){
-                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+",'"+Integer.toString(payID)+"','"+saveOrder.getValueAt(i, 1)+"')";
+                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+","+Integer.toString(payID)+",'"+saveOrder.getValueAt(i, 1)+"')";
                     st.executeUpdate(query);
             } 
         }catch (Exception e){
@@ -1028,6 +1039,35 @@ public class BillingInterface extends javax.swing.JFrame {
         timeText.setText(time.format(today));
         
     }//GEN-LAST:event_NewOrderMouseClicked
+
+    private void DisplayItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayItemsMouseClicked
+        // TODO add your handling code here:
+        //DefaultTableModel table = (DefaultTableModel) DisplayItems.getModel();
+        System.out.println(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2));
+        ItemDetailsPopUp details = new ItemDetailsPopUp(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 0).toString(),DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2).toString());
+        details.setVisible(true);
+        
+        switch(details.action){
+        
+            case 1:
+                DisplayItems.clearSelection();
+                break;
+            case 2:
+                ((DefaultTableModel)DisplayItems.getModel()).removeRow(DisplayItems.getSelectedRow());
+                break;
+            case 3:
+                DisplayItems.setValueAt(details.qty, DisplayItems.getSelectedRow(), 2);
+                DisplayItems.setValueAt(Integer.valueOf(details.qty)*Double.valueOf(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 3).toString()), DisplayItems.getSelectedRow(), 4);
+                double total=0;
+                for (int i=0; i<DisplayItems.getRowCount(); i++){
+                    total+=Double.valueOf(DisplayItems.getValueAt(i, 4).toString());
+                }
+                TotalText.setText(Double.toString(total));
+                break;
+        
+        }
+        
+    }//GEN-LAST:event_DisplayItemsMouseClicked
 
     /**
      * @param args the command line arguments
