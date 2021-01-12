@@ -1001,7 +1001,12 @@ public class BillingInterface extends javax.swing.JFrame {
             ResultSet rt = st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
             rt.next();
             //save the payment in the payment table
-            int payID = Integer.valueOf(rt.getString("max"))+1; //refers to the max value in the payment table
+            int payID;
+            try{
+                 payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
+            }catch(NumberFormatException e){
+                payID = 1;
+            }
             //allows to create an auto increment value.
             //the same id is used to save details in the payment details table.
             //filling the payment details table 
