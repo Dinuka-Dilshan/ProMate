@@ -98,7 +98,7 @@
                       <Component id="CustomerPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="HoldOrderPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="167" max="32767" attributes="0"/>
+                      <EmptySpace pref="171" max="32767" attributes="0"/>
                       <Component id="LogoutPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
@@ -147,7 +147,7 @@
                 <Component class="javax.swing.JLabel" name="newOrderIcon">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Interfaces/BillingIMGs/icons8_document_64px.png"/>
+                      <Image iconType="3" name="/Interfaces/BillingIMGs/icons8_transaction_60px.png"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1038,6 +1038,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DisplayItemsMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
