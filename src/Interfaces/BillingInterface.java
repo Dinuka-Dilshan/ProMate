@@ -824,6 +824,7 @@ public class BillingInterface extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     private boolean isExist(String code,int qty, JTable table){
