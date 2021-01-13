@@ -17,9 +17,9 @@ public class ItemDetailsPopUp extends javax.swing.JDialog {
     /**
      * Creates new form ItemDetailsPopUp
      */
-    public String product;
-    public String qty;
-    public int action;
+    private String product;
+    private String qty;
+    private int action;
     public ItemDetailsPopUp() {
         initComponents();
     }
@@ -31,6 +31,12 @@ public class ItemDetailsPopUp extends javax.swing.JDialog {
         initComponents();
         proNameDisplay.setText(product);
         qtyDisplay.setText(qty);
+    }
+    public int getAction(){
+        return action;
+    }
+    public String getQuantity(){
+        return qty;
     }
     
 

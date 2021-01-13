@@ -1048,7 +1048,7 @@ public class BillingInterface extends javax.swing.JFrame {
         ItemDetailsPopUp details = new ItemDetailsPopUp(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 0).toString(),DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2).toString());
         details.setVisible(true);
         
-        switch(details.action){
+        switch(details.getAction()){
         
             case 1:
                 DisplayItems.clearSelection();
@@ -1057,8 +1057,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 ((DefaultTableModel)DisplayItems.getModel()).removeRow(DisplayItems.getSelectedRow());
                 break;
             case 3:
-                DisplayItems.setValueAt(details.qty, DisplayItems.getSelectedRow(), 2);
-                DisplayItems.setValueAt(Integer.valueOf(details.qty)*Double.valueOf(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 3).toString()), DisplayItems.getSelectedRow(), 4);
+                DisplayItems.setValueAt(details.getQuantity(), DisplayItems.getSelectedRow(), 2);
+                DisplayItems.setValueAt(Integer.valueOf(details.getQuantity())*Double.valueOf(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 3).toString()), DisplayItems.getSelectedRow(), 4);
                 double total=0;
                 for (int i=0; i<DisplayItems.getRowCount(); i++){
                     total+=Double.valueOf(DisplayItems.getValueAt(i, 4).toString());
