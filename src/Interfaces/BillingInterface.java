@@ -7,7 +7,7 @@ package Interfaces;
 
 import Alerts.*;
 import DB.dbConnect;
-import PopUps.ItemDetailsPopUp;
+import Alerts.ItemDetailsPopUp;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,8 +27,11 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
+    //private <vector><vector> hold;
+    private int OrdCounter = 0;
     public BillingInterface() {
         initComponents();
+        setDateTime();
     }
 
     /**
@@ -52,11 +55,14 @@ public class BillingInterface extends javax.swing.JFrame {
         logout = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         HoldOrderPanel = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         geelsSuperLabel = new javax.swing.JLabel();
+        LoadOrderPanel1 = new javax.swing.JPanel();
+        LoadOrderLable = new javax.swing.JLabel();
+        LoadOrderIcon = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -114,6 +120,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(99, 110, 114));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NewOrder.setBackground(new java.awt.Color(99, 110, 114));
         NewOrder.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,8 +149,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(newOrderIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newOrderText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(newOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         NewOrderLayout.setVerticalGroup(
             NewOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,6 +161,8 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addComponent(newOrderText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(NewOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 156, 250, -1));
 
         CustomerPanel.setBackground(new java.awt.Color(99, 110, 114));
         CustomerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,8 +188,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         CustomerPanelLayout.setVerticalGroup(
             CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,6 +202,8 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel3.add(CustomerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 244, 250, -1));
 
         LogoutPanel.setBackground(new java.awt.Color(99, 110, 114));
         LogoutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,8 +256,13 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jPanel3.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 593, -1, -1));
+
         HoldOrderPanel.setBackground(new java.awt.Color(99, 110, 114));
         HoldOrderPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HoldOrderPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 HoldOrderPanelMouseEntered(evt);
             }
@@ -255,11 +271,11 @@ public class BillingInterface extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_anchor_64px.png"))); // NOI18N
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Hold Order");
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_anchor_64px.png"))); // NOI18N
 
         javax.swing.GroupLayout HoldOrderPanelLayout = new javax.swing.GroupLayout(HoldOrderPanel);
         HoldOrderPanel.setLayout(HoldOrderPanelLayout);
@@ -268,7 +284,7 @@ public class BillingInterface extends javax.swing.JFrame {
             .addGroup(HoldOrderPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -277,12 +293,12 @@ public class BillingInterface extends javax.swing.JFrame {
             .addGroup(HoldOrderPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(HoldOrderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HoldOrderPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel11)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(HoldOrderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 336, 240, 80));
 
         jPanel5.setBackground(new java.awt.Color(99, 110, 114));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
@@ -318,39 +334,49 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NewOrder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CustomerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(HoldOrderPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 250, -1));
+
+        LoadOrderPanel1.setBackground(new java.awt.Color(99, 110, 114));
+        LoadOrderPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoadOrderPanel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LoadOrderPanel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LoadOrderPanel1MouseExited(evt);
+            }
+        });
+
+        LoadOrderLable.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        LoadOrderLable.setForeground(new java.awt.Color(255, 255, 255));
+        LoadOrderLable.setText("Load Order");
+
+        LoadOrderIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/LoadOrder.png"))); // NOI18N
+
+        javax.swing.GroupLayout LoadOrderPanel1Layout = new javax.swing.GroupLayout(LoadOrderPanel1);
+        LoadOrderPanel1.setLayout(LoadOrderPanel1Layout);
+        LoadOrderPanel1Layout.setHorizontalGroup(
+            LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadOrderPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LoadOrderIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LoadOrderLable, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        LoadOrderPanel1Layout.setVerticalGroup(
+            LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadOrderPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(NewOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CustomerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HoldOrderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
-                .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LoadOrderLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LoadOrderIcon))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(LoadOrderPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
 
         jLayeredPane1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 670));
 
@@ -824,8 +850,16 @@ public class BillingInterface extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    private void setDateTime(){
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
+        dateText.setText(date.format(today));
+        timeText.setText(time.format(today));
+    }
     private boolean isExist(String code,int qty, JTable table){
         boolean exist = false;
         DefaultTableModel tb = (DefaultTableModel)table.getModel();
@@ -929,7 +963,17 @@ public class BillingInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_qtyInputLabelMousePressed
 
     private void cancelPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseClicked
-        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+       OnCloseAlert alt = new OnCloseAlert();
+       alt.setVisible(true);
+        if(alt.getAction()){
+            //clearing table and updating the date time
+            setDateTime();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            ItemIDDisplay1.setText("");
+            ItemNameDisplay.setText("");
+            ItemTypeDisplay.setText("");
+            codeInput.setText("");
+        }
     }//GEN-LAST:event_cancelPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
@@ -1030,13 +1074,19 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked
         // TODO add your handling code here:
-        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+        OnCloseAlert alt = new OnCloseAlert();
+        alt.setVisible(true);
+        if(alt.getAction()){
+            //clearing table and updating the date time
+            setDateTime();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            ItemIDDisplay1.setText("");
+            ItemNameDisplay.setText("");
+            ItemTypeDisplay.setText("");
+            codeInput.setText("");
+        }
         //Update date and time.
-        Date today = new Date();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
-        dateText.setText(date.format(today));
-        timeText.setText(time.format(today));
+        
         
     }//GEN-LAST:event_NewOrderMouseClicked
 
@@ -1047,7 +1097,7 @@ public class BillingInterface extends javax.swing.JFrame {
         ItemDetailsPopUp details = new ItemDetailsPopUp(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 0).toString(),DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2).toString());
         details.setVisible(true);
         
-        switch(details.action){
+        switch(details.getAction()){
         
             case 1:
                 DisplayItems.clearSelection();
@@ -1056,8 +1106,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 ((DefaultTableModel)DisplayItems.getModel()).removeRow(DisplayItems.getSelectedRow());
                 break;
             case 3:
-                DisplayItems.setValueAt(details.qty, DisplayItems.getSelectedRow(), 2);
-                DisplayItems.setValueAt(Integer.valueOf(details.qty)*Double.valueOf(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 3).toString()), DisplayItems.getSelectedRow(), 4);
+                DisplayItems.setValueAt(details.getQuantity(), DisplayItems.getSelectedRow(), 2);
+                DisplayItems.setValueAt(Integer.valueOf(details.getQuantity())*Double.valueOf(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 3).toString()), DisplayItems.getSelectedRow(), 4);
                 double total=0;
                 for (int i=0; i<DisplayItems.getRowCount(); i++){
                     total+=Double.valueOf(DisplayItems.getValueAt(i, 4).toString());
@@ -1068,6 +1118,38 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_DisplayItemsMouseClicked
+
+    private void HoldOrderPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseClicked
+        // TODO add your handling code here:
+        //hold[OrdCounter] = DisplayItems;
+        setDateTime();
+        ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+        ItemIDDisplay1.setText("");
+        ItemNameDisplay.setText("");
+        ItemTypeDisplay.setText("");
+        codeInput.setText("");
+    }//GEN-LAST:event_HoldOrderPanelMouseClicked
+
+    private void LoadOrderPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseClicked
+        // TODO add your handling code here:
+        //DisplayItems = hold[OrdCounter];
+        //((DefaultTableModel)DisplayItems.getModel()).setDataVector(dataVector, hold);
+        setDateTime();
+        ItemIDDisplay1.setText("");
+        ItemNameDisplay.setText("");
+        ItemTypeDisplay.setText("");
+        codeInput.setText("");
+    }//GEN-LAST:event_LoadOrderPanel1MouseClicked
+
+    private void LoadOrderPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseEntered
+        // TODO add your handling code here:
+        LoadOrderPanel1.setBackground(new Color(62,74,87));
+    }//GEN-LAST:event_LoadOrderPanel1MouseEntered
+
+    private void LoadOrderPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseExited
+        // TODO add your handling code here:
+        LoadOrderPanel1.setBackground(new Color(99,110,114));
+    }//GEN-LAST:event_LoadOrderPanel1MouseExited
 
     /**
      * @param args the command line arguments
@@ -1117,6 +1199,9 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel ItemNameLabel;
     private javax.swing.JTextField ItemTypeDisplay;
     private javax.swing.JLabel ItemTypeLabel;
+    private javax.swing.JLabel LoadOrderIcon;
+    private javax.swing.JLabel LoadOrderLable;
+    private javax.swing.JPanel LoadOrderPanel1;
     private javax.swing.JPanel LogoutPanel;
     private javax.swing.JPanel NewOrder;
     private javax.swing.JLabel PrintBill;
