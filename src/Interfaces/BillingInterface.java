@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -27,11 +28,14 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
-    //private <vector><vector> hold;
+    
+    private Vector columns = new Vector(5);
     private int OrdCounter = 0;
+    private JTable Back;
     public BillingInterface() {
         initComponents();
         setDateTime();
+        
     }
 
     /**
@@ -52,8 +56,8 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         LogoutPanel = new javax.swing.JPanel();
-        logout = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
         HoldOrderPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -217,46 +221,17 @@ public class BillingInterface extends javax.swing.JFrame {
                 LogoutPanelMouseExited(evt);
             }
         });
-
-        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_logout_rounded_left_26px.png"))); // NOI18N
-        logout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                logoutMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                logoutMouseExited(evt);
-            }
-        });
+        LogoutPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("LOGOUT");
+        LogoutPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
-        javax.swing.GroupLayout LogoutPanelLayout = new javax.swing.GroupLayout(LogoutPanel);
-        LogoutPanel.setLayout(LogoutPanelLayout);
-        LogoutPanelLayout.setHorizontalGroup(
-            LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LogoutPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(logout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        LogoutPanelLayout.setVerticalGroup(
-            LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LogoutPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(logout))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_logout_rounded_left_26px.png"))); // NOI18N
+        LogoutPanel.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 30));
 
-        jPanel3.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 593, -1, -1));
+        jPanel3.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, 170, 70));
 
         HoldOrderPanel.setBackground(new java.awt.Color(99, 110, 114));
         HoldOrderPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -653,15 +628,7 @@ public class BillingInterface extends javax.swing.JFrame {
             new String [] {
                 "Product Name", "ProCode", "QTY", "Unit Price", "Total"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         DisplayItems.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DisplayItemsMouseClicked(evt);
@@ -853,6 +820,41 @@ public class BillingInterface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    String[][] hold;
+    boolean state = false;
+    private void saveData(){
+       DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+       hold = new String[tb.getRowCount()][5];
+        for (int i=0; i<tb.getRowCount(); i++){
+            for (int k=0; k<5; k++){
+                hold[i][k] = tb.getValueAt(i, k).toString();
+            }
+            
+        }
+        state = true;
+    }
+    private void loadData(){
+        DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+           for (String[] hold1 : hold) {
+               tb.addRow(hold1);
+           }
+        state = false;
+    }
+    private  void clear(){
+        ItemIDDisplay1.setText("");
+        ItemNameDisplay.setText("");
+        ItemTypeDisplay.setText("");
+        codeInput.setText("");
+        TotalText.setText("0.00");
+    }
+    private String calTotal(){
+        double total=0;
+        DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+        for (int i=0; i<tb.getRowCount(); i++){
+            total+=Double.valueOf(tb.getValueAt(i, 4).toString());
+        }
+        return Double.toString(total);
+    }
     private void setDateTime(){
         Date today = new Date();
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
@@ -907,11 +909,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
                 itemLog.addRow(tbData);
             }
-            double total=0;
-            for (int i=0; i<itemLog.getRowCount(); i++){
-                total+=Double.valueOf(itemLog.getValueAt(i, 4).toString());
-            }
-            TotalText.setText(Double.toString(total));
+            TotalText.setText(calTotal());
             ItemIDDisplay1.setText(code);
             ItemNameDisplay.setText(result.getString("name"));
             ItemTypeDisplay.setText(result.getString("type"));
@@ -938,18 +936,6 @@ public class BillingInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_qtyInputLabelActionPerformed
 
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        
-    }//GEN-LAST:event_logoutMouseClicked
-
-    private void logoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseEntered
-        MouseEffect(logout, 1);
-    }//GEN-LAST:event_logoutMouseEntered
-
-    private void logoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseExited
-        MouseEffect(logout, -1);
-    }//GEN-LAST:event_logoutMouseExited
-
     private void ItemTypeDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTypeDisplayActionPerformed
 
     }//GEN-LAST:event_ItemTypeDisplayActionPerformed
@@ -969,10 +955,7 @@ public class BillingInterface extends javax.swing.JFrame {
             //clearing table and updating the date time
             setDateTime();
             ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
-            ItemIDDisplay1.setText("");
-            ItemNameDisplay.setText("");
-            ItemTypeDisplay.setText("");
-            codeInput.setText("");
+            clear();
         }
     }//GEN-LAST:event_cancelPanelMouseClicked
 
@@ -1080,10 +1063,7 @@ public class BillingInterface extends javax.swing.JFrame {
             //clearing table and updating the date time
             setDateTime();
             ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
-            ItemIDDisplay1.setText("");
-            ItemNameDisplay.setText("");
-            ItemTypeDisplay.setText("");
-            codeInput.setText("");
+            clear();
         }
         //Update date and time.
         
@@ -1092,8 +1072,7 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void DisplayItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayItemsMouseClicked
         // TODO add your handling code here:
-        //DefaultTableModel table = (DefaultTableModel) DisplayItems.getModel();
-        System.out.println(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2));
+
         ItemDetailsPopUp details = new ItemDetailsPopUp(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 0).toString(),DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2).toString());
         details.setVisible(true);
         
@@ -1121,24 +1100,24 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void HoldOrderPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseClicked
         // TODO add your handling code here:
-        //hold[OrdCounter] = DisplayItems;
-        setDateTime();
-        ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
-        ItemIDDisplay1.setText("");
-        ItemNameDisplay.setText("");
-        ItemTypeDisplay.setText("");
-        codeInput.setText("");
+        if(!state){
+            saveData();
+            ((DefaultTableModel) DisplayItems.getModel()).setRowCount(0);
+            setDateTime();
+            clear();
+        }
+        
     }//GEN-LAST:event_HoldOrderPanelMouseClicked
 
     private void LoadOrderPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseClicked
-        // TODO add your handling code here:
-        //DisplayItems = hold[OrdCounter];
-        //((DefaultTableModel)DisplayItems.getModel()).setDataVector(dataVector, hold);
-        setDateTime();
-        ItemIDDisplay1.setText("");
-        ItemNameDisplay.setText("");
-        ItemTypeDisplay.setText("");
-        codeInput.setText("");
+        // TODO add your handling code here
+        if(state){
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            loadData();
+            setDateTime();
+            clear();
+            TotalText.setText(calTotal());
+        }
     }//GEN-LAST:event_LoadOrderPanel1MouseClicked
 
     private void LoadOrderPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseEntered
