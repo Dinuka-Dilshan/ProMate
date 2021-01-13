@@ -4,44 +4,30 @@
  * and open the template in the editor.
  */
 package Alerts;
-import javax.swing.*;
-import Errors.*;
-import Interfaces.BillingInterface;
-import Interfaces.Login;
-import Interfaces.MainMenu;
-import java.awt.Color;
-import java.awt.Container;
-import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
+import java.awt.Window;
+
 
 /**
  *
  * @author Dinuka
  */
-public class OnCloseAlert extends javax.swing.JFrame {
+public class OnCloseAlert extends javax.swing.JDialog {
 
     /**
      * Creates new form dbError
      */
     
-    JTable table;
-    JTextField type, code,id;
-    JTextArea name;
-    JLabel total;
+    private boolean action = false;
     public OnCloseAlert() {
+        super((Window)null);
+        setModal(true);
         initComponents();
         //setBackground(new Color(0,0,0,0));
 
         
     }
-    public  OnCloseAlert(JTable table,JTextArea name, JTextField id,JTextField type, JTextField code,JLabel total) {
-        initComponents();
-        this.name = name; 
-        this.type = type;
-        this.code = code;
-        this.id = id;
-        this.table=table;
-        this.total = total;
+    public boolean getAction(){
+        return action;
     }
 
     /**
@@ -56,10 +42,9 @@ public class OnCloseAlert extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        discard = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
         getContentPane().setLayout(null);
@@ -70,27 +55,27 @@ public class OnCloseAlert extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Alerts/icons/warning.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setText("Discard changes and Exit?");
+        jLabel3.setText("Discard changes?");
 
-        jButton2.setBackground(new java.awt.Color(51, 153, 0));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Discard");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        discard.setBackground(new java.awt.Color(51, 153, 0));
+        discard.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        discard.setForeground(new java.awt.Color(255, 255, 255));
+        discard.setText("Discard");
+        discard.setBorder(null);
+        discard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                discardActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(214, 48, 49));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Cancel");
-        jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setBackground(new java.awt.Color(214, 48, 49));
+        cancel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cancel.setForeground(new java.awt.Color(255, 255, 255));
+        cancel.setText("Cancel");
+        cancel.setBorder(null);
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
 
@@ -102,9 +87,9 @@ public class OnCloseAlert extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(jLabel2))
@@ -122,8 +107,8 @@ public class OnCloseAlert extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -134,21 +119,15 @@ public class OnCloseAlert extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultTableModel clearTB = (DefaultTableModel)table.getModel();
-        clearTB.setRowCount(0);
-        name.setText("");
-        id.setText("");
-        type.setText("");
-        code.setText("");
-        total.setText("0.00");
+    private void discardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardActionPerformed
+        action = true;
         this.dispose();
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_discardActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,8 +172,8 @@ public class OnCloseAlert extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton cancel;
+    private javax.swing.JButton discard;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;

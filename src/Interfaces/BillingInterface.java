@@ -7,7 +7,7 @@ package Interfaces;
 
 import Alerts.*;
 import DB.dbConnect;
-import PopUps.ItemDetailsPopUp;
+import Alerts.ItemDetailsPopUp;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,6 +29,7 @@ public class BillingInterface extends javax.swing.JFrame {
      */
     public BillingInterface() {
         initComponents();
+        setDateTime();
     }
 
     /**
@@ -827,6 +828,13 @@ public class BillingInterface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    private void setDateTime(){
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
+        dateText.setText(date.format(today));
+        timeText.setText(time.format(today));
+    }
     private boolean isExist(String code,int qty, JTable table){
         boolean exist = false;
         DefaultTableModel tb = (DefaultTableModel)table.getModel();
@@ -930,7 +938,17 @@ public class BillingInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_qtyInputLabelMousePressed
 
     private void cancelPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseClicked
-        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+       OnCloseAlert alt = new OnCloseAlert();
+       alt.setVisible(true);
+        if(alt.getAction()){
+            //clearing table and updating the date time
+            setDateTime();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            ItemIDDisplay1.setText("");
+            ItemNameDisplay.setText("");
+            ItemTypeDisplay.setText("");
+            codeInput.setText("");
+        }
     }//GEN-LAST:event_cancelPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
@@ -1031,13 +1049,19 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked
         // TODO add your handling code here:
-        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+        OnCloseAlert alt = new OnCloseAlert();
+        alt.setVisible(true);
+        if(alt.getAction()){
+            //clearing table and updating the date time
+            setDateTime();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            ItemIDDisplay1.setText("");
+            ItemNameDisplay.setText("");
+            ItemTypeDisplay.setText("");
+            codeInput.setText("");
+        }
         //Update date and time.
-        Date today = new Date();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
-        dateText.setText(date.format(today));
-        timeText.setText(time.format(today));
+        
         
     }//GEN-LAST:event_NewOrderMouseClicked
 

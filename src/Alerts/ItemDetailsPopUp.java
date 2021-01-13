@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PopUps;
-
+package Alerts;
 import java.awt.Window;
-import javax.swing.JTable;
 
 /**
  *
