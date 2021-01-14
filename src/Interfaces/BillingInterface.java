@@ -35,7 +35,6 @@ public class BillingInterface extends javax.swing.JFrame {
      */
 
     
-    private Vector columns = new Vector(5);
 
     private int OrdCounter = 0;
     private JTable Back;
