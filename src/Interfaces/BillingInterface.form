@@ -559,7 +559,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator4" min="-2" pref="8" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel14" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -581,7 +581,7 @@
                   <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                   <Component id="printIcon" alignment="0" max="32767" attributes="0"/>
                   <Component id="userIcon" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -642,7 +642,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="userIcon">
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel14">
+            <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
