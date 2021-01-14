@@ -8,9 +8,11 @@ package Interfaces;
 import Alerts.*;
 import DB.dbConnect;
 import Alerts.ItemDetailsPopUp;
+import Errors.dbError;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -117,7 +119,6 @@ public class BillingInterface extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAutoRequestFocus(false);
         setUndecorated(true);
         setResizable(false);
 
@@ -875,6 +876,22 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         return exist;
     }
+    private int IDFind(){
+        int payID = 0;
+        try{
+            ResultSet rt =(dbConnect.getConnection().createStatement()).executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
+            rt.next();
+            //getting the maxID from the payment table
+            try{
+                 payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
+            }catch(NumberFormatException e){
+                payID = 1;
+            }
+
+        }catch(SQLException e){
+        }
+        return payID;
+    }
     private void MouseEffect(JLabel object, int i){
         object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
         object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
@@ -894,7 +911,6 @@ public class BillingInterface extends javax.swing.JFrame {
         Connection con =dbConnect.getConnection();
         String code= codeInput.getText();
         int quantity = Integer.valueOf(qtyInputLabel.getText());
-        int discount = 5;
         try {
             Statement st = con.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
@@ -916,9 +932,8 @@ public class BillingInterface extends javax.swing.JFrame {
             codeInput.setText("");
             qtyInputLabel.setText("1");
 
-        }catch(Exception e){
-                e.printStackTrace();
-
+        }catch(SQLException e){
+                new dbError().setVisible(true);
         }
         
         //calculating the total
@@ -1028,30 +1043,27 @@ public class BillingInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         try{
-            
             Connection con = dbConnect.getConnection();
             Statement st = con.createStatement();
-            ResultSet rt = st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
-            rt.next();
-            //save the payment in the payment table
-            int payID;
-            try{
-                 payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
-            }catch(NumberFormatException e){
-                payID = 1;
-            }
+            String query;
+            //reduce quantites from the product table to maintain the inventory
+            for (int i=0; i < saveOrder.getRowCount(); i++){
+                    query = "UPDATE product SET quantity = quantity-"+saveOrder.getValueAt(i, 2)+" WHERE Pro_Code = "+saveOrder.getValueAt(i, 1)+";";
+                    st.executeUpdate(query);
+            } 
+            int ID = IDFind();
             //allows to create an auto increment value.
             //the same id is used to save details in the payment details table.
             //filling the payment details table 
-            String query = "INSERT INTO payment VALUES("+Integer.toString(payID) +",'546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
+            query = "INSERT INTO payment VALUES("+Integer.toString(ID) +",'546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
             System.out.println(query);
             st.executeUpdate(query);
             for (int i=0; i < saveOrder.getRowCount(); i++){
-                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+","+Integer.toString(payID)+",'"+saveOrder.getValueAt(i, 1)+"')";
+                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+","+Integer.toString(ID)+",'"+saveOrder.getValueAt(i, 1)+"')";
                     st.executeUpdate(query);
             } 
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            new dbError().setVisible(true);
         }
     }//GEN-LAST:event_printPanelMouseClicked
 
