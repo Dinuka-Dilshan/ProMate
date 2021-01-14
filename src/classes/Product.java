@@ -75,7 +75,7 @@ public class Product {
         
         try {
             Statement st=con.createStatement();
-            st.execute("UPDATE supplier SET Sup_Id='"+Pro_Code+"', Name='"+name+"',quantity="+Quantity+", ,unit_price="+unit_price+" ,type="+type+" WHERE Pro_Code='"+data[0]+"';");
+            st.execute("UPDATE product SET Pro_code='"+Pro_Code+"', Name='"+name+"',quantity="+Quantity+",unit_price="+unit_price+" ,type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
             
         } catch (Exception e) {
             e.printStackTrace();

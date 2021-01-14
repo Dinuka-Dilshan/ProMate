@@ -7,12 +7,19 @@ package Interfaces;
 
 import Alerts.*;
 import DB.dbConnect;
+import Alerts.ItemDetailsPopUp;
+import Errors.dbError;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -26,10 +33,23 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
+
+    
+
+    private int OrdCounter = 0;
+    private JTable Back;
     public BillingInterface() {
         initComponents();
+        setDateTime();
+        
     }
 
+    public BillingInterface(String user) {
+        initComponents();
+        setDateTime();
+        jLabel4.setText(user);
+        cashierNameText.setText(user);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,14 +68,17 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         LogoutPanel = new javax.swing.JPanel();
-        logout = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
         HoldOrderPanel = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         geelsSuperLabel = new javax.swing.JLabel();
+        LoadOrderPanel1 = new javax.swing.JPanel();
+        LoadOrderLable = new javax.swing.JLabel();
+        LoadOrderIcon = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -80,6 +103,7 @@ public class BillingInterface extends javax.swing.JFrame {
         cashierNameText = new javax.swing.JLabel();
         customerLabel = new javax.swing.JLabel();
         timeText = new javax.swing.JLabel();
+        customerTxt = new javax.swing.JLabel();
         BillPanel = new javax.swing.JPanel();
         scanLabel = new javax.swing.JLabel();
         codeInput = new javax.swing.JTextField();
@@ -106,13 +130,13 @@ public class BillingInterface extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAutoRequestFocus(false);
         setUndecorated(true);
         setResizable(false);
 
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(99, 110, 114));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NewOrder.setBackground(new java.awt.Color(99, 110, 114));
         NewOrder.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +151,7 @@ public class BillingInterface extends javax.swing.JFrame {
             }
         });
 
-        newOrderIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_document_64px.png"))); // NOI18N
+        newOrderIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_transaction_60px.png"))); // NOI18N
 
         newOrderText.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         newOrderText.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,8 +165,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(newOrderIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newOrderText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(newOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         NewOrderLayout.setVerticalGroup(
             NewOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,6 +177,8 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addComponent(newOrderText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(NewOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 156, 250, -1));
 
         CustomerPanel.setBackground(new java.awt.Color(99, 110, 114));
         CustomerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,8 +204,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         CustomerPanelLayout.setVerticalGroup(
             CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,6 +219,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel3.add(CustomerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 244, 250, -1));
+
         LogoutPanel.setBackground(new java.awt.Color(99, 110, 114));
         LogoutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -205,47 +233,23 @@ public class BillingInterface extends javax.swing.JFrame {
                 LogoutPanelMouseExited(evt);
             }
         });
-
-        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_logout_rounded_left_26px.png"))); // NOI18N
-        logout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                logoutMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                logoutMouseExited(evt);
-            }
-        });
+        LogoutPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("LOGOUT");
+        LogoutPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
-        javax.swing.GroupLayout LogoutPanelLayout = new javax.swing.GroupLayout(LogoutPanel);
-        LogoutPanel.setLayout(LogoutPanelLayout);
-        LogoutPanelLayout.setHorizontalGroup(
-            LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LogoutPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(logout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        LogoutPanelLayout.setVerticalGroup(
-            LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LogoutPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(logout))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_logout_rounded_left_26px.png"))); // NOI18N
+        LogoutPanel.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 30));
+
+        jPanel3.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, 170, 70));
 
         HoldOrderPanel.setBackground(new java.awt.Color(99, 110, 114));
         HoldOrderPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HoldOrderPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 HoldOrderPanelMouseEntered(evt);
             }
@@ -254,11 +258,11 @@ public class BillingInterface extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_anchor_64px.png"))); // NOI18N
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Hold Order");
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_anchor_64px.png"))); // NOI18N
 
         javax.swing.GroupLayout HoldOrderPanelLayout = new javax.swing.GroupLayout(HoldOrderPanel);
         HoldOrderPanel.setLayout(HoldOrderPanelLayout);
@@ -267,7 +271,7 @@ public class BillingInterface extends javax.swing.JFrame {
             .addGroup(HoldOrderPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -276,12 +280,12 @@ public class BillingInterface extends javax.swing.JFrame {
             .addGroup(HoldOrderPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(HoldOrderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HoldOrderPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel11)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(HoldOrderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 336, 240, 80));
 
         jPanel5.setBackground(new java.awt.Color(99, 110, 114));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
@@ -317,39 +321,49 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NewOrder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CustomerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(HoldOrderPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 250, -1));
+
+        LoadOrderPanel1.setBackground(new java.awt.Color(99, 110, 114));
+        LoadOrderPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoadOrderPanel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LoadOrderPanel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LoadOrderPanel1MouseExited(evt);
+            }
+        });
+
+        LoadOrderLable.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        LoadOrderLable.setForeground(new java.awt.Color(255, 255, 255));
+        LoadOrderLable.setText("Load Order");
+
+        LoadOrderIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/LoadOrder.png"))); // NOI18N
+
+        javax.swing.GroupLayout LoadOrderPanel1Layout = new javax.swing.GroupLayout(LoadOrderPanel1);
+        LoadOrderPanel1.setLayout(LoadOrderPanel1Layout);
+        LoadOrderPanel1Layout.setHorizontalGroup(
+            LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadOrderPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LoadOrderIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LoadOrderLable, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        LoadOrderPanel1Layout.setVerticalGroup(
+            LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadOrderPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(NewOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CustomerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HoldOrderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                .addComponent(LogoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LoadOrderLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LoadOrderIcon))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(LoadOrderPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
 
         jLayeredPane1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 670));
 
@@ -439,7 +453,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel1.setText("Date:");
 
         reciptNoText.setForeground(new java.awt.Color(255, 255, 255));
-        reciptNoText.setText("5645646");
+        reciptNoText.setText("123");
 
         dateText.setForeground(new java.awt.Color(255, 255, 255));
         dateText.setText("2020-12-15 ");
@@ -448,13 +462,15 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel2.setText("Cashier:");
 
         cashierNameText.setForeground(new java.awt.Color(255, 255, 255));
-        cashierNameText.setText("Lasith");
 
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
         customerLabel.setText("Customer");
 
         timeText.setForeground(new java.awt.Color(255, 255, 255));
         timeText.setText("02:13:50 ");
+
+        customerTxt.setForeground(new java.awt.Color(255, 255, 255));
+        customerTxt.setText("Dinuka Dilshan");
 
         javax.swing.GroupLayout billHeadingLayout = new javax.swing.GroupLayout(billHeading);
         billHeading.setLayout(billHeadingLayout);
@@ -472,8 +488,11 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(billHeadingLayout.createSequentialGroup()
+                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(customerTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -496,7 +515,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cashierNameText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(customerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -521,7 +541,6 @@ public class BillingInterface extends javax.swing.JFrame {
 
         qtyInputLabel.setBackground(new java.awt.Color(204, 204, 204));
         qtyInputLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        qtyInputLabel.setText("1");
         qtyInputLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 qtyInputLabelMousePressed(evt);
@@ -626,13 +645,10 @@ public class BillingInterface extends javax.swing.JFrame {
             new String [] {
                 "Product Name", "ProCode", "QTY", "Unit Price", "Total"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        ));
+        DisplayItems.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DisplayItemsMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(DisplayItems);
@@ -818,8 +834,51 @@ public class BillingInterface extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    String[][] hold;
+    boolean state = false;
+    private void saveData(){
+       DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+       hold = new String[tb.getRowCount()][5];
+        for (int i=0; i<tb.getRowCount(); i++){
+            for (int k=0; k<5; k++){
+                hold[i][k] = tb.getValueAt(i, k).toString();
+            }
+            
+        }
+        state = true;
+    }
+    private void loadData(){
+        DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+           for (String[] hold1 : hold) {
+               tb.addRow(hold1);
+           }
+        state = false;
+    }
+    private  void clear(){
+        ItemIDDisplay1.setText("");
+        ItemNameDisplay.setText("");
+        ItemTypeDisplay.setText("");
+        codeInput.setText("");
+        TotalText.setText("0.00");
+    }
+    private String calTotal(){
+        double total=0;
+        DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+        for (int i=0; i<tb.getRowCount(); i++){
+            total+=Double.valueOf(tb.getValueAt(i, 4).toString());
+        }
+        return Double.toString(total);
+    }
+    private void setDateTime(){
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
+        dateText.setText(date.format(today));
+        timeText.setText(time.format(today));
+    }
     private boolean isExist(String code,int qty, JTable table){
         boolean exist = false;
         DefaultTableModel tb = (DefaultTableModel)table.getModel();
@@ -832,6 +891,22 @@ public class BillingInterface extends javax.swing.JFrame {
             }
         }
         return exist;
+    }
+    private int IDFind(){
+        int payID = 0;
+        try{
+            ResultSet rt =(dbConnect.getConnection().createStatement()).executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
+            rt.next();
+            //getting the maxID from the payment table
+            try{
+                 payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
+            }catch(NumberFormatException e){
+                payID = 1;
+            }
+
+        }catch(SQLException e){
+        }
+        return payID;
     }
     private void MouseEffect(JLabel object, int i){
         object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
@@ -852,7 +927,6 @@ public class BillingInterface extends javax.swing.JFrame {
         Connection con =dbConnect.getConnection();
         String code= codeInput.getText();
         int quantity = Integer.valueOf(qtyInputLabel.getText());
-        int discount = 5;
         try {
             Statement st = con.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
@@ -867,20 +941,15 @@ public class BillingInterface extends javax.swing.JFrame {
                 //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
                 itemLog.addRow(tbData);
             }
-            double total=0;
-            for (int i=0; i<itemLog.getRowCount(); i++){
-                total+=Double.valueOf(itemLog.getValueAt(i, 4).toString());
-            }
-            TotalText.setText(Double.toString(total));
+            TotalText.setText(calTotal());
             ItemIDDisplay1.setText(code);
             ItemNameDisplay.setText(result.getString("name"));
             ItemTypeDisplay.setText(result.getString("type"));
             codeInput.setText("");
             qtyInputLabel.setText("1");
 
-        }catch(Exception e){
-                e.printStackTrace();
-
+        }catch(SQLException e){
+                new dbError().setVisible(true);
         }
         
         //calculating the total
@@ -898,18 +967,6 @@ public class BillingInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_qtyInputLabelActionPerformed
 
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        
-    }//GEN-LAST:event_logoutMouseClicked
-
-    private void logoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseEntered
-        MouseEffect(logout, 1);
-    }//GEN-LAST:event_logoutMouseEntered
-
-    private void logoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseExited
-        MouseEffect(logout, -1);
-    }//GEN-LAST:event_logoutMouseExited
-
     private void ItemTypeDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTypeDisplayActionPerformed
 
     }//GEN-LAST:event_ItemTypeDisplayActionPerformed
@@ -923,7 +980,14 @@ public class BillingInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_qtyInputLabelMousePressed
 
     private void cancelPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseClicked
-        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+       OnCloseAlert alt = new OnCloseAlert();
+       alt.setVisible(true);
+        if(alt.getAction()){
+            //clearing table and updating the date time
+            setDateTime();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            clear();
+        }
     }//GEN-LAST:event_cancelPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
@@ -993,41 +1057,111 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void printPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPanelMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
+        /*DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         try{
-            
             Connection con = dbConnect.getConnection();
             Statement st = con.createStatement();
-            ResultSet rt = st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
-            rt.next();
-            //save the payment in the payment table
-            int payID = Integer.valueOf(rt.getString("max"))+1; //refers to the max value in the payment table
+            String query;
+            //reduce quantites from the product table to maintain the inventory
+            for (int i=0; i < saveOrder.getRowCount(); i++){
+                    query = "UPDATE product SET quantity = quantity-"+saveOrder.getValueAt(i, 2)+" WHERE Pro_Code = "+saveOrder.getValueAt(i, 1)+";";
+                    st.executeUpdate(query);
+            } 
+            int ID = IDFind();
             //allows to create an auto increment value.
             //the same id is used to save details in the payment details table.
             //filling the payment details table 
-            String query = "INSERT INTO payment VALUES('"+Integer.toString(payID) +"','546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
+            query = "INSERT INTO payment VALUES("+Integer.toString(ID) +",'546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
             System.out.println(query);
             st.executeUpdate(query);
             for (int i=0; i < saveOrder.getRowCount(); i++){
-                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+",'"+Integer.toString(payID)+"','"+saveOrder.getValueAt(i, 1)+"')";
+                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+","+Integer.toString(ID)+",'"+saveOrder.getValueAt(i, 1)+"')";
                     st.executeUpdate(query);
             } 
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (SQLException e){
+            new dbError().setVisible(true);
         }
+        */
+        
+        //print bill
+        new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems).setVisible(true);
+        
     }//GEN-LAST:event_printPanelMouseClicked
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked
         // TODO add your handling code here:
-        new  OnCloseAlert(DisplayItems,ItemNameDisplay,ItemIDDisplay1,ItemTypeDisplay,codeInput,TotalText).setVisible(true);
+        OnCloseAlert alt = new OnCloseAlert();
+        alt.setVisible(true);
+        if(alt.getAction()){
+            //clearing table and updating the date time
+            setDateTime();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            clear();
+        }
         //Update date and time.
-        Date today = new Date();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
-        dateText.setText(date.format(today));
-        timeText.setText(time.format(today));
+        
         
     }//GEN-LAST:event_NewOrderMouseClicked
+
+    private void DisplayItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayItemsMouseClicked
+        // TODO add your handling code here:
+
+        ItemDetailsPopUp details = new ItemDetailsPopUp(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 0).toString(),DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 2).toString());
+        details.setVisible(true);
+        
+        switch(details.getAction()){
+        
+            case 1:
+                DisplayItems.clearSelection();
+                break;
+            case 2:
+                ((DefaultTableModel)DisplayItems.getModel()).removeRow(DisplayItems.getSelectedRow());
+                break;
+            case 3:
+                DisplayItems.setValueAt(details.getQuantity(), DisplayItems.getSelectedRow(), 2);
+                DisplayItems.setValueAt(Integer.valueOf(details.getQuantity())*Double.valueOf(DisplayItems.getValueAt(DisplayItems.getSelectedRow(), 3).toString()), DisplayItems.getSelectedRow(), 4);
+                double total=0;
+                for (int i=0; i<DisplayItems.getRowCount(); i++){
+                    total+=Double.valueOf(DisplayItems.getValueAt(i, 4).toString());
+                }
+                TotalText.setText(Double.toString(total));
+                break;
+        
+        }
+        
+    }//GEN-LAST:event_DisplayItemsMouseClicked
+
+    private void HoldOrderPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseClicked
+        // TODO add your handling code here:
+        if(!state){
+            saveData();
+            ((DefaultTableModel) DisplayItems.getModel()).setRowCount(0);
+            setDateTime();
+            clear();
+        }
+        
+    }//GEN-LAST:event_HoldOrderPanelMouseClicked
+
+    private void LoadOrderPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseClicked
+        // TODO add your handling code here
+        if(state){
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            loadData();
+            setDateTime();
+            clear();
+            TotalText.setText(calTotal());
+        }
+    }//GEN-LAST:event_LoadOrderPanel1MouseClicked
+
+    private void LoadOrderPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseEntered
+        // TODO add your handling code here:
+        LoadOrderPanel1.setBackground(new Color(62,74,87));
+    }//GEN-LAST:event_LoadOrderPanel1MouseEntered
+
+    private void LoadOrderPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseExited
+        // TODO add your handling code here:
+        LoadOrderPanel1.setBackground(new Color(99,110,114));
+    }//GEN-LAST:event_LoadOrderPanel1MouseExited
 
     /**
      * @param args the command line arguments
@@ -1077,6 +1211,9 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel ItemNameLabel;
     private javax.swing.JTextField ItemTypeDisplay;
     private javax.swing.JLabel ItemTypeLabel;
+    private javax.swing.JLabel LoadOrderIcon;
+    private javax.swing.JLabel LoadOrderLable;
+    private javax.swing.JPanel LoadOrderPanel1;
     private javax.swing.JPanel LogoutPanel;
     private javax.swing.JPanel NewOrder;
     private javax.swing.JLabel PrintBill;
@@ -1086,6 +1223,7 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel cashierNameText;
     private javax.swing.JTextField codeInput;
     private javax.swing.JLabel customerLabel;
+    private javax.swing.JLabel customerTxt;
     private javax.swing.JLabel dateText;
     private javax.swing.JLabel geelsSuperLabel;
     private javax.swing.JLabel homeIcon;
