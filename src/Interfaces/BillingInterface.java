@@ -9,11 +9,13 @@ import Alerts.*;
 import DB.dbConnect;
 import Alerts.ItemDetailsPopUp;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -28,12 +30,19 @@ public class BillingInterface extends javax.swing.JFrame {
      * Creates new form Billing
      */
     //private <vector><vector> hold;
+    
     private int OrdCounter = 0;
     public BillingInterface() {
         initComponents();
         setDateTime();
     }
 
+    public BillingInterface(String user) {
+        initComponents();
+        setDateTime();
+        userLabel.setText(user);
+        cashierNameText.setText(user);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,7 +82,7 @@ public class BillingInterface extends javax.swing.JFrame {
         homeIcon = new javax.swing.JLabel();
         printIcon = new javax.swing.JLabel();
         userIcon = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        userLabel = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         rslable = new javax.swing.JLabel();
         TotalText = new javax.swing.JLabel();
@@ -87,6 +96,7 @@ public class BillingInterface extends javax.swing.JFrame {
         cashierNameText = new javax.swing.JLabel();
         customerLabel = new javax.swing.JLabel();
         timeText = new javax.swing.JLabel();
+        customerTxt = new javax.swing.JLabel();
         BillPanel = new javax.swing.JPanel();
         scanLabel = new javax.swing.JLabel();
         codeInput = new javax.swing.JTextField();
@@ -399,8 +409,8 @@ public class BillingInterface extends javax.swing.JFrame {
 
         printIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_print_32px.png"))); // NOI18N
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Lasith");
+        userLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userLabel.setText("Lasith");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -412,7 +422,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -432,7 +442,7 @@ public class BillingInterface extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addComponent(printIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(userIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(userLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -466,7 +476,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel1.setText("Date:");
 
         reciptNoText.setForeground(new java.awt.Color(255, 255, 255));
-        reciptNoText.setText("5645646");
+        reciptNoText.setText("123");
 
         dateText.setForeground(new java.awt.Color(255, 255, 255));
         dateText.setText("2020-12-15 ");
@@ -475,13 +485,15 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel2.setText("Cashier:");
 
         cashierNameText.setForeground(new java.awt.Color(255, 255, 255));
-        cashierNameText.setText("Lasith");
 
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
         customerLabel.setText("Customer");
 
         timeText.setForeground(new java.awt.Color(255, 255, 255));
         timeText.setText("02:13:50 ");
+
+        customerTxt.setForeground(new java.awt.Color(255, 255, 255));
+        customerTxt.setText("Dinuka Dilshan");
 
         javax.swing.GroupLayout billHeadingLayout = new javax.swing.GroupLayout(billHeading);
         billHeading.setLayout(billHeadingLayout);
@@ -499,8 +511,11 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(billHeadingLayout.createSequentialGroup()
+                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(customerTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -523,7 +538,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cashierNameText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(customerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -548,7 +564,6 @@ public class BillingInterface extends javax.swing.JFrame {
 
         qtyInputLabel.setBackground(new java.awt.Color(204, 204, 204));
         qtyInputLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        qtyInputLabel.setText("1");
         qtyInputLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 qtyInputLabelMousePressed(evt);
@@ -1043,7 +1058,7 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void printPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPanelMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
+        /*DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         try{
             
             Connection con = dbConnect.getConnection();
@@ -1070,6 +1085,11 @@ public class BillingInterface extends javax.swing.JFrame {
         }catch (Exception e){
             e.printStackTrace();
         }
+        */
+        
+        //print bill
+        new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems).setVisible(true);
+        
     }//GEN-LAST:event_printPanelMouseClicked
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked
@@ -1211,6 +1231,7 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel cashierNameText;
     private javax.swing.JTextField codeInput;
     private javax.swing.JLabel customerLabel;
+    private javax.swing.JLabel customerTxt;
     private javax.swing.JLabel dateText;
     private javax.swing.JLabel geelsSuperLabel;
     private javax.swing.JLabel homeIcon;
@@ -1222,7 +1243,6 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1256,5 +1276,6 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel timeText;
     private javax.swing.JLabel totalLable;
     private javax.swing.JLabel userIcon;
+    private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
 }

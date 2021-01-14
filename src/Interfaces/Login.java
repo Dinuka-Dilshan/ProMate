@@ -286,7 +286,7 @@ public class Login extends javax.swing.JFrame {
                     new MainMenu(usern,rt.getString("Type")).setVisible(true);
                 }
                 else if(rt.getString("Type").equals("User")){
-                    new BillingInterface().setVisible(true);
+                    new BillingInterface(usern).setVisible(true);
                 } 
                 this.dispose();
                 con.close();
