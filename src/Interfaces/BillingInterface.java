@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Interfaces;
-
 import Alerts.*;
 import DB.dbConnect;
 import Alerts.ItemDetailsPopUp;
@@ -17,9 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.JFrame;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -34,14 +31,12 @@ public class BillingInterface extends javax.swing.JFrame {
      * Creates new form Billing
      */
 
-    
-
     private int OrdCounter = 0;
     private JTable Back;
     public BillingInterface() {
         initComponents();
         setDateTime();
-        
+        qtyInputLabel.setText("1");
     }
 
     public BillingInterface(String user) {
@@ -49,6 +44,7 @@ public class BillingInterface extends javax.swing.JFrame {
         setDateTime();
         jLabel4.setText(user);
         cashierNameText.setText(user);
+        qtyInputLabel.setText("1");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -845,8 +841,7 @@ public class BillingInterface extends javax.swing.JFrame {
         for (int i=0; i<tb.getRowCount(); i++){
             for (int k=0; k<5; k++){
                 hold[i][k] = tb.getValueAt(i, k).toString();
-            }
-            
+            } 
         }
         state = true;
     }
@@ -916,8 +911,7 @@ public class BillingInterface extends javax.swing.JFrame {
         object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
         object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
     }
-    
-    
+
     private void insertPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseClicked
         //TAKE THE CODE
         //TAKE THE QUANTITY
@@ -953,10 +947,7 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         
         //calculating the total
-        
-        
-        
-        
+
     }//GEN-LAST:event_insertPanelMouseClicked
 
     private void codeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeInputActionPerformed
@@ -1057,7 +1048,7 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void printPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPanelMouseClicked
         // TODO add your handling code here:
-        /*DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
+        DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         try{
             Connection con = dbConnect.getConnection();
             Statement st = con.createStatement();
@@ -1081,11 +1072,14 @@ public class BillingInterface extends javax.swing.JFrame {
         }catch (SQLException e){
             new dbError().setVisible(true);
         }
-        */
         
         //print bill
-        new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems).setVisible(true);
-        
+        PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
+        bill.setVisible(true);
+        if (bill.getCompleted()){
+            clear();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+        }
     }//GEN-LAST:event_printPanelMouseClicked
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked

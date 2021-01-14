@@ -13,7 +13,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Window;
 import java.io.FileOutputStream;
-
 /**
  *
  * @author dinuka
@@ -22,11 +21,12 @@ public class PrintBill extends javax.swing.JDialog {
 
     String receiptNo;
     String billtxt;
-    
+    private boolean completed;
     public PrintBill() {
         super((Window)null);
         setModal(true);
         initComponents();
+        System.out.println(format("hello",20));
     }
 
     public PrintBill(String receiptNumber,String date, String cashierName, String customerName,String total, JTable table) {
@@ -38,24 +38,26 @@ public class PrintBill extends javax.swing.JDialog {
         date=" Date: "+date;
         cashierName=" Cashier: "+cashierName;
         customerName= " Customer: "+customerName;
-        total=" --------------------------------------------------------------------\n Total:\t\t                Rs:"+total;
-        
-        preview.append(" --------------------------------------------------------------------\n\t    Geels Super\n --------------------------------------------------------------------\n"+receiptNumber+"\n"+date+"\n"+cashierName+"\n"+customerName);
+        String totalBill=" ---------------------------------------------------------------------\n Total:";
+        totalBill+=format("Rs:"+total, 67);
+        preview.append(" ---------------------------------------------------------------------\n"+format("Geels Super", 40)+"\n --------------------------------------------------------------------\n"+receiptNumber+"\n"+date+"\n"+cashierName+"\n"+customerName);
         
         DefaultTableModel model=(DefaultTableModel)table.getModel();
         int numberOfRaws= table.getRowCount();
-        String data="\n --------------------------------------------------------------------\n";
+        String data="\n ---------------------------------------------------------------------\n";
         for(int x=0;x<numberOfRaws;x++){
-            data=data+" "+model.getValueAt(x, 0);
-            data=data+"\tRs:"+model.getValueAt(x, 3);
-            data=data+" *"+model.getValueAt(x, 2);
-            data=data+"\t"+model.getValueAt(x, 4)+"\n";
+            data+=" "+model.getValueAt(x, 0).toString()+"\n";
+            data=data+format(model.getValueAt(x, 3).toString()+" *"+model.getValueAt(x, 2), 40);
+            data=data+format(model.getValueAt(x, 4).toString(), 33)+"\n";
         }
         
         preview.append(data);
-        preview.append(total);
-        preview.append("\n --------------------------------------------------------------------\n\t      Thank You..!");
+        preview.append(totalBill);
+        preview.append("\n ---------------------------------------------------------------------\n"+format("Thank You..!", 43));
         billtxt=preview.getText();
+    }
+    public boolean getCompleted(){
+        return completed;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -121,10 +123,18 @@ public class PrintBill extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private String format(String str, int width){
+        String output="";
+        for (int i=0; i<width-str.length(); i++){
+            output+=" ";
+        }
+        output+=str;
+        return output;
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       
         String filename="bill"+receiptNo+".pdf";
-        System.out.println(filename);
         Document doc = new Document();
         try {
            PdfWriter.getInstance(doc, new FileOutputStream(filename));
@@ -133,10 +143,11 @@ public class PrintBill extends javax.swing.JDialog {
            Paragraph paragraph= new Paragraph(billtxt);
            doc.add(paragraph);
            doc.close();
+           completed = true;
         } catch (Exception e) {
         }
         
-        
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
