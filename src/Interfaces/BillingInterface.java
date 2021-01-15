@@ -828,8 +828,8 @@ public class BillingInterface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    String[][] hold;
-    boolean state = false;
+    private String[][] hold;
+    private boolean state = false;
     private void saveData(){
        DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
        hold = new String[tb.getRowCount()][5];
@@ -917,6 +917,9 @@ public class BillingInterface extends javax.swing.JFrame {
         String code= codeInput.getText();
         int quantity = Integer.valueOf(qtyInputLabel.getText());
         try {
+            if(codeInput.getText().isEmpty()){
+                throw new Exception();
+            }
             Statement st = con.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
             result.next();
@@ -939,6 +942,8 @@ public class BillingInterface extends javax.swing.JFrame {
 
         }catch(SQLException e){
                 new dbError().setVisible(true);
+        }catch(Exception e){
+                new dbError("Code Not Found","Please insert a code to continue").setVisible(true);
         }
         
         //calculating the total
