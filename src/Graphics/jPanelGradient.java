@@ -36,6 +36,8 @@ public class jPanelGradient extends JPanel{
     //245,247,250,195,207,226
     //236,233,230,255,255,255
     //195,207,226,245,247,250 - Saint Petersberg
+    //134,143,150,89,97,100   - Mountain Rock
+    //41,50,60,72,85,99       - 
    
    
     public void paintComponent(Graphics g){

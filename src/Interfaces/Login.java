@@ -7,7 +7,7 @@ import Errors.accountDetailsMissMatchError;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.JLabel;
-
+import Graphics.jPanelGradient;
 
 /**
  *
@@ -34,8 +34,8 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new jPanelGradient(134,143,150,89,97,100);
+        jPanel2 = new jPanelGradient(44,62,80,44,62,80);
         jLabel2 = new javax.swing.JLabel();
         userName = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -81,6 +81,7 @@ public class Login extends javax.swing.JFrame {
 
         userName.setBackground(new java.awt.Color(44, 62, 80));
         userName.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        userName.setForeground(new java.awt.Color(204, 204, 204));
         userName.setToolTipText("");
         userName.setBorder(null);
         userName.addActionListener(new java.awt.event.ActionListener() {
@@ -90,15 +91,16 @@ public class Login extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password");
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("User Name");
 
         pw.setBackground(new java.awt.Color(44, 62, 80));
         pw.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        pw.setForeground(new java.awt.Color(204, 204, 204));
         pw.setBorder(null);
         pw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +137,7 @@ public class Login extends javax.swing.JFrame {
 
         jCheckBox1.setBackground(new java.awt.Color(44, 62, 80));
         jCheckBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(204, 204, 204));
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText(" Show Password");
         jCheckBox1.setBorder(null);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {

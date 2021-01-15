@@ -14,6 +14,7 @@ import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import Graphics.jPanelGradient;
 
 public class MainMenu extends javax.swing.JFrame {
 
@@ -40,8 +41,8 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new jPanelGradient(41,50,60,72,85,99);
+        jPanel2 = new jPanelGradient(134,143,150,89,97,100);
         users = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         settings = new javax.swing.JLabel();
@@ -356,7 +357,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         Home.add(supplierPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 136, -1, -1));
 
-        userPane.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 450));
+        userPane.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 450));
 
         userControl.setBackground(new java.awt.Color(62, 74, 87));
         userControl.setVisible(false);
@@ -710,6 +711,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(51, 51, 51));
         jButton2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 204, 204));
         jButton2.setText("Delete");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -719,6 +721,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(204, 204, 204));
         jButton3.setText("Add");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -728,6 +731,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(51, 51, 51));
         jButton5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(204, 204, 204));
         jButton5.setText("Update");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -737,6 +741,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(51, 51, 51));
         jButton6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(204, 204, 204));
         jButton6.setText("Search");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -779,7 +784,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(showInventoryLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         showInventoryLayout.setVerticalGroup(
             showInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -813,7 +818,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtProductType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(showInventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
@@ -821,7 +826,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        userPane.add(showInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 2, 790, 430));
+        userPane.add(showInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 2, 820, 460));
 
         settingsPanel.setVisible(false);
 
@@ -834,16 +839,16 @@ public class MainMenu extends javax.swing.JFrame {
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addComponent(settingsText, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 616, Short.MAX_VALUE))
+                .addGap(0, 646, Short.MAX_VALUE))
         );
         settingsPanelLayout.setVerticalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addComponent(settingsText, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap(396, Short.MAX_VALUE))
         );
 
-        userPane.add(settingsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 2, 790, 430));
+        userPane.add(settingsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 2, 820, 460));
 
         SuppliersPanel.setBackground(new java.awt.Color(62, 74, 87));
 
@@ -918,7 +923,8 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel11.setText("Phone");
 
         addSupplierButton.setBackground(new java.awt.Color(102, 102, 102));
-        addSupplierButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        addSupplierButton.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        addSupplierButton.setForeground(new java.awt.Color(204, 204, 204));
         addSupplierButton.setText("Add");
         addSupplierButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -927,7 +933,8 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         suppliersUpdateButton.setBackground(new java.awt.Color(102, 102, 102));
-        suppliersUpdateButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        suppliersUpdateButton.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        suppliersUpdateButton.setForeground(new java.awt.Color(204, 204, 204));
         suppliersUpdateButton.setText("Update");
         suppliersUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -936,7 +943,8 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
-        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(204, 204, 204));
         jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -955,7 +963,8 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         supplierSearchButton.setBackground(new java.awt.Color(102, 102, 102));
-        supplierSearchButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        supplierSearchButton.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        supplierSearchButton.setForeground(new java.awt.Color(204, 204, 204));
         supplierSearchButton.setText("Search");
         supplierSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -985,7 +994,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(suppliersUpdateButton)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SuppliersPanelLayout.createSequentialGroup()
@@ -1027,11 +1036,11 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(54, 54, 54))
         );
 
-        userPane.add(SuppliersPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        userPane.add(SuppliersPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 450));
         SuppliersPanel.setVisible(false);
 
-        geelsSuperLabel.setFont(new java.awt.Font("Leelawadee", 1, 36)); // NOI18N
-        geelsSuperLabel.setForeground(new java.awt.Color(255, 255, 255));
+        geelsSuperLabel.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        geelsSuperLabel.setForeground(new java.awt.Color(204, 204, 204));
         geelsSuperLabel.setText("Geels Super - Home");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1057,12 +1066,16 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(power)
-                    .addComponent(geelsSuperLabel)
-                    .addComponent(unScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(unScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(power))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(geelsSuperLabel)
+                        .addGap(17, 17, 17)))
                 .addComponent(userPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
