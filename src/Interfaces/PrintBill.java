@@ -9,18 +9,21 @@ package Interfaces;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Font;
 import java.awt.Window;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 /**
  *
  * @author dinuka
  */
-public class PrintBill extends javax.swing.JDialog {
 
+public class PrintBill extends javax.swing.JDialog {
     String receiptNo;
-    String billtxt;
+    String billtxt = "";
     private boolean completed;
     public PrintBill() {
         super((Window)null);
@@ -38,23 +41,21 @@ public class PrintBill extends javax.swing.JDialog {
         date=" Date: "+date;
         cashierName=" Cashier: "+cashierName;
         customerName= " Customer: "+customerName;
-        String totalBill=" ---------------------------------------------------------------------\n Total:";
-        totalBill+=format("Rs:"+total, 67);
-        preview.append(" ---------------------------------------------------------------------\n"+format("Geels Super", 40)+"\n --------------------------------------------------------------------\n"+receiptNumber+"\n"+date+"\n"+cashierName+"\n"+customerName);
+        String totalBill=" -------------------------------------------\n Total:";
+        totalBill+=format("Rs:"+total, 37);
+        billtxt = (" -------------------------------------------\n"+format("Geels Super", 25)+"\n -------------------------------------------\n"+receiptNumber+"\n"+date+"\n"+cashierName+"\n"+customerName);
         
         DefaultTableModel model=(DefaultTableModel)table.getModel();
         int numberOfRaws= table.getRowCount();
-        String data="\n ---------------------------------------------------------------------\n";
+        billtxt+="\n -------------------------------------------\n";
         for(int x=0;x<numberOfRaws;x++){
-            data+=" "+model.getValueAt(x, 0).toString()+"\n";
-            data=data+format(model.getValueAt(x, 3).toString()+" *"+model.getValueAt(x, 2), 40);
-            data=data+format(model.getValueAt(x, 4).toString(), 33)+"\n";
+            billtxt+=" "+model.getValueAt(x, 0).toString()+"\n";
+            billtxt+=format(model.getValueAt(x, 3).toString()+"*"+model.getValueAt(x, 2), 20)+" ";
+            billtxt+=format(model.getValueAt(x, 4).toString(), 23)+"\n";
         }
-        
-        preview.append(data);
-        preview.append(totalBill);
-        preview.append("\n ---------------------------------------------------------------------\n"+format("Thank You..!", 43));
-        billtxt=preview.getText();
+        billtxt+=totalBill;
+        billtxt+=("\n -------------------------------------------\n"+format("Thank You..!", 26));
+        preview.setText(billtxt);
     }
     public boolean getCompleted(){
         return completed;
@@ -75,6 +76,7 @@ public class PrintBill extends javax.swing.JDialog {
 
         setUndecorated(true);
 
+        preview.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         preview.setColumns(20);
         preview.setRows(5);
         jScrollPane1.setViewportView(preview);
@@ -96,16 +98,15 @@ public class PrintBill extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jLabel1))))
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addGap(119, 119, 119)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,10 +114,10 @@ public class PrintBill extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(22, 22, 22))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -124,8 +125,10 @@ public class PrintBill extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private String format(String str, int width){
+        System.out.println(str+(width-str.length()));
+        
         String output="";
-        for (int i=0; i<width-str.length(); i++){
+        for (int i=0; i<width-(str.length()); i++){
             output+=" ";
         }
         output+=str;
@@ -136,15 +139,18 @@ public class PrintBill extends javax.swing.JDialog {
       
         String filename="bill"+receiptNo+".pdf";
         Document doc = new Document();
-        try {
+        try { 
            PdfWriter.getInstance(doc, new FileOutputStream(filename));
            doc.open();
-           
-           Paragraph paragraph= new Paragraph(billtxt);
+           com.itextpdf.text.Font myStyle = new com.itextpdf.text.Font();
+           myStyle.setStyle("NORMAL");
+           myStyle.setFamily("TIMES_ROMAN");
+           Paragraph paragraph= new Paragraph(billtxt,myStyle);
            doc.add(paragraph);
            doc.close();
            completed = true;
-        } catch (Exception e) {
+        } catch (DocumentException | FileNotFoundException e) {
+            //printError
         }
         
         this.dispose();

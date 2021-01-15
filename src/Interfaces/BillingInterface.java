@@ -9,14 +9,12 @@ import DB.dbConnect;
 import Alerts.ItemDetailsPopUp;
 import Errors.dbError;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -31,13 +29,11 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
-
-    private int OrdCounter = 0;
-    private JTable Back;
     public BillingInterface() {
         initComponents();
         setDateTime();
         qtyInputLabel.setText("1");
+        reciptNoText.setText(Integer.toString(IDFind()));
     }
 
     public BillingInterface(String user) {
@@ -46,6 +42,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel4.setText(user);
         cashierNameText.setText(user);
         qtyInputLabel.setText("1");
+        reciptNoText.setText(Integer.toString(IDFind()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -446,7 +443,6 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel1.setText("Date:");
 
         reciptNoText.setForeground(new java.awt.Color(255, 255, 255));
-        reciptNoText.setText("123");
 
         dateText.setForeground(new java.awt.Color(255, 255, 255));
         dateText.setText("2020-12-15 ");
@@ -479,13 +475,14 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+
+                        .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(customerTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(customerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1077,6 +1074,7 @@ public class BillingInterface extends javax.swing.JFrame {
         if (bill.getCompleted()){
             clear();
             ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            reciptNoText.setText(Integer.toString(IDFind()));
         }
     }//GEN-LAST:event_printPanelMouseClicked
 
