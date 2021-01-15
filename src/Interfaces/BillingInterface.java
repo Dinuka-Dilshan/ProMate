@@ -4,22 +4,17 @@
  * and open the template in the editor.
  */
 package Interfaces;
-
 import Alerts.*;
 import DB.dbConnect;
 import Alerts.ItemDetailsPopUp;
 import Errors.dbError;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.JFrame;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -33,16 +28,11 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
-
-    
-    private Vector columns = new Vector(5);
-
-    private int OrdCounter = 0;
-    private JTable Back;
     public BillingInterface() {
         initComponents();
         setDateTime();
-        
+        qtyInputLabel.setText("1");
+        reciptNoText.setText(Integer.toString(IDFind()));
     }
 
     public BillingInterface(String user) {
@@ -50,6 +40,8 @@ public class BillingInterface extends javax.swing.JFrame {
         setDateTime();
         jLabel4.setText(user);
         cashierNameText.setText(user);
+        qtyInputLabel.setText("1");
+        reciptNoText.setText(Integer.toString(IDFind()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -454,7 +446,6 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel1.setText("Date:");
 
         reciptNoText.setForeground(new java.awt.Color(255, 255, 255));
-        reciptNoText.setText("123");
 
         dateText.setForeground(new java.awt.Color(255, 255, 255));
         dateText.setText("2020-12-15 ");
@@ -485,15 +476,15 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(reciptNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(billHeadingLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(customerTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(customerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -846,8 +837,7 @@ public class BillingInterface extends javax.swing.JFrame {
         for (int i=0; i<tb.getRowCount(); i++){
             for (int k=0; k<5; k++){
                 hold[i][k] = tb.getValueAt(i, k).toString();
-            }
-            
+            } 
         }
         state = true;
     }
@@ -917,8 +907,7 @@ public class BillingInterface extends javax.swing.JFrame {
         object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
         object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
     }
-    
-    
+
     private void insertPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseClicked
         //TAKE THE CODE
         //TAKE THE QUANTITY
@@ -954,10 +943,7 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         
         //calculating the total
-        
-        
-        
-        
+
     }//GEN-LAST:event_insertPanelMouseClicked
 
     private void codeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeInputActionPerformed
@@ -1058,7 +1044,7 @@ public class BillingInterface extends javax.swing.JFrame {
 
     private void printPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPanelMouseClicked
         // TODO add your handling code here:
-        /*DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
+        DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         try{
             Connection con = dbConnect.getConnection();
             Statement st = con.createStatement();
@@ -1082,11 +1068,15 @@ public class BillingInterface extends javax.swing.JFrame {
         }catch (SQLException e){
             new dbError().setVisible(true);
         }
-        */
         
         //print bill
-        new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems).setVisible(true);
-        
+        PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
+        bill.setVisible(true);
+        if (bill.getCompleted()){
+            clear();
+            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            reciptNoText.setText(Integer.toString(IDFind()));
+        }
     }//GEN-LAST:event_printPanelMouseClicked
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked

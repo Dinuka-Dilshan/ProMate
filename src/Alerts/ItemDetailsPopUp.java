@@ -20,6 +20,7 @@ public class ItemDetailsPopUp extends javax.swing.JDialog {
     private int action;
     public ItemDetailsPopUp() {
         initComponents();
+        System.out.println(getClass().getResource(""));
     }
     public  ItemDetailsPopUp(String product,String qty) {
         super((Window)null);
