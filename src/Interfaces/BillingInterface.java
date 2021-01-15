@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import Graphics.jPanelGradient;
 /**
  *
  * @author Lasith
@@ -53,7 +54,7 @@ public class BillingInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel3 = new jPanelGradient(134,143,150,89,97,100);
         NewOrder = new javax.swing.JPanel();
         newOrderIcon = new javax.swing.JLabel();
         newOrderText = new javax.swing.JLabel();
@@ -72,8 +73,8 @@ public class BillingInterface extends javax.swing.JFrame {
         LoadOrderPanel1 = new javax.swing.JPanel();
         LoadOrderLable = new javax.swing.JLabel();
         LoadOrderIcon = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new jPanelGradient(41,50,60,72,85,99);
+        jPanel2 = new jPanelGradient(41,50,60,72,85,99);
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -87,7 +88,7 @@ public class BillingInterface extends javax.swing.JFrame {
         rslable = new javax.swing.JLabel();
         TotalText = new javax.swing.JLabel();
         totalLable = new javax.swing.JLabel();
-        billHeading = new javax.swing.JPanel();
+        billHeading = new jPanelGradient(41,50,60,72,85,99);
         lableReciptNo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         reciptNoText = new javax.swing.JLabel();
@@ -97,7 +98,7 @@ public class BillingInterface extends javax.swing.JFrame {
         customerLabel = new javax.swing.JLabel();
         timeText = new javax.swing.JLabel();
         customerTxt = new javax.swing.JLabel();
-        BillPanel = new javax.swing.JPanel();
+        BillPanel = new jPanelGradient(41,50,60,72,85,99);
         scanLabel = new javax.swing.JLabel();
         codeInput = new javax.swing.JTextField();
         qtyLabel = new javax.swing.JLabel();
@@ -110,7 +111,7 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DisplayItems = new javax.swing.JTable();
-        ItemDetailsAreaPanel = new javax.swing.JPanel();
+        ItemDetailsAreaPanel = new jPanelGradient(41,50,60,72,85,99);
         ItemIDText = new javax.swing.JLabel();
         ItemNameLabel = new javax.swing.JLabel();
         ItemTypeLabel = new javax.swing.JLabel();
@@ -158,8 +159,8 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(newOrderIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(newOrderText, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addContainerGap())
         );
         NewOrderLayout.setVerticalGroup(
             NewOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +237,7 @@ public class BillingInterface extends javax.swing.JFrame {
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_logout_rounded_left_26px.png"))); // NOI18N
         LogoutPanel.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 30));
 
-        jPanel3.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, 170, 70));
+        jPanel3.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, 170, 60));
 
         HoldOrderPanel.setBackground(new java.awt.Color(99, 110, 114));
         HoldOrderPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -265,8 +266,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
         );
         HoldOrderPanelLayout.setVerticalGroup(
             HoldOrderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,16 +278,16 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.add(HoldOrderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 336, 240, 80));
+        jPanel3.add(HoldOrderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 336, 250, 80));
 
         jPanel5.setBackground(new java.awt.Color(99, 110, 114));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
 
-        jLabel6.setFont(new java.awt.Font("Leelawadee", 1, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Super");
 
-        geelsSuperLabel.setFont(new java.awt.Font("Leelawadee", 1, 36)); // NOI18N
+        geelsSuperLabel.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         geelsSuperLabel.setForeground(new java.awt.Color(255, 255, 255));
         geelsSuperLabel.setText("Geels ");
 
@@ -296,22 +296,20 @@ public class BillingInterface extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(geelsSuperLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(geelsSuperLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(geelsSuperLabel)
+                    .addComponent(jLabel6))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 250, -1));
@@ -343,8 +341,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(LoadOrderIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LoadOrderLable, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(LoadOrderLable, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
         );
         LoadOrderPanel1Layout.setVerticalGroup(
             LoadOrderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +353,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.add(LoadOrderPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        jPanel3.add(LoadOrderPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 250, -1));
 
         jLayeredPane1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 670));
 
@@ -478,6 +475,7 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+
                         .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,19 +494,19 @@ public class BillingInterface extends javax.swing.JFrame {
         billHeadingLayout.setVerticalGroup(
             billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(billHeadingLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lableReciptNo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reciptNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timeText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(timeText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cashierNameText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(customerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(customerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(customerLabel)
+                        .addComponent(customerTxt))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -720,7 +718,7 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addComponent(ItemNameLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(ItemDetailsAreaPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addGap(33, 33, 33))))
         );
 
@@ -820,9 +818,10 @@ public class BillingInterface extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLayeredPane1)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
