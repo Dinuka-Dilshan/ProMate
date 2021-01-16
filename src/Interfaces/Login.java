@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.sql.*;
 import javax.swing.JLabel;
 import Graphics.jPanelGradient;
+import java.awt.Toolkit;
 
 /**
  *
@@ -294,10 +295,12 @@ public class Login extends javax.swing.JFrame {
                 con.close();
                     
             }catch(Exception e){
+                Toolkit.getDefaultToolkit().beep();
                 new accountDetailsMissMatchError().setVisible(true);
                 con.close();
             }
         } catch (Exception e) {
+            Toolkit.getDefaultToolkit().beep();
             new dbError().setVisible(true);
         }
 
