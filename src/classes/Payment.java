@@ -5,7 +5,9 @@
  */
 package classes;
 
+import Alerts.unknownError;
 import DB.dbConnect;
+import Errors.dbError;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +36,12 @@ public class Payment{
             statement.executeUpdate("INSERT INTO payment VALUES("+ID+",'"+ CusID+"','"+date+"','"+time+"','"+amount+"','"+UserID+"',null);");
             
         }catch(SQLException e){
-            e.printStackTrace();
+            if ("Cannot add or update a child row: a foreign key constraint fails (`geelssuper`.`payment`, CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`Usr_NIC`) REFERENCES `user` (`Usr_NIC`))".equals(e.getMessage())){
+                new unknownError("Unknown Error!","Could not update the database.").setVisible(true);
+            }
+            else{
+                new dbError().setVisible(true);
+            }
         }
     }
     public static int getID(){
@@ -50,6 +57,10 @@ public class Payment{
             }
 
         }catch(SQLException e){
+            new dbError().setVisible(true);
+        }
+        catch(NullPointerException e){
+            System.exit(0);
         }
         return payID;
     }

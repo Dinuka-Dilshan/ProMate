@@ -18,10 +18,11 @@ public class customer {
     
     public static void searchCustomer(String name,JList list){
         name=name+"%";
-        ResultSet rst=null;
-         Connection con= dbConnect.getConnection();
+        ResultSet rst;
+         
          DefaultListModel newlist = new DefaultListModel();
          try {
+            Connection con= dbConnect.getConnection();
             Statement st=con.createStatement();
             rst=st.executeQuery("SELECT Cus_NIC,CName FROM customer WHERE Cus_NIC LIKE '"+name+"';");
             rst.next();
@@ -33,23 +34,23 @@ public class customer {
             }
             list.setModel(newlist);
             
-        } catch (SQLException e) {
-            e.printStackTrace();
+            
+        } catch (SQLException | NullPointerException e) {
+            
         }
     }
     public static String getName(String name){
         String output = "";
-        ResultSet rst=null;
-         Connection con= dbConnect.getConnection();
-         DefaultListModel newlist = new DefaultListModel();
+        ResultSet rst;
+         
          try {
+            Connection con= dbConnect.getConnection();
             Statement st=con.createStatement();
             rst=st.executeQuery("SELECT CName FROM customer WHERE Cus_NIC= '"+name+"';");
             rst.next();
            output = rst.getString("CName");
             
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | NullPointerException e) {
         }
          return output;
     }
