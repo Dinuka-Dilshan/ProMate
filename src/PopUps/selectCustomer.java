@@ -8,6 +8,8 @@ package PopUps;
 import classes.customer;
 import java.awt.Window;
 import java.sql.ResultSet;
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -49,8 +51,7 @@ public class selectCustomer extends javax.swing.JDialog {
         NICDisplay = new javax.swing.JTextArea();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         NameDisplay = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        list = new javax.swing.JList<String>();
+        list = new javax.swing.JTable();
         update = new javax.swing.JButton();
         cancel1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -103,19 +104,29 @@ public class selectCustomer extends javax.swing.JDialog {
         NameDisplay.setCaretColor(new java.awt.Color(164, 223, 252));
         jLayeredPane1.add(NameDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 140));
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 255)));
-
-        list.setBackground(new java.awt.Color(220, 255, 247));
-        list.setMaximumSize(new java.awt.Dimension(242, 58));
-        list.setPreferredSize(new java.awt.Dimension(242, 58));
+        JScrollPane sp = new JScrollPane(list);
+        sp.setBorder(BorderFactory.createEmptyBorder());
+        list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                ""
+            }
+        ));
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(list);
-
-        jLayeredPane1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 140));
+        jLayeredPane1.add(list, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 150));
 
         jPanel3.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 270, 140));
 
@@ -218,10 +229,10 @@ public class selectCustomer extends javax.swing.JDialog {
 
     private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
         // TODO add your handling code here:
-        NICDisplay.setText(list.getSelectedValue());
+        NICDisplay.setText(list.getValueAt(list.getSelectedRow(), 0).toString());
         NameDisplay.setText(customer.getName(NICDisplay.getText()));
-        NameDisplay.setVisible(true);
         list.setVisible(false);
+        NameDisplay.setVisible(true);
     }//GEN-LAST:event_listMouseClicked
 
     /**
@@ -269,9 +280,8 @@ public class selectCustomer extends javax.swing.JDialog {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JList<String> list;
+    private javax.swing.JTable list;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
