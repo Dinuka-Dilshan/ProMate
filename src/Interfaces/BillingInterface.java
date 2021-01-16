@@ -468,7 +468,7 @@ public class BillingInterface extends javax.swing.JFrame {
         timeText.setText("02:13:50 ");
 
         customerTxt.setForeground(new java.awt.Color(255, 255, 255));
-        customerTxt.setText("Dinuka Dilshan");
+        customerTxt.setText("Guest");
 
         javax.swing.GroupLayout billHeadingLayout = new javax.swing.GroupLayout(billHeading);
         billHeading.setLayout(billHeadingLayout);

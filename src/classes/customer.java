@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -34,13 +35,12 @@ public class customer {
             }
             list.setModel(newlist);
             
-            
         } catch (SQLException | NullPointerException e) {
             
         }
     }
     public static String getName(String name){
-        String output = "";
+        String output = "Guest";
         ResultSet rst;
          
          try {

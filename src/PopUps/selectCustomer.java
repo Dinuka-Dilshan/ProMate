@@ -50,7 +50,7 @@ public class selectCustomer extends javax.swing.JDialog {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         NameDisplay = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        list = new javax.swing.JList<>();
+        list = new javax.swing.JList<String>();
         update = new javax.swing.JButton();
         cancel1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -194,8 +194,12 @@ public class selectCustomer extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        cusID = NICDisplay.getText();
-        cusName = NameDisplay.getText();
+        cusName = customer.getName(NICDisplay.getText());
+        if ("Guest".equals(cusName)){
+            cusID = null;
+        }else{
+            cusID = NICDisplay.getText();
+        }
         this.dispose();
     }//GEN-LAST:event_updateActionPerformed
 
