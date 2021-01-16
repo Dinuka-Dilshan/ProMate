@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import Graphics.jPanelGradient;
 import PopUps.selectCustomer;
+import classes.Clock;
 import classes.Payment;
 import classes.Product;
 import classes.payment_details;
@@ -28,14 +29,16 @@ public class BillingInterface extends javax.swing.JFrame {
     private String UsrID;
     public BillingInterface() {
         initComponents();
-        setDateTime();
+        setDate();
         qtyInputLabel.setText("1");
         reciptNoText.setText(Integer.toString(Payment.getID()));
+        Clock.showTime(timeLabel,timeText);
     }
 
     public BillingInterface(String user,String usrID) {
         initComponents();
-        setDateTime();
+        setDate();
+        Clock.showTime(timeLabel,timeText);
         UsrID = usrID;
         jLabel4.setText(user);
         cashierNameText.setText(user);
@@ -843,12 +846,10 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         return Double.toString(total);
     }
-    private void setDateTime(){
+    private void setDate(){
         Date today = new Date();
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
         dateText.setText(date.format(today));
-        timeText.setText(time.format(today));
     }
     
 
@@ -974,7 +975,7 @@ public class BillingInterface extends javax.swing.JFrame {
         Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
         payment_details.Update_Payment_Details(saveOrder, ID);
         //print bill
-        PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
+        PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText()+" "+timeText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
         bill.setVisible(true);
         if (bill.getCompleted()){
             clear();
@@ -989,7 +990,7 @@ public class BillingInterface extends javax.swing.JFrame {
         if(alt.getAction()){
             //clearing table and updating the date time
             clear();
-            setDateTime();
+            setDate();
             
         }
         //Update date and time.
@@ -1031,7 +1032,7 @@ public class BillingInterface extends javax.swing.JFrame {
             HoldOrderPanel.setBackground(new Color(62,74,87));
             saveData();
             clear();
-            setDateTime();
+            setDate();
             
         }
         
@@ -1043,7 +1044,7 @@ public class BillingInterface extends javax.swing.JFrame {
             HoldOrderPanel.setBackground(new Color(99,110,114));
             clear();
             loadData();
-            setDateTime();
+            setDate();
             TotalText.setText(calTotal());
         }
     }//GEN-LAST:event_LoadOrderPanel1MouseClicked
