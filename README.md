@@ -2,6 +2,6 @@
 <b><i>Coding Is Life..!<i><b>
 </br>
 <hr>
-<p>
+<p style="color:red">
 PLEASE DOWNLOAD THE LATEST DATABASE AND PULL THE SOURCE CODE TO YOUR BRANCHES
   </p>
