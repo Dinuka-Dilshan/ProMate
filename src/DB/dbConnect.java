@@ -3,7 +3,7 @@ package DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import javax.swing.JOptionPane;
+
 
 public class dbConnect {
     
@@ -18,5 +18,5 @@ public class dbConnect {
         return con;
     }
     
-   
+    
 }
