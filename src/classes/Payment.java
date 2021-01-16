@@ -21,7 +21,7 @@ public class Payment{
     
     public static void DeductItems(DefaultTableModel model){
             for (int i=0; i < model.getRowCount(); i++){
-                    Product.UpdateQTY(model.getValueAt(i, 2).toString(),model.getValueAt(i, 1).toString());
+                    Product.UpdateQTY(model.getValueAt(i, 1).toString(),model.getValueAt(i, 2).toString());
             }
     
     }

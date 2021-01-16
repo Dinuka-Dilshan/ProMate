@@ -138,6 +138,7 @@ public class Product {
         try {
             Statement statement=con.createStatement();
             statement.executeUpdate("UPDATE product SET quantity = quantity-"+quantity+" WHERE Pro_Code = "+Pro_Code+";");
+            System.out.println("UPDATE product SET quantity = quantity-"+quantity+" WHERE Pro_Code = "+Pro_Code+";");
                
         } catch (Exception e) {
             e.printStackTrace();
