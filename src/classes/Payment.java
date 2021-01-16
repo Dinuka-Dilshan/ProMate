@@ -33,14 +33,20 @@ public class Payment{
         Statement statement;
         try{
             statement = con.createStatement();
+            if (CusID == null){
+               statement.executeUpdate("INSERT INTO payment VALUES("+ID+","+ CusID+",'"+date+"','"+time+"','"+amount+"','"+UserID+"',null);");
+             
+            }else{
             statement.executeUpdate("INSERT INTO payment VALUES("+ID+",'"+ CusID+"','"+date+"','"+time+"','"+amount+"','"+UserID+"',null);");
-            
+            }
         }catch(SQLException e){
+            e.printStackTrace();
             if ("Cannot add or update a child row: a foreign key constraint fails (`geelssuper`.`payment`, CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`Usr_NIC`) REFERENCES `user` (`Usr_NIC`))".equals(e.getMessage())){
                 new unknownError("Unknown Error!","Could not update the database.").setVisible(true);
             }
             else{
                 new dbError().setVisible(true);
+               
             }
         }
     }

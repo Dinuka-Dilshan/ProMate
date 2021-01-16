@@ -19,7 +19,7 @@ public class selectCustomer extends javax.swing.JDialog {
      * Creates new form selectCustomer
      */
     private String cusID;
-    private String cusName;
+    private String cusName = "Guest";
     public selectCustomer() {
         super((Window)null);
         setModal(true);

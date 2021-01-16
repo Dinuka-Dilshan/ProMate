@@ -24,7 +24,7 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
-    private String CusID;
+    private String CusID=null;
     private String UsrID;
     public BillingInterface() {
         initComponents();
@@ -896,7 +896,6 @@ public class BillingInterface extends javax.swing.JFrame {
         newCus.setVisible(true);
         customerTxt.setText(newCus.getCusName());
         CusID = newCus.getCusID();
-        System.out.println(newCus.getCusName());
     }//GEN-LAST:event_AddCusPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
