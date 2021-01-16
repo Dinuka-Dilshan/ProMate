@@ -29,7 +29,6 @@ public class PrintBill extends javax.swing.JDialog {
         super((Window)null);
         setModal(true);
         initComponents();
-        System.out.println(format("hello",20));
     }
 
     public PrintBill(String receiptNumber,String date, String cashierName, String customerName,String total, JTable table) {
@@ -125,7 +124,6 @@ public class PrintBill extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private String format(String str, int width){
-        System.out.println(str+(width-str.length()));
         
         String output="";
         for (int i=0; i<width-(str.length()); i++){
