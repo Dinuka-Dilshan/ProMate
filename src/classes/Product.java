@@ -118,19 +118,22 @@ public class Product {
     
     
     //update a product
-    public static void updateProduct(String Pro_Code, String name, String Quantity, String unit_price, String type,JTable myTable){
+    public static boolean updateProduct(String name,String quantity,String unit_price,String type ,JTable myTable){
         
         String data[]=getClickedTableContents(myTable);
         Connection con =dbConnect.getConnection();
+        boolean isDone=false;
         
         try {
             Statement st=con.createStatement();
-            st.execute("UPDATE product SET Pro_code='"+Pro_Code+"', Name='"+name+"',quantity="+Quantity+",unit_price="+unit_price+" ,type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
+            st.execute("UPDATE product SET name='"+name+"',quantity='"+quantity+"', unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
+            isDone=true;
             
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         
+        return isDone;
     }
     public static void UpdateQTY(String Pro_Code,String quantity){
         //deducts a given number of product related with the given pro_code
@@ -163,19 +166,21 @@ public class Product {
         return rst;
     }
     
-    public static void addProduct(String Pro_Code, String name, String Quantity, String unit_price, String type){
+    public static boolean addProduct(String Pro_Code, String name, String Quantity, String unit_price, String type){
         
+        boolean isDone=false;
         Connection con=dbConnect.getConnection();
         
         try {
             Statement st= con.createStatement();
             st.execute("INSERT INTO product(Pro_Code, name, quantity, unit_price, type) VALUES ('"+Pro_Code+"','"+name+"',"+Quantity+","+unit_price+",'"+type+"');");
-  
+            isDone=true;
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         
-        
+        return isDone;
     }
     
     
