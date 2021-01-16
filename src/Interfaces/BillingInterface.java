@@ -5,21 +5,16 @@
  */
 package Interfaces;
 import Alerts.*;
-import DB.dbConnect;
-import Alerts.ItemDetailsPopUp;
-import Errors.dbError;
+import PopUps.ItemDetailsPopUp;
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import Graphics.jPanelGradient;
+import PopUps.selectCustomer;
+import classes.Payment;
+import classes.Product;
+import classes.payment_details;
 /**
  *
  * @author Lasith
@@ -29,20 +24,23 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
+    private String CusID;
+    private String UsrID;
     public BillingInterface() {
         initComponents();
         setDateTime();
         qtyInputLabel.setText("1");
-        reciptNoText.setText(Integer.toString(IDFind()));
+        reciptNoText.setText(Integer.toString(Payment.getID()));
     }
 
-    public BillingInterface(String user) {
+    public BillingInterface(String user,String usrID) {
         initComponents();
         setDateTime();
+        UsrID = usrID;
         jLabel4.setText(user);
         cashierNameText.setText(user);
         qtyInputLabel.setText("1");
-        reciptNoText.setText(Integer.toString(IDFind()));
+        reciptNoText.setText(Integer.toString(Payment.getID()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,9 +104,9 @@ public class BillingInterface extends javax.swing.JFrame {
         insertPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        cancelPanel = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        AddCusPanel = new javax.swing.JPanel();
+        AddCusLabel = new javax.swing.JLabel();
+        AddCusIcon = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DisplayItems = new javax.swing.JTable();
         ItemDetailsAreaPanel = new jPanelGradient(41,50,60,72,85,99);
@@ -121,6 +119,7 @@ public class BillingInterface extends javax.swing.JFrame {
         ItemIDDisplay1 = new javax.swing.JTextField();
         printPanel = new javax.swing.JPanel();
         PrintBill = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -475,7 +474,6 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addGroup(billHeadingLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-
                         .addComponent(cashierNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,12 +493,13 @@ public class BillingInterface extends javax.swing.JFrame {
             billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(billHeadingLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lableReciptNo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(reciptNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(timeText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(timeText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lableReciptNo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(reciptNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(billHeadingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -519,9 +518,9 @@ public class BillingInterface extends javax.swing.JFrame {
 
         codeInput.setBackground(new java.awt.Color(204, 204, 204));
         codeInput.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        codeInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codeInputActionPerformed(evt);
+        codeInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeInputKeyPressed(evt);
             }
         });
 
@@ -539,6 +538,11 @@ public class BillingInterface extends javax.swing.JFrame {
         qtyInputLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 qtyInputLabelActionPerformed(evt);
+            }
+        });
+        qtyInputLabel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                qtyInputLabelKeyPressed(evt);
             }
         });
 
@@ -565,29 +569,29 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_more_details_32px.png"))); // NOI18N
         insertPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 42));
 
-        cancelPanel.setBackground(new java.awt.Color(255, 0, 0));
-        cancelPanel.setForeground(new java.awt.Color(204, 204, 204));
-        cancelPanel.setPreferredSize(new java.awt.Dimension(107, 42));
-        cancelPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        AddCusPanel.setBackground(new java.awt.Color(0, 51, 204));
+        AddCusPanel.setForeground(new java.awt.Color(204, 204, 204));
+        AddCusPanel.setPreferredSize(new java.awt.Dimension(107, 42));
+        AddCusPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelPanelMouseClicked(evt);
+                AddCusPanelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cancelPanelMouseEntered(evt);
+                AddCusPanelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                cancelPanelMouseExited(evt);
+                AddCusPanelMouseExited(evt);
             }
         });
-        cancelPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        AddCusPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("CANCEL");
-        cancelPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, 40));
+        AddCusLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        AddCusLabel.setForeground(new java.awt.Color(255, 255, 255));
+        AddCusLabel.setText("Customer");
+        AddCusPanel.add(AddCusLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, 40));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_close_window_32px.png"))); // NOI18N
-        cancelPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        AddCusIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_add_user_male_32px.png"))); // NOI18N
+        AddCusPanel.add(AddCusIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 40));
 
         javax.swing.GroupLayout BillPanelLayout = new javax.swing.GroupLayout(BillPanel);
         BillPanel.setLayout(BillPanelLayout);
@@ -605,7 +609,7 @@ public class BillingInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(insertPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cancelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(AddCusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         BillPanelLayout.setVerticalGroup(
@@ -616,7 +620,7 @@ public class BillingInterface extends javax.swing.JFrame {
                     .addGroup(BillPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cancelPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AddCusPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(scanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(codeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -722,6 +726,7 @@ public class BillingInterface extends javax.swing.JFrame {
                         .addGap(33, 33, 33))))
         );
 
+        printPanel.setBackground(new java.awt.Color(102, 102, 102));
         printPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 printPanelMouseClicked(evt);
@@ -730,18 +735,28 @@ public class BillingInterface extends javax.swing.JFrame {
 
         PrintBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_print_32px.png"))); // NOI18N
 
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("PRINT");
+
         javax.swing.GroupLayout printPanelLayout = new javax.swing.GroupLayout(printPanel);
         printPanel.setLayout(printPanelLayout);
         printPanelLayout.setHorizontalGroup(
             printPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(printPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addComponent(PrintBill)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         printPanelLayout.setVerticalGroup(
             printPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PrintBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(PrintBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(printPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -827,7 +842,8 @@ public class BillingInterface extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
+
     private String[][] hold;
     private boolean state = false;
     private void saveData(){
@@ -848,6 +864,7 @@ public class BillingInterface extends javax.swing.JFrame {
         state = false;
     }
     private  void clear(){
+        ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
         ItemIDDisplay1.setText("");
         ItemNameDisplay.setText("");
         ItemTypeDisplay.setText("");
@@ -869,90 +886,29 @@ public class BillingInterface extends javax.swing.JFrame {
         dateText.setText(date.format(today));
         timeText.setText(time.format(today));
     }
-    private boolean isExist(String code,int qty, JTable table){
-        boolean exist = false;
-        DefaultTableModel tb = (DefaultTableModel)table.getModel();
-        for (int i=0; i<tb.getRowCount(); i++){
-            if (code.equals(tb.getValueAt(i, 1))){
-                tb.setValueAt(Integer.valueOf(tb.getValueAt(i, 2).toString())+qty, i, 2);
-                tb.setValueAt(Integer.valueOf(tb.getValueAt(i, 2).toString())*(Double.valueOf(tb.getValueAt(i, 3).toString())), i, 4);
-                exist = true;
-                return exist;
-            }
-        }
-        return exist;
-    }
-    private int IDFind(){
-        int payID = 0;
-        try{
-            ResultSet rt =(dbConnect.getConnection().createStatement()).executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
-            rt.next();
-            //getting the maxID from the payment table
-            try{
-                 payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
-            }catch(NumberFormatException e){
-                payID = 1;
-            }
-
-        }catch(SQLException e){
-        }
-        return payID;
-    }
-    private void MouseEffect(JLabel object, int i){
-        object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
-        object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
-    }
-    private void MouseEffect(JPanel object, int i){
-        object.setLocation((object.getLocation().x), (object.getLocation().y)+i);
-        object.setSize(object.getWidth()+(i*5), object.getHeight()+(i*5));
-    }
+    
 
     private void insertPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseClicked
         //TAKE THE CODE
         //TAKE THE QUANTITY
         //log details in the table
         //SET FOCUS TO CODE AGAIN
-        DefaultTableModel itemLog = (DefaultTableModel)DisplayItems.getModel();
-        Connection con =dbConnect.getConnection();
         String code= codeInput.getText();
-        int quantity = Integer.valueOf(qtyInputLabel.getText());
         try {
-            if(codeInput.getText().isEmpty()){
-                throw new Exception();
-            }
-            Statement st = con.createStatement();
-            ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
-            result.next();
-            String tbData[] = new String[5];
-            if (!isExist(code, quantity, DisplayItems)){
-                tbData[0] = result.getString("name");
-                tbData[1] = codeInput.getText();
-                tbData[2] = Integer.toString(quantity);
-                tbData[3] = result.getString("unit_price");;
-                tbData[4] = Double.toString(Double.valueOf(tbData[3])*quantity);
-                //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
-                itemLog.addRow(tbData);
-            }
+            int quantity = Integer.valueOf(qtyInputLabel.getText());
+            Product.setProductDetails(code,DisplayItems,quantity,ItemTypeDisplay,ItemNameDisplay);
             TotalText.setText(calTotal());
             ItemIDDisplay1.setText(code);
-            ItemNameDisplay.setText(result.getString("name"));
-            ItemTypeDisplay.setText(result.getString("type"));
             codeInput.setText("");
             qtyInputLabel.setText("1");
 
-        }catch(SQLException e){
-                new dbError().setVisible(true);
-        }catch(Exception e){
-                new dbError("Code Not Found","Please insert a code to continue").setVisible(true);
+        }catch(NumberFormatException e){
+            new InputError("Quantity Field","Please insert valid quantity to proceed").setVisible(true);
         }
         
         //calculating the total
 
     }//GEN-LAST:event_insertPanelMouseClicked
-
-    private void codeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeInputActionPerformed
-
-    }//GEN-LAST:event_codeInputActionPerformed
 
     private void qtyInputLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyInputLabelActionPerformed
 
@@ -970,45 +926,42 @@ public class BillingInterface extends javax.swing.JFrame {
         qtyInputLabel.setText("");
     }//GEN-LAST:event_qtyInputLabelMousePressed
 
-    private void cancelPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseClicked
-       OnCloseAlert alt = new OnCloseAlert();
-       alt.setVisible(true);
-        if(alt.getAction()){
-            //clearing table and updating the date time
-            setDateTime();
-            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
-            clear();
-        }
-    }//GEN-LAST:event_cancelPanelMouseClicked
+    private void AddCusPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddCusPanelMouseClicked
+        //allows to select a customer
+        selectCustomer newCus = new selectCustomer();
+        newCus.setVisible(true);
+        customerTxt.setText(newCus.getCusName());
+        CusID = newCus.getCusID();
+        System.out.println(newCus.getCusName());
+    }//GEN-LAST:event_AddCusPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
-
         NewOrder.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_NewOrderMouseEntered
 
     private void NewOrderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseExited
-
         NewOrder.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_NewOrderMouseExited
 
     private void CustomerPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerPanelMouseEntered
-
         CustomerPanel.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_CustomerPanelMouseEntered
 
     private void CustomerPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerPanelMouseExited
-
         CustomerPanel.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_CustomerPanelMouseExited
 
     private void HoldOrderPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseEntered
-
         HoldOrderPanel.setBackground(new Color(62,74,87));
     }//GEN-LAST:event_HoldOrderPanelMouseEntered
 
     private void HoldOrderPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseExited
-
-        HoldOrderPanel.setBackground(new Color(99,110,114));
+        if(state){
+            HoldOrderPanel.setBackground(new Color(62,74,87));
+        }
+        else{
+            HoldOrderPanel.setBackground(new Color(99,110,114));
+        }
     }//GEN-LAST:event_HoldOrderPanelMouseExited
 
     private void LogoutPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutPanelMouseEntered
@@ -1026,15 +979,15 @@ public class BillingInterface extends javax.swing.JFrame {
         LogoutPanel.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_LogoutPanelMouseExited
 
-    private void cancelPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseEntered
+    private void AddCusPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddCusPanelMouseEntered
         // TODO add your handling code here:
-        cancelPanel.setBackground(new Color(200,0,0));
-    }//GEN-LAST:event_cancelPanelMouseEntered
+        AddCusPanel.setBackground(new Color(0,153,204));
+    }//GEN-LAST:event_AddCusPanelMouseEntered
 
-    private void cancelPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelPanelMouseExited
+    private void AddCusPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddCusPanelMouseExited
         // TODO add your handling code here:
-        cancelPanel.setBackground(new Color(255,0,0));
-    }//GEN-LAST:event_cancelPanelMouseExited
+        AddCusPanel.setBackground(new Color(0,51,204));
+    }//GEN-LAST:event_AddCusPanelMouseExited
 
     private void insertPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertPanelMouseEntered
         // TODO add your handling code here:
@@ -1049,37 +1002,20 @@ public class BillingInterface extends javax.swing.JFrame {
     private void printPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPanelMouseClicked
         // TODO add your handling code here:
         DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
-        try{
-            Connection con = dbConnect.getConnection();
-            Statement st = con.createStatement();
-            String query;
-            //reduce quantites from the product table to maintain the inventory
-            for (int i=0; i < saveOrder.getRowCount(); i++){
-                    query = "UPDATE product SET quantity = quantity-"+saveOrder.getValueAt(i, 2)+" WHERE Pro_Code = "+saveOrder.getValueAt(i, 1)+";";
-                    st.executeUpdate(query);
-            } 
-            int ID = IDFind();
-            //allows to create an auto increment value.
-            //the same id is used to save details in the payment details table.
-            //filling the payment details table 
-            query = "INSERT INTO payment VALUES("+Integer.toString(ID) +",'546561565V','"+dateText.getText()+"','"+timeText.getText()+"','"+TotalText.getText()+"',"+"'984120220v'"+",null);";
-            System.out.println(query);
-            st.executeUpdate(query);
-            for (int i=0; i < saveOrder.getRowCount(); i++){
-                    query = "INSERT INTO payment_details VALUES("+saveOrder.getValueAt(i, 2)+","+Integer.toString(ID)+",'"+saveOrder.getValueAt(i, 1)+"')";
-                    st.executeUpdate(query);
-            } 
-        }catch (SQLException e){
-            new dbError().setVisible(true);
-        }
-        
+        //reduce quantites from the product table to maintain the inventory
+        Payment.DeductItems(saveOrder);
+        int ID = Payment.getID();
+        //allows to create an auto increment value.
+        //the same id is used to save details in the payment details table.
+        //filling the payment details table 
+        Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
+        payment_details.Update_Payment_Details(saveOrder, ID);
         //print bill
         PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
         bill.setVisible(true);
         if (bill.getCompleted()){
             clear();
-            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
-            reciptNoText.setText(Integer.toString(IDFind()));
+            reciptNoText.setText(Integer.toString(ID));
         }
     }//GEN-LAST:event_printPanelMouseClicked
 
@@ -1089,9 +1025,9 @@ public class BillingInterface extends javax.swing.JFrame {
         alt.setVisible(true);
         if(alt.getAction()){
             //clearing table and updating the date time
-            setDateTime();
-            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
             clear();
+            setDateTime();
+            
         }
         //Update date and time.
         
@@ -1129,10 +1065,11 @@ public class BillingInterface extends javax.swing.JFrame {
     private void HoldOrderPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoldOrderPanelMouseClicked
         // TODO add your handling code here:
         if(!state){
+            HoldOrderPanel.setBackground(new Color(62,74,87));
             saveData();
-            ((DefaultTableModel) DisplayItems.getModel()).setRowCount(0);
-            setDateTime();
             clear();
+            setDateTime();
+            
         }
         
     }//GEN-LAST:event_HoldOrderPanelMouseClicked
@@ -1140,10 +1077,10 @@ public class BillingInterface extends javax.swing.JFrame {
     private void LoadOrderPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadOrderPanel1MouseClicked
         // TODO add your handling code here
         if(state){
-            ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+            HoldOrderPanel.setBackground(new Color(99,110,114));
+            clear();
             loadData();
             setDateTime();
-            clear();
             TotalText.setText(calTotal());
         }
     }//GEN-LAST:event_LoadOrderPanel1MouseClicked
@@ -1157,6 +1094,42 @@ public class BillingInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         LoadOrderPanel1.setBackground(new Color(99,110,114));
     }//GEN-LAST:event_LoadOrderPanel1MouseExited
+
+    private void codeInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeInputKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == evt.VK_ENTER){
+            String code= codeInput.getText();
+        try {
+            int quantity = Integer.valueOf(qtyInputLabel.getText());
+            Product.setProductDetails(code,DisplayItems,quantity,ItemTypeDisplay,ItemNameDisplay);
+            TotalText.setText(calTotal());
+            ItemIDDisplay1.setText(code);
+            codeInput.setText("");
+            qtyInputLabel.setText("1");
+
+        }catch(NumberFormatException e){
+            new InputError("Quantity Field","Please insert valid quantity to proceed").setVisible(true);
+        }
+        }
+    }//GEN-LAST:event_codeInputKeyPressed
+
+    private void qtyInputLabelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyInputLabelKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == evt.VK_ENTER){
+            String code= codeInput.getText();
+        try {
+            int quantity = Integer.valueOf(qtyInputLabel.getText());
+            Product.setProductDetails(code,DisplayItems,quantity,ItemTypeDisplay,ItemNameDisplay);
+            TotalText.setText(calTotal());
+            ItemIDDisplay1.setText(code);
+            codeInput.setText("");
+            qtyInputLabel.setText("1");
+
+        }catch(NumberFormatException e){
+            new InputError("Quantity Field","Please insert valid quantity to proceed").setVisible(true);
+        }
+        }
+    }//GEN-LAST:event_qtyInputLabelKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1195,6 +1168,9 @@ public class BillingInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AddCusIcon;
+    private javax.swing.JLabel AddCusLabel;
+    private javax.swing.JPanel AddCusPanel;
     private javax.swing.JPanel BillPanel;
     private javax.swing.JPanel CustomerPanel;
     private javax.swing.JTable DisplayItems;
@@ -1214,7 +1190,6 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel PrintBill;
     private javax.swing.JLabel TotalText;
     private javax.swing.JPanel billHeading;
-    private javax.swing.JPanel cancelPanel;
     private javax.swing.JLabel cashierNameText;
     private javax.swing.JTextField codeInput;
     private javax.swing.JLabel customerLabel;
@@ -1227,7 +1202,6 @@ public class BillingInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
