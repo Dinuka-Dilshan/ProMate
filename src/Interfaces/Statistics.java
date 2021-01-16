@@ -323,6 +323,11 @@ public class Statistics extends javax.swing.JFrame {
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_home_40px.png"))); // NOI18N
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_select_user_80px.png"))); // NOI18N
@@ -776,6 +781,12 @@ public class Statistics extends javax.swing.JFrame {
         y=evt.getY();
         
     }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new MainMenu().setVisible(true);
+    }//GEN-LAST:event_jLabel14MouseClicked
 
     /**
      * @param args the command line arguments

@@ -2,12 +2,16 @@
 package classes;
 
 
+import Alerts.InputError;
 import DB.dbConnect;
+import Errors.dbError;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -51,6 +55,52 @@ public class Product {
         
     }
     
+    private static boolean isExist(String code,int qty, JTable table){
+        //finds whether a given code is exist in a given table. if exists it updates the quantity and return true to notify the existence of data 
+        boolean exist = false;
+        DefaultTableModel tb = (DefaultTableModel)table.getModel();
+        for (int i=0; i<tb.getRowCount(); i++){
+            if (code.equals(tb.getValueAt(i, 1))){
+                tb.setValueAt(Integer.valueOf(tb.getValueAt(i, 2).toString())+qty, i, 2);
+                tb.setValueAt(Integer.valueOf(tb.getValueAt(i, 2).toString())*(Double.valueOf(tb.getValueAt(i, 3).toString())), i, 4);
+                exist = true;
+                return exist;
+            }
+        }
+        return exist;
+    }
+    //returns a resultset which contains a required row by passing the product code
+    public static void setProductDetails(String code, JTable table, int quantity,JTextField ItemTypeDisplay, JTextArea ItemNameDisplay){
+        Connection con=dbConnect.getConnection();
+        ResultSet result;
+        try {
+           Statement st= con.createStatement();
+           result= st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
+           result.next();
+           String tbData[] = new String[5];
+            if (!isExist(code, quantity, table)){
+                tbData[0] = result.getString("name");
+                tbData[1] = result.getString("Pro_Code");
+                tbData[2] = Integer.toString(quantity);
+                tbData[3] = result.getString("unit_price");;
+                tbData[4] = Double.toString(Double.valueOf(tbData[3])*quantity);
+                //tbData[4] = Double.toString(Integer.valueOf(tbData[2])*quantity-(Integer.valueOf(tbData[2])*quantity*(discount/100.0)));
+                ((DefaultTableModel)table.getModel()).addRow(tbData);
+                ItemNameDisplay.setText(result.getString("name"));
+                ItemTypeDisplay.setText(result.getString("type"));
+            }
+           
+        } catch (SQLException e) {
+            if ("Illegal operation on empty result set.".equals(e.getMessage())){
+                    new InputError("Code Not Found","Please insert valid code to proceed").setVisible(true);
+                }
+                else{
+                    new dbError().setVisible(true);
+                }
+        }
+        
+    }
+    
     //delete a product from the product table 
     public static  void deleteProduct(String Pro_Code){
         
@@ -77,6 +127,18 @@ public class Product {
             Statement st=con.createStatement();
             st.execute("UPDATE product SET Pro_code='"+Pro_Code+"', Name='"+name+"',quantity="+Quantity+",unit_price="+unit_price+" ,type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
             
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public static void UpdateQTY(String Pro_Code,String quantity){
+        //deducts a given number of product related with the given pro_code
+        Connection con =dbConnect.getConnection();
+        try {
+            Statement statement=con.createStatement();
+            statement.executeUpdate("UPDATE product SET quantity = quantity-"+quantity+" WHERE Pro_Code = "+Pro_Code+";");
+               
         } catch (Exception e) {
             e.printStackTrace();
         }

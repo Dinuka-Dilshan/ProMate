@@ -276,7 +276,7 @@ public class Login extends javax.swing.JFrame {
         boolean pwCorrect=false;
         String inputPw=new String(pw.getPassword());
         String usern=userName.getText();    
-        String query = "SELECT userName,Type FROM user WHERE Password = '"+inputPw+"'  AND userName='"+usern+"';";
+        String query = "SELECT userName,Type,Usr_NIC FROM user WHERE Password = '"+inputPw+"'  AND userName='"+usern+"';";
         
         try {
             Connection con= dbConnect.getConnection();
@@ -288,7 +288,7 @@ public class Login extends javax.swing.JFrame {
                     new MainMenu(usern,rt.getString("Type")).setVisible(true);
                 }
                 else if(rt.getString("Type").equals("User")){
-                    new BillingInterface(usern).setVisible(true);
+                    new BillingInterface(usern,rt.getString("Usr_NIC")).setVisible(true);
                 } 
                 this.dispose();
                 con.close();
