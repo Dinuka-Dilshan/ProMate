@@ -1,7 +1,7 @@
-# <h1 style="color:red">ProMate</h1>  
+# <p style="color:red"> <h1 >ProMate</h1></p>  
 <b><i>Coding Is Life..!<i><b>
 </br>
 <hr>
-<p><button type="button">Click Me!</button>
+<p>
 PLEASE DOWNLOAD THE LATEST DATABASE AND PULL THE SOURCE CODE TO YOUR BRANCHES
   </p>
