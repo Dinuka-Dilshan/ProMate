@@ -23,12 +23,12 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
  */
 public class Satistic {
     
-    private String finalquery = "";
     private int days;
-    
+    private String sql2=null;
+    private String sql3=null;
+    private String sql4=null;
     public  JDBCCategoryDataset creategraph(String todate, String fromdate) throws SQLException{
-       
-        JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection()," ");
+
         try{
             
             //SELECT DATEDIFF('2020-12-16','2020-12-09') AS DiffDays (counting dates on sql
@@ -41,49 +41,38 @@ public class Satistic {
             
             rs.next();
             
-            String sql2=null;
-            String sql3=null;
-            String sql4=null;
+            
             
             days=rs.getInt("days");
-            
             if(days >=0 ){
                 
                 sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "';";
                 sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "';";
                 sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "';";
-                finalquery = sql3 + sql4;
+                
             }
             else if(days <0 ){
                 sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + todate + "' AND '" + fromdate+ "';";
                 sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "';";
                 sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "';";
-                finalquery = sql3 + sql4;
-            }
-            else{
                 
-                finalquery = "";
             }
-            
-            dataset = new JDBCCategoryDataset(dbConnect.getConnection(),sql2);
-            conn.close();
-            
-            
         }
-        catch(Exception e){
+        catch(SQLException e){
             //e.printStackTrace();
         //    JOptionPane.showMessageDialog(rootPane, "Date range shoube be withing maximum 31 days");
             
         }
         
-       return dataset;
+       return (new JDBCCategoryDataset(dbConnect.getConnection(),sql2));
    }
     
-    public String getfinalquery(){
-        
-        return finalquery;
+    public String getCusQuery(){
+        return sql3;
     }
-    
+    public String getTotQuery(){
+        return sql4;
+    }
     public int getContDays(){
         
         return days;

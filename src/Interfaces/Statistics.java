@@ -670,7 +670,7 @@ public class Statistics extends javax.swing.JFrame {
             
             //getting the date from the system
             Satistic data = new Satistic();
-            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",data.creategraph(fromdate,todate), PlotOrientation.VERTICAL,true,false,true);
+            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",data.creategraph(fromdate,todate), PlotOrientation.HORIZONTAL,true,false,true);
             //getting the line chart plot
             CategoryPlot linechrt = linechart.getCategoryPlot(); 
             linechrt.setRangeGridlinePaint(Color.BLACK);
@@ -687,16 +687,16 @@ public class Statistics extends javax.swing.JFrame {
             
             //counting the number of customers
 
-            Customerlabel.setText(customer.countCutomers(data.getfinalquery()));
+            Customerlabel.setText(customer.countCutomers(data.getCusQuery()));
  
             //Caculating the totall income
     
-            TotalIncomelabel.setText(String.valueOf(customer.toatllIncome(data.getfinalquery())));
+            TotalIncomelabel.setText(String.valueOf(customer.toatllIncome(data.getTotQuery())));
             
             //Calculating daily income
             int days = Math.abs(data.getContDays())+ 1; // this is necessary to get right number of days on the given range 
            
-            double totalincome = customer.toatllIncome(data.getfinalquery());
+            double totalincome = customer.toatllIncome(data.getTotQuery());
             double dailyincome = totalincome/days; 
 
             DecimalFormat df = new DecimalFormat("0.00");
@@ -708,7 +708,6 @@ public class Statistics extends javax.swing.JFrame {
             
         }
         catch(SQLException e){
-            //e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Date range shoube be withing maximum 31 days");
             
         }
