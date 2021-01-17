@@ -61,18 +61,20 @@ public class Suppliers {
     
     
     //update a supplier
-    public static void updateSupplier(String Sup_Id, String name, String phone,JTable myTable){
+    public static boolean updateSupplier( String name, String phone,JTable myTable){
         
+        boolean isDone=false;
         String data[]=getClickedTableContents(myTable);
         try {
             Connection con =dbConnect.getConnection();
             Statement st=con.createStatement();
-            st.execute("UPDATE supplier SET Sup_Id='"+Sup_Id+"', Name='"+name+"',phone_num="+phone+" WHERE Sup_Id='"+data[0]+"';");
-            
+            st.execute("UPDATE supplier SET Name='"+name+"',phone_num="+phone+" WHERE Sup_Id='"+data[0]+"';");
+            isDone=true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         
+        return isDone;
     }
     
     //search a supplier
@@ -93,20 +95,22 @@ public class Suppliers {
         return rst;
     }
     
-    public static void addSupplier(String Sup_Id, String name, String phone){
+    public static boolean addSupplier(String Sup_Id, String name, String phone){
         
-       
+
+        boolean isDone=false;
         
         try {
              Connection con=dbConnect.getConnection();
             Statement st= con.createStatement();
             st.execute("INSERT INTO supplier(Sup_Id, Name, phone_num) VALUES ('"+Sup_Id+"','"+name+"',"+phone+");");
+            isDone=true;
   
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         
-        
+        return isDone;
     }
     
     
