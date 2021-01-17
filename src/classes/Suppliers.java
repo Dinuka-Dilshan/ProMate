@@ -33,11 +33,9 @@ public class Suppliers {
     
     //get all the raws of the supplier table from the data base
     public static ResultSet getSupplierDetails(){
-        
-        Connection con=dbConnect.getConnection();
         ResultSet rst=null;
-        
         try {
+           Connection con=dbConnect.getConnection();
            Statement st= con.createStatement();
            rst= st.executeQuery("SELECT * FROM supplier;");
            
@@ -45,19 +43,13 @@ public class Suppliers {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
         return  rst;
-        
-        
     }
     
     //delete a supplier from the supplier table 
     public static  void deleteSupplier(String supplierId){
-        
-        Connection con=dbConnect.getConnection();
-        
         try {
+           Connection con=dbConnect.getConnection();
            Statement st=con.createStatement();
            st.execute("DELETE FROM supplier WHERE Sup_Id='"+supplierId+"';");
            
@@ -73,9 +65,8 @@ public class Suppliers {
         
         boolean isDone=false;
         String data[]=getClickedTableContents(myTable);
-        Connection con =dbConnect.getConnection();
-        
         try {
+            Connection con =dbConnect.getConnection();
             Statement st=con.createStatement();
             st.execute("UPDATE supplier SET Name='"+name+"',phone_num="+phone+" WHERE Sup_Id='"+data[0]+"';");
             isDone=true;
@@ -91,8 +82,9 @@ public class Suppliers {
         
         name="%"+name+"%";
         ResultSet rst=null;
-         Connection con= dbConnect.getConnection();
+         
          try {
+             Connection con= dbConnect.getConnection();
             Statement st=con.createStatement();
             rst=st.executeQuery("SELECT * FROM supplier WHERE Name LIKE '"+name+"' OR Sup_Id LIKE '"+name+"' OR phone_num LIKE '"+name+"';");
         } catch (Exception e) {
@@ -105,10 +97,11 @@ public class Suppliers {
     
     public static boolean addSupplier(String Sup_Id, String name, String phone){
         
+
         boolean isDone=false;
-        Connection con=dbConnect.getConnection();
         
         try {
+             Connection con=dbConnect.getConnection();
             Statement st= con.createStatement();
             st.execute("INSERT INTO supplier(Sup_Id, Name, phone_num) VALUES ('"+Sup_Id+"','"+name+"',"+phone+");");
             isDone=true;

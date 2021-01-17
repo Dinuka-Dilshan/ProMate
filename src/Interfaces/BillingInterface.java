@@ -5,6 +5,8 @@
  */
 package Interfaces;
 import Alerts.*;
+import Errors.dbError;
+import Errors.dbErrorNonExitOnClose;
 import PopUps.ItemDetailsPopUp;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -12,9 +14,11 @@ import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import Graphics.jPanelGradient;
 import PopUps.selectCustomer;
+import classes.Clock;
 import classes.Payment;
 import classes.Product;
 import classes.payment_details;
+import java.sql.SQLException;
 /**
  *
  * @author Lasith
@@ -24,23 +28,39 @@ public class BillingInterface extends javax.swing.JFrame {
     /**
      * Creates new form Billing
      */
-    private String CusID;
+    private String CusID=null;
     private String UsrID;
     public BillingInterface() {
         initComponents();
-        setDateTime();
+        try{
+            reciptNoText.setText(Integer.toString(Payment.getID()));
+            if (reciptNoText.getText().equals("0")){
+                throw new SQLException();
+            }
+        }catch(SQLException e){
+            new dbError().setVisible(true);
+        }
+        setDate();
         qtyInputLabel.setText("1");
-        reciptNoText.setText(Integer.toString(Payment.getID()));
+        Clock.showTime(timeLabel,timeText);
     }
 
     public BillingInterface(String user,String usrID) {
         initComponents();
-        setDateTime();
+        setDate();
+        Clock.showTime(timeLabel,timeText);
         UsrID = usrID;
         jLabel4.setText(user);
         cashierNameText.setText(user);
         qtyInputLabel.setText("1");
-        reciptNoText.setText(Integer.toString(Payment.getID()));
+        try{
+            reciptNoText.setText(Integer.toString(Payment.getID()));
+            if (reciptNoText.getText().equals("0")){
+                throw new SQLException();
+            }
+        }catch(SQLException e){
+            new dbError().setVisible(true);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -468,7 +488,7 @@ public class BillingInterface extends javax.swing.JFrame {
         timeText.setText("02:13:50 ");
 
         customerTxt.setForeground(new java.awt.Color(255, 255, 255));
-        customerTxt.setText("Dinuka Dilshan");
+        customerTxt.setText("Guest");
 
         javax.swing.GroupLayout billHeadingLayout = new javax.swing.GroupLayout(billHeading);
         billHeading.setLayout(billHeadingLayout);
@@ -843,12 +863,10 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         return Double.toString(total);
     }
-    private void setDateTime(){
+    private void setDate(){
         Date today = new Date();
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");  
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss"); 
         dateText.setText(date.format(today));
-        timeText.setText(time.format(today));
     }
     
 
@@ -896,7 +914,6 @@ public class BillingInterface extends javax.swing.JFrame {
         newCus.setVisible(true);
         customerTxt.setText(newCus.getCusName());
         CusID = newCus.getCusID();
-        System.out.println(newCus.getCusName());
     }//GEN-LAST:event_AddCusPanelMouseClicked
 
     private void NewOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseEntered
@@ -967,20 +984,26 @@ public class BillingInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         //reduce quantites from the product table to maintain the inventory
-        Payment.DeductItems(saveOrder);
-        int ID = Payment.getID();
-        //allows to create an auto increment value.
-        //the same id is used to save details in the payment details table.
-        //filling the payment details table 
-        Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
-        payment_details.Update_Payment_Details(saveOrder, ID);
-        //print bill
-        PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
-        bill.setVisible(true);
-        if (bill.getCompleted()){
-            clear();
-            reciptNoText.setText(Integer.toString(ID));
+        try{
+            Payment.DeductItems(saveOrder);
+            int ID = Payment.getID();
+            //allows to create an auto increment value.
+            //the same id is used to save details in the payment details table.
+            //filling the payment details table 
+            Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
+            payment_details.Update_Payment_Details(saveOrder, ID);
+            //print bill
+            PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText()+" "+timeText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
+            bill.setVisible(true);
+            if (bill.getCompleted()){
+                clear();
+                reciptNoText.setText(Integer.toString(ID));
+            }
+        }catch(SQLException e){
+            //e.printStackTrace();
+           new dbErrorNonExitOnClose().setVisible(true);
         }
+        
     }//GEN-LAST:event_printPanelMouseClicked
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked
@@ -990,7 +1013,7 @@ public class BillingInterface extends javax.swing.JFrame {
         if(alt.getAction()){
             //clearing table and updating the date time
             clear();
-            setDateTime();
+            setDate();
             
         }
         //Update date and time.
@@ -1032,7 +1055,7 @@ public class BillingInterface extends javax.swing.JFrame {
             HoldOrderPanel.setBackground(new Color(62,74,87));
             saveData();
             clear();
-            setDateTime();
+            setDate();
             
         }
         
@@ -1044,7 +1067,7 @@ public class BillingInterface extends javax.swing.JFrame {
             HoldOrderPanel.setBackground(new Color(99,110,114));
             clear();
             loadData();
-            setDateTime();
+            setDate();
             TotalText.setText(calTotal());
         }
     }//GEN-LAST:event_LoadOrderPanel1MouseClicked
