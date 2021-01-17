@@ -996,7 +996,7 @@ public class MainMenu extends javax.swing.JFrame {
    private void tableset(){
        DefaultTableModel userTable = (DefaultTableModel)InventoryDetailsTable.getModel();
        userTable.setRowCount(0);
-   String query = "SELECT * FROM  product";
+       String query = "SELECT * FROM  product";
         String tbdata[] = new String[5];
          try {
             Connection con= dbConnect.getConnection();

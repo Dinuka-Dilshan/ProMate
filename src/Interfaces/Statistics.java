@@ -6,7 +6,6 @@
 package Interfaces;
 
 import Graphics.jPanelGradient;
-import DB.dbConnect;
 import Errors.dbError;
 import Graphics.Graphs;
 import classes.Payment;
@@ -14,13 +13,11 @@ import classes.StatisticsData;
 import classes.customer;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.sql.*;
 import org.jfree.chart.*;
 //to show charts
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.jdbc.JDBCCategoryDataset;
 import java.sql.SQLException;
 //to convert dates formats
 import java.text.SimpleDateFormat;
@@ -28,13 +25,9 @@ import javax.swing.JOptionPane;
 //to round double
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.Date;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
-import org.jfree.data.general.DefaultPieDataset;
-//236,233,230,255,255,255
 
 /**
  *
