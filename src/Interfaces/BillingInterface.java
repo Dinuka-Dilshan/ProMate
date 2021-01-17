@@ -1015,6 +1015,7 @@ public class BillingInterface extends javax.swing.JFrame {
             bill.setVisible(true);
             if (bill.getCompleted()){
                 clear();
+                customerTxt.setText("Guest");
                 reciptNoText.setText(Integer.toString(ID));
             }
         }catch(SQLException e){
