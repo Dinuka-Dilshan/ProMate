@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 
 /**
@@ -51,5 +52,37 @@ public class Payment{
             }catch(NullPointerException e){
         }
         return payID;
+    }
+    
+    public static String NumOfCustomers(String date) throws  SQLException{
+        Connection con = dbConnect.getConnection();
+        Statement stmt3 = con.createStatement();
+        ResultSet rt = stmt3.executeQuery("SELECT COUNT(Pay_ID) AS COUNT FROM payment WHERE Pay_Date ='"+date+"';");
+        rt.next();
+        String total = String.valueOf(rt.getInt("COUNT"));
+        return total;
+        
+    }
+    public static String TotalIncome() throws  SQLException{
+        Connection con = dbConnect.getConnection();
+        Statement stmt3 = con.createStatement();
+        ResultSet rt = stmt3.executeQuery("SELECT SUM(Amount) AS amount FROM payment;");
+        rt.next();
+        String total = String.valueOf(rt.getInt("amount"));
+        return total;
+        
+    }
+    public static String DailyIncome(String today) throws  SQLException{
+        Connection con = dbConnect.getConnection();
+        Statement stmt3 = con.createStatement();
+        ResultSet rt = stmt3.executeQuery("SELECT SUM(Amount) AS amount FROM payment WHERE Pay_Date ='"+today+"';");
+        rt.next();
+        String total = String.valueOf(rt.getInt("amount"));
+        return total;
+        
+    }
+    
+    public static JDBCCategoryDataset MonthlyDataset(String date)throws SQLException{
+        return (new JDBCCategoryDataset(dbConnect.getConnection(),"SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" +date+"-%' GROUP BY DAY (Pay_Date);"));
     }
 }
