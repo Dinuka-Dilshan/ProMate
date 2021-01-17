@@ -26,9 +26,9 @@ public class Supply {
         
         ResultSet rst=null;
         
-        try(
+        try{
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();){
+            Statement st= con.createStatement();
             rst=st.executeQuery("SELECT * FROM supply");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -43,9 +43,9 @@ public class Supply {
         
         ResultSet rst=null;
         
-        try(
+        try{
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();){
+            Statement st= con.createStatement();
             rst=st.executeQuery("SELECT Sup_Id FROM supplier");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -61,9 +61,9 @@ public class Supply {
         
         ResultSet rst=null;
         
-        try (
+        try {
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();){
+            Statement st= con.createStatement();
             rst=st.executeQuery("SELECT Pro_Code FROM product");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -109,9 +109,9 @@ public class Supply {
         keyWord="%"+keyWord+"%";
         ResultSet rst=null;
          
-         try (
+         try {
             Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();){
+            Statement st=con.createStatement();
             rst=st.executeQuery("SELECT * FROM supply WHERE S_id LIKE '"+keyWord+"' OR  Date LIKE '"+keyWord+"' OR quantity LIKE '"+keyWord+"' OR Sup_Id LIKE '"+keyWord+"' OR Pro_Code LIKE '"+keyWord+"';");
         } catch (Exception e) {
             //e.printStackTrace();

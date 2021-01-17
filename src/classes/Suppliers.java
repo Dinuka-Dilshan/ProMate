@@ -34,9 +34,9 @@ public class Suppliers {
     //get all the raws of the supplier table from the data base
     public static ResultSet getSupplierDetails(){
         ResultSet rst=null;
-        try (
+        try {
            Connection con=dbConnect.getConnection();
-           Statement st= con.createStatement();){
+           Statement st= con.createStatement();
            rst= st.executeQuery("SELECT * FROM supplier;");
            
            

@@ -44,7 +44,7 @@ public class Payment{
             try(Connection con = dbConnect.getConnection();
             //getting the maxID from the payment table
                 Statement st = con.createStatement();){
-                try(ResultSet rt =st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");){
+                ResultSet rt =st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
                     rt.next();
                     payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
                 }catch(NumberFormatException e){
@@ -52,17 +52,16 @@ public class Payment{
                 }catch(NullPointerException e){
         }
         return payID;
-        }
+        
     }
     
     public static String NumOfCustomers(String date) throws  SQLException{
         String total;
         try(Connection con = dbConnect.getConnection();
         Statement stmt3 = con.createStatement();){
-            try(ResultSet rt = stmt3.executeQuery("SELECT COUNT(Pay_ID) AS COUNT FROM payment WHERE Pay_Date ='"+date+"';");){
+            ResultSet rt = stmt3.executeQuery("SELECT COUNT(Pay_ID) AS COUNT FROM payment WHERE Pay_Date ='"+date+"';");
                 rt.next();
                 total = String.valueOf(rt.getInt("COUNT"));
-            }
             return total;
         }
         
@@ -71,10 +70,9 @@ public class Payment{
         String total;
         try(Connection con = dbConnect.getConnection();
             Statement stmt3 = con.createStatement();){
-            try(ResultSet rt = stmt3.executeQuery("SELECT SUM(Amount) AS amount FROM payment;");){
+            ResultSet rt = stmt3.executeQuery("SELECT SUM(Amount) AS amount FROM payment;");
                 rt.next();
                 total = String.valueOf(rt.getInt("amount"));
-            }
             return total;
         }
         
@@ -83,10 +81,9 @@ public class Payment{
         String total;
         try (Connection con = dbConnect.getConnection(); 
             Statement stmt3 = con.createStatement();){
-            try(ResultSet rt = stmt3.executeQuery("SELECT SUM(Amount) AS amount FROM payment WHERE Pay_Date ='"+today+"';");){
+            ResultSet rt = stmt3.executeQuery("SELECT SUM(Amount) AS amount FROM payment WHERE Pay_Date ='"+today+"';");
                 rt.next();
                 total = String.valueOf(rt.getInt("amount"));
-            }
                 return total;
         
         }
@@ -94,7 +91,7 @@ public class Payment{
     public static ResultSet PieChartData(LocalDate date)throws SQLException{
         ResultSet rt;
         Connection con = dbConnect.getConnection();
-           Statement st = con.createStatement();
+        Statement st = con.createStatement();
                    rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
                    return rt;
     }
