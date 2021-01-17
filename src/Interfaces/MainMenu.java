@@ -6,6 +6,7 @@ import Alerts.InputError;
 import Alerts.logoutAlert;
 import DB.dbConnect;
 import Errors.dbError;
+import Errors.dbErrorNonExitOnClose;
 import classes.Product;
 import classes.Suppliers;
 import java.awt.Color;
@@ -975,7 +976,6 @@ public class MainMenu extends javax.swing.JFrame {
            }
            
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     private void changecolor(JPanel panel, Color c ){
@@ -1013,7 +1013,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
          }
          catch (Exception e){
-                new dbError().setVisible(true);
+                new dbErrorNonExitOnClose().setVisible(true);
          
          }
    }
@@ -1078,7 +1078,6 @@ public class MainMenu extends javax.swing.JFrame {
            }
            
         } catch (Exception e) {
-            e.printStackTrace();
         }
         
         //heyyyy
@@ -1133,6 +1132,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void InventoryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventoryMouseExited
         // TODO add your handling code here:
         changecolor(inventoryPanel,Color.lightGray);
+        Inventory.setForeground(Color.BLACK);
         
     }//GEN-LAST:event_InventoryMouseExited
 
@@ -1145,6 +1145,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void SuppliersButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuppliersButtonMouseExited
         // TODO add your handling code here:
         changecolor(supplierPanel,Color.lightGray);
+        SuppliersButton.setForeground(Color.BLACK);
     }//GEN-LAST:event_SuppliersButtonMouseExited
 
     private void StaticsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StaticsMouseEntered
@@ -1157,6 +1158,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void StaticsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StaticsMouseExited
         // TODO add your handling code here:
         changecolor(statPanel,Color.lightGray);
+        Statics.setForeground(Color.BLACK);
     }//GEN-LAST:event_StaticsMouseExited
 
     private void PromotionsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PromotionsMouseEntered
@@ -1168,6 +1170,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void PromotionsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PromotionsMouseExited
         // TODO add your handling code here:
         changecolor(promotionPanle,Color.lightGray);
+        Promotions.setForeground(Color.BLACK);
     }//GEN-LAST:event_PromotionsMouseExited
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -1336,13 +1339,15 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void UpdatePopUpCallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePopUpCallerActionPerformed
         int selectedRaw=InventoryDetailsTable.getSelectedRow();
-        DefaultTableModel model= (DefaultTableModel)InventoryDetailsTable.getModel();
-        String Data[]={model.getValueAt(selectedRaw, 0).toString()};
-        if(selectedRaw!=(-1)){
-            new UpdateProduct(Data,InventoryDetailsTable).setVisible(true);
-        }else{
+        
+          if(selectedRaw==-1){
             Toolkit.getDefaultToolkit().beep();
             new InputError("Oops..!","Please select a product").setVisible(true);
+            
+        }else{
+            DefaultTableModel model= (DefaultTableModel)InventoryDetailsTable.getModel();
+            String Data[]={model.getValueAt(selectedRaw, 0).toString()};
+            new UpdateProduct(Data,InventoryDetailsTable).setVisible(true);
         }
         
         Product.insertDataToTable(InventoryDetailsTable, Product.getProductDetails());
