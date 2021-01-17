@@ -51,6 +51,7 @@ public class Statistics extends javax.swing.JFrame {
         try{
         defaultScreen();
         }catch(SQLException e){
+            e.printStackTrace();
             new dbError().setVisible(true);
         }
         //this.pack();

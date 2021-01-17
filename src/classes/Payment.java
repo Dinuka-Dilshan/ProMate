@@ -92,12 +92,11 @@ public class Payment{
         }
     }
     public static ResultSet PieChartData(LocalDate date)throws SQLException{
-        try(Connection con = dbConnect.getConnection();
-           Statement st = con.createStatement();){
-              try(ResultSet rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");){
+        ResultSet rt;
+        Connection con = dbConnect.getConnection();
+           Statement st = con.createStatement();
+                   rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
                    return rt;
-               }
-        }
     }
     public static JDBCCategoryDataset MonthlyDataset(String date)throws SQLException{
         return (new JDBCCategoryDataset(dbConnect.getConnection(),"SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" +date+"-%' GROUP BY DAY (Pay_Date);"));

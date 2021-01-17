@@ -5,11 +5,8 @@
  */
 package Alerts;
 import javax.swing.*;
-import Errors.*;
 import Interfaces.Login;
-import Interfaces.MainMenu;
 import java.awt.Color;
-import java.awt.Container;
 import javax.swing.JPanel;
 
 /**
