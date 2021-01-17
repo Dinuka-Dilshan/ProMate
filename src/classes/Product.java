@@ -94,19 +94,19 @@ public class Product {
     
     //update a product
 
-    public static boolean updateProduct(String name, String Quantity, String unit_price, String type,JTable myTable) {
+    public static boolean updateProduct(String name, String Quantity, String unit_price, String type,String data[]) {
         
-        String data[]=getClickedTableContents(myTable);
+       
         boolean isDone=false;
         try (
             Connection con =dbConnect.getConnection();
-            Statement st=con.createStatement();){
-            st.execute("UPDATE product SET name='"+name+"',quantity='"+Quantity+"', unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
+            Statement st=con.createStatement();
+            st.execute("UPDATE product SET name='"+name+"',quantity="+Quantity+", unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
             isDone=true;
             
         } catch (SQLException e) {
-            new dbError().setVisible(true);
-
+            
+            e.printStackTrace();
         }
         
         return isDone;
