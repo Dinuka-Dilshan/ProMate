@@ -28,6 +28,7 @@ import PopUps.UpdateUserPopup;
 import classes.Supply;
 import classes.User;
 import java.awt.Toolkit;
+import javax.swing.JTable;
 
 public class MainMenu extends javax.swing.JFrame {
 
@@ -81,7 +82,7 @@ public class MainMenu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         showInventory = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        InventoryTable = new javax.swing.JTable();
+        InventoryDetailsTable = new javax.swing.JTable();
         ProductSearchField = new javax.swing.JTextField();
         UpdatePopUpCaller = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -481,7 +482,7 @@ public class MainMenu extends javax.swing.JFrame {
         showInventory.setVisible(false);
         showInventory.setBackground(new java.awt.Color(62, 74, 87));
 
-        InventoryTable.setModel(new javax.swing.table.DefaultTableModel(
+        InventoryDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -514,19 +515,24 @@ public class MainMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        InventoryTable.setShowHorizontalLines(false);
-        InventoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        InventoryDetailsTable.setRowSelectionAllowed(true);
+        InventoryDetailsTable.setShowHorizontalLines(false);
+        InventoryDetailsTable.getTableHeader().setReorderingAllowed(false);
+        InventoryDetailsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                InventoryTableMouseClicked(evt);
+                InventoryDetailsTableMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                InventoryDetailsTableMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(InventoryTable);
-        if (InventoryTable.getColumnModel().getColumnCount() > 0) {
-            InventoryTable.getColumnModel().getColumn(0).setResizable(false);
-            InventoryTable.getColumnModel().getColumn(1).setResizable(false);
-            InventoryTable.getColumnModel().getColumn(2).setResizable(false);
-            InventoryTable.getColumnModel().getColumn(3).setResizable(false);
-            InventoryTable.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane1.setViewportView(InventoryDetailsTable);
+        if (InventoryDetailsTable.getColumnModel().getColumnCount() > 0) {
+            InventoryDetailsTable.getColumnModel().getColumn(0).setResizable(false);
+            InventoryDetailsTable.getColumnModel().getColumn(1).setResizable(false);
+            InventoryDetailsTable.getColumnModel().getColumn(2).setResizable(false);
+            InventoryDetailsTable.getColumnModel().getColumn(3).setResizable(false);
+            InventoryDetailsTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
         ProductSearchField.addActionListener(new java.awt.event.ActionListener() {
@@ -840,7 +846,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         addButton2.setBackground(new java.awt.Color(102, 102, 102));
         addButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        addButton2.setText("Update Exixting Supply");
+        addButton2.setText("Update Existing Supply");
         addButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButton2ActionPerformed(evt);
@@ -988,7 +994,7 @@ public class MainMenu extends javax.swing.JFrame {
     
     //added
    private void tableset(){
-       DefaultTableModel userTable = (DefaultTableModel)InventoryTable.getModel();
+       DefaultTableModel userTable = (DefaultTableModel)InventoryDetailsTable.getModel();
        userTable.setRowCount(0);
    String query = "SELECT * FROM  product";
         String tbdata[] = new String[5];
@@ -1182,7 +1188,7 @@ public class MainMenu extends javax.swing.JFrame {
         }else{
             new InputError("Oops..!", "Please select a Raw").setVisible(true);
         }
-        
+        User.insertDataToTable(userDetailsTable, User.getUserDetails());
         
         
     }//GEN-LAST:event_updateButtonActionPerformed
@@ -1324,25 +1330,22 @@ public class MainMenu extends javax.swing.JFrame {
        Suppliers.insertDataToTable(supplierTable, Suppliers.searchSupplier(supplierSearchTxtField.getText()));
     }//GEN-LAST:event_supplierSearchButtonActionPerformed
 
-    private void InventoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventoryTableMouseClicked
-        /*String data[]=Product.getClickedTableContents(InventoryTable);
-        txtProductCode.setText(data[0]);
-        txtProductName.setText(data[1]);
-        txtProductQuantity.setText(data[2]);
-        txtProductUnitPrice.setText(data[3]);
-        txtProductType.setText(data[4]);*/
-    }//GEN-LAST:event_InventoryTableMouseClicked
+    private void InventoryDetailsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventoryDetailsTableMouseClicked
+     
+    }//GEN-LAST:event_InventoryDetailsTableMouseClicked
 
     private void UpdatePopUpCallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePopUpCallerActionPerformed
-        int selectedRaw=InventoryTable.getSelectedRow();
-        if(selectedRaw!=-1){
-            new UpdateProduct(InventoryTable).setVisible(true);
+        int selectedRaw=InventoryDetailsTable.getSelectedRow();
+        DefaultTableModel model= (DefaultTableModel)InventoryDetailsTable.getModel();
+        String Data[]={model.getValueAt(selectedRaw, 0).toString()};
+        if(selectedRaw!=(-1)){
+            new UpdateProduct(Data,InventoryDetailsTable).setVisible(true);
         }else{
             Toolkit.getDefaultToolkit().beep();
             new InputError("Oops..!","Please select a product").setVisible(true);
         }
         
-        Product.insertDataToTable(InventoryTable, Product.getProductDetails());
+        Product.insertDataToTable(InventoryDetailsTable, Product.getProductDetails());
     }//GEN-LAST:event_UpdatePopUpCallerActionPerformed
 
     private void ProductSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductSearchFieldActionPerformed
@@ -1350,15 +1353,15 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductSearchFieldActionPerformed
 
     private void ProductSearchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ProductSearchFieldKeyTyped
-       Product.insertDataToTable(InventoryTable, Product.searchProduct(ProductSearchField.getText()));
+       Product.insertDataToTable(InventoryDetailsTable, Product.searchProduct(ProductSearchField.getText()));
     }//GEN-LAST:event_ProductSearchFieldKeyTyped
 
     private void ProductSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ProductSearchFieldKeyPressed
-        Product.insertDataToTable(InventoryTable, Product.searchProduct(ProductSearchField.getText()));
+        Product.insertDataToTable(InventoryDetailsTable, Product.searchProduct(ProductSearchField.getText()));
     }//GEN-LAST:event_ProductSearchFieldKeyPressed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        Product.insertDataToTable(InventoryTable, Product.searchProduct(ProductSearchField.getText()));
+        Product.insertDataToTable(InventoryDetailsTable, Product.searchProduct(ProductSearchField.getText()));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void homeLabelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeLabelButtonMouseEntered
@@ -1377,7 +1380,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_StaticsMouseClicked
 
     private void addPopUpCallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPopUpCallButtonActionPerformed
-        new AddProductPopUp(InventoryTable).setVisible(true);
+        new AddProductPopUp(InventoryDetailsTable).setVisible(true);
     }//GEN-LAST:event_addPopUpCallButtonActionPerformed
 
     private void SupplySearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupplySearchActionPerformed
@@ -1423,6 +1426,10 @@ public class MainMenu extends javax.swing.JFrame {
         showInventory.setVisible(true);
         
     }//GEN-LAST:event_addButton3ActionPerformed
+
+    private void InventoryDetailsTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventoryDetailsTableMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InventoryDetailsTableMouseReleased
 
     
     
@@ -1479,7 +1486,7 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Home;
     private javax.swing.JLabel Inventory;
-    private javax.swing.JTable InventoryTable;
+    private javax.swing.JTable InventoryDetailsTable;
     private javax.swing.JPanel NewSupply;
     private javax.swing.JTextField ProductSearchField;
     private javax.swing.JLabel Promotions;

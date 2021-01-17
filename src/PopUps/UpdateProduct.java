@@ -17,13 +17,15 @@ import javax.swing.JTable;
  */
 public class UpdateProduct extends javax.swing.JFrame {
 
+    String Data[];
     JTable table;
     public UpdateProduct() {
         initComponents();
     }
 
-    public UpdateProduct(JTable table) {
+    public UpdateProduct(String Data[],JTable table) {
         initComponents();
+        this.Data=Data;
         this.table=table;
         txtName.setText(Product.getClickedTableContents(table)[1]);
         txtQuantity.setText(Product.getClickedTableContents(table)[2]);
@@ -42,7 +44,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         txtProductUnitPrice = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        UpdateButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -68,13 +70,13 @@ public class UpdateProduct extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 255, 0));
-        jButton3.setText("Update");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        UpdateButton.setBackground(new java.awt.Color(51, 51, 51));
+        UpdateButton.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        UpdateButton.setForeground(new java.awt.Color(0, 255, 0));
+        UpdateButton.setText("Update");
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                UpdateButtonActionPerformed(evt);
             }
         });
 
@@ -131,12 +133,6 @@ public class UpdateProduct extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,6 +149,12 @@ public class UpdateProduct extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtType))
                         .addGap(46, 46, 46))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,11 +175,11 @@ public class UpdateProduct extends javax.swing.JFrame {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,9 +201,9 @@ public class UpdateProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProductUnitPriceActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         boolean isDone= false;
-        isDone=Product.updateProduct( txtName.getText(),txtQuantity.getText(),txtProductUnitPrice.getText(),txtType.getText(), table);
+        isDone=Product.updateProduct( txtName.getText(),txtQuantity.getText(),txtProductUnitPrice.getText(),txtType.getText(),Data);
         if(isDone){
           new Done().setVisible(true);
           this.dispose();
@@ -212,7 +214,7 @@ public class UpdateProduct extends javax.swing.JFrame {
             
         }
         Product.insertDataToTable(table, Product.getProductDetails());
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.dispose();
@@ -267,7 +269,7 @@ public class UpdateProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton UpdateButton;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
