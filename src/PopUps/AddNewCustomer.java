@@ -243,7 +243,7 @@ public class AddNewCustomer extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        if (!(cusNIC.getText().equals(""))){
+        if (!((cusNIC.getText().equals(""))||(cusName.getText().equals(""))||(cusTPNO.getText().equals("")))){
             customer.NewCutomer(cusNIC.getText(),cusName.getText(),cusTPNO.getText(),addressNO.getText(),addressStreet.getText(),addressCity.getText());
         }else{
             new InputError("Input Error","NIC Field can't be empty").setVisible(true);
