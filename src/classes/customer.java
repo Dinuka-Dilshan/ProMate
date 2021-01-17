@@ -90,15 +90,15 @@ public class customer {
         return count;
     }
     
-    public static int toatllIncome(String finalquery){
+    public static double toatllIncome(String finalquery){
         
-        int total=0;
+        double total=0;
         try(
             Connection con= dbConnect.getConnection();
             Statement stmt2=con.createStatement();
             ResultSet rs2 = stmt2.executeQuery(finalquery);){
             rs2.next();
-            total = rs2.getInt("total");
+            total = rs2.getDouble("total");
             con.close();
         }
         catch(Exception e){
