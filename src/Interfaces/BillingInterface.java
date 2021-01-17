@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import Graphics.jPanelGradient;
+import PopUps.ShowCustomers;
 import PopUps.selectCustomer;
 import classes.Clock;
 import classes.Payment;
@@ -195,6 +196,9 @@ public class BillingInterface extends javax.swing.JFrame {
 
         CustomerPanel.setBackground(new java.awt.Color(99, 110, 114));
         CustomerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CustomerPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 CustomerPanelMouseEntered(evt);
             }
@@ -1117,6 +1121,11 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_qtyInputLabelKeyPressed
+
+    private void CustomerPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerPanelMouseClicked
+        // TODO add your handling code here:
+        new ShowCustomers().setVisible(true);
+    }//GEN-LAST:event_CustomerPanelMouseClicked
 
     /**
      * @param args the command line arguments
