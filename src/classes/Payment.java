@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
@@ -81,8 +82,17 @@ public class Payment{
         return total;
         
     }
-    
+    public static ResultSet PieChartData(LocalDate date)throws SQLException{
+     Connection con = dbConnect.getConnection();
+     Statement st = con.createStatement();
+        ResultSet rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
+    return rt;
+    }
     public static JDBCCategoryDataset MonthlyDataset(String date)throws SQLException{
         return (new JDBCCategoryDataset(dbConnect.getConnection(),"SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" +date+"-%' GROUP BY DAY (Pay_Date);"));
     }
+    public static JDBCCategoryDataset YearlyDataset(String date)throws SQLException{
+        return (new JDBCCategoryDataset(dbConnect.getConnection(),"SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" +date+"-%' GROUP BY DAY (Pay_Date);"));
+    }
+    
 }

@@ -10,7 +10,7 @@ import DB.dbConnect;
 import Errors.dbError;
 import Graphics.Graphs;
 import classes.Payment;
-import classes.Satistic;
+import classes.StatisticsData;
 import classes.customer;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -564,16 +564,7 @@ public class Statistics extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1366, 768));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    private void populate(DefaultPieDataset pieDataset,LocalDate date, String key) throws  SQLException{
-        Statement st = dbConnect.getConnection().createStatement();
-        ResultSet rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
-        rt.next();
-        if(rt.getString("Amount")!=null){
-            pieDataset.setValue(key, Double.valueOf(rt.getString("Amount")));
-        }
-    }
-    
-    
+
     private void defaultScreen() throws SQLException{
         Date today = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -601,7 +592,7 @@ public class Statistics extends javax.swing.JFrame {
             //SELECT DATEDIFF('2020-12-16','2020-12-09') AS DiffDays (counting dates on sql
             
             //getting the date from the system
-            Satistic data = new Satistic();
+            StatisticsData data = new StatisticsData();
             JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",data.creategraph(fromdate,todate), PlotOrientation.HORIZONTAL,true,false,true);
             //getting the line chart plot
             CategoryPlot linechrt = linechart.getCategoryPlot(); 

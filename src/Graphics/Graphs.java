@@ -33,8 +33,7 @@ public class Graphs {
     
     
     private static void populate(DefaultPieDataset pieDataset,LocalDate date, String key) throws  SQLException{
-        Statement st = dbConnect.getConnection().createStatement();
-        ResultSet rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
+        ResultSet rt = Payment.PieChartData(date);
         rt.next();
         if(rt.getString("Amount")!=null){
             pieDataset.setValue(key, Double.valueOf(rt.getString("Amount")));
@@ -60,16 +59,14 @@ public class Graphs {
             monday = monday.plusDays(1);
         }
         JFreeChart pieChart = ChartFactory.createPieChart("Weekly Sales", pieDataset);
-
-
-        String monthlySql = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" + formatter.format(today) +"-%' GROUP BY DAY (Pay_Date)";
+        
+        JDBCCategoryDataset Monthlydataset = Payment.MonthlyDataset( formatter.format(today));
+        
         formatter = new SimpleDateFormat("yyyy");
-        String yearlySql = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" + formatter.format(today) +"-%' GROUP BY MONTH (Pay_Date)";
-
         //creating the sql connection to create dataset
         //JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection(),monthlySql);
-        JDBCCategoryDataset Monthlydataset = Payment.MonthlyDataset( formatter.format(today));
-        JDBCCategoryDataset YearlyDataset = new JDBCCategoryDataset(dbConnect.getConnection(),yearlySql);
+        
+        JDBCCategoryDataset YearlyDataset = Payment.YearlyDataset( formatter.format(today) );
         //creating a line chart 
         //JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Today","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
         JFreeChart monthlyChart = ChartFactory.createBarChart("Daily Sales", "Date", "Sales", Monthlydataset,PlotOrientation.VERTICAL,true,false,true);

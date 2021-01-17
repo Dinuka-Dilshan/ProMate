@@ -21,7 +21,7 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
  *
  * @author Gunasekara
  */
-public class Satistic {
+public class StatisticsData {
     
     private int days;
     private String sql2=null;
