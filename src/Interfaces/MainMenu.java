@@ -1339,13 +1339,15 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void UpdatePopUpCallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePopUpCallerActionPerformed
         int selectedRaw=InventoryDetailsTable.getSelectedRow();
-        DefaultTableModel model= (DefaultTableModel)InventoryDetailsTable.getModel();
-        String Data[]={model.getValueAt(selectedRaw, 0).toString()};
-        if(selectedRaw!=(-1)){
-            new UpdateProduct(Data,InventoryDetailsTable).setVisible(true);
-        }else{
+        
+          if(selectedRaw==-1){
             Toolkit.getDefaultToolkit().beep();
             new InputError("Oops..!","Please select a product").setVisible(true);
+            
+        }else{
+            DefaultTableModel model= (DefaultTableModel)InventoryDetailsTable.getModel();
+            String Data[]={model.getValueAt(selectedRaw, 0).toString()};
+            new UpdateProduct(Data,InventoryDetailsTable).setVisible(true);
         }
         
         Product.insertDataToTable(InventoryDetailsTable, Product.getProductDetails());
