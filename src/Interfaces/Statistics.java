@@ -7,6 +7,11 @@ package Interfaces;
 
 import Graphics.jPanelGradient;
 import DB.dbConnect;
+import Errors.dbError;
+import Graphics.Graphs;
+import classes.Payment;
+import classes.StatisticsData;
+import classes.customer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.*;
@@ -46,6 +51,7 @@ public class Statistics extends javax.swing.JFrame {
         try{
         defaultScreen();
         }catch(SQLException e){
+            new dbError().setVisible(true);
         }
         //this.pack();
         
@@ -323,6 +329,11 @@ public class Statistics extends javax.swing.JFrame {
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_home_40px.png"))); // NOI18N
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_select_user_80px.png"))); // NOI18N
@@ -553,95 +564,16 @@ public class Statistics extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1366, 768));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    private void populate(DefaultPieDataset pieDataset,LocalDate date, String key) throws  SQLException{
-        Statement st = dbConnect.getConnection().createStatement();
-        ResultSet rt = st.executeQuery("SELECT Pay_Date, SUM(Amount) as Amount FROM payment WHERE pay_date ='"+date+"'");
-        rt.next();
-        if(rt.getString("Amount")!=null){
-            pieDataset.setValue(key, Double.valueOf(rt.getString("Amount")));
-        }
-    }
-    
-    private String calTotal(String sql,String key) throws SQLException{
-        Statement stmt3 = dbConnect.getConnection().createStatement();
-        ResultSet rt = stmt3.executeQuery(sql);
-        rt.next();
-        String total = String.valueOf(rt.getInt(key));
-        return total;
-    }
-    
+
     private void defaultScreen() throws SQLException{
         Date today = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
         //set number of customers, daily income , total income
-        Customerlabel.setText(calTotal("SELECT COUNT(Pay_ID) AS COUNT FROM payment WHERE Pay_Date ='"+formatter.format(today)+"'", "COUNT"));
-        
-        TotalIncomelabel.setText(calTotal("SELECT SUM(Amount) AS amount FROM payment", "amount"));
-        
-        Dailyincomelabel.setText(calTotal("SELECT SUM(Amount) AS amount FROM payment WHERE Pay_Date ='"+formatter.format(today)+"'", "amount"));
-        
-        formatter = new SimpleDateFormat("yyyy-MM"); 
-        LocalDate currentDate = LocalDate.now();
-        LocalDate monday = currentDate;
-        String days[] = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-
-        while (monday.getDayOfWeek() != DayOfWeek.MONDAY) {
-          monday = monday.minusDays(1);
-        }
-        DefaultPieDataset pieDataset = new DefaultPieDataset();
-        for (int i=0; i<7; i++){
-            populate(pieDataset, monday, days[i]);
-            System.out.println(monday);
-            monday = monday.plusDays(1);
-        }
-        JFreeChart pieChart = ChartFactory.createPieChart("Weekly Sales", pieDataset);
-
-
-        String monthlySql = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" + formatter.format(today) +"-%' GROUP BY DAY (Pay_Date)";
-        formatter = new SimpleDateFormat("yyyy");
-        String yearlySql = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment WHERE Pay_Date LIKE '" + formatter.format(today) +"-%' GROUP BY MONTH (Pay_Date)";
-
-        //creating the sql connection to create dataset
-        //JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection(),monthlySql);
-        JDBCCategoryDataset Monthlydataset = new JDBCCategoryDataset(dbConnect.getConnection(),monthlySql);
-        JDBCCategoryDataset YearlyDataset = new JDBCCategoryDataset(dbConnect.getConnection(),yearlySql);
-        //creating a line chart 
-        //JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Today","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
-        JFreeChart monthlyChart = ChartFactory.createBarChart("Daily Sales", "Date", "Sales", Monthlydataset,PlotOrientation.VERTICAL,true,false,true);
-        JFreeChart yearlyChart = ChartFactory.createBarChart("Monthly Sales", "Month", "Sales", YearlyDataset,PlotOrientation.VERTICAL,true,false,true);
-
-
-        //getting the line chart plot
-        //CategoryPlot linechrt = linechart.getCategoryPlot();
-        CategoryPlot monthlyChrt = monthlyChart.getCategoryPlot();
-        CategoryPlot yearlyChrt = yearlyChart.getCategoryPlot();
-
-
-        BarRenderer renderM = (BarRenderer) monthlyChrt.getRenderer();
-        renderM.setMaximumBarWidth(0.1);
-        renderM.setDrawBarOutline(false);
-        renderM.setSeriesPaint(0, Color.green);
-        renderM.setBarPainter(new StandardBarPainter());
-
-        BarRenderer renderY = (BarRenderer) yearlyChrt.getRenderer();
-        renderY.setSeriesPaint(0, Color.green);
-        renderY.setBarPainter(new StandardBarPainter());
-        renderY.setMaximumBarWidth(0.06);
-        renderY.setDrawBarOutline(false);
-
-        ChartPanel linePanel2 = new ChartPanel(monthlyChart);
-        ChartPanel linePanel3 = new ChartPanel(yearlyChart);
-        ChartPanel linePanel = new ChartPanel(pieChart);
-        //removing the previous panel
-        daily.removeAll();
-        monthly.removeAll();
-        Yearly.removeAll();
-        //adding a new line chart to the panel
-        //daily.add(linePanel,BorderLayout.CENTER);
-        daily.add(linePanel,BorderLayout.CENTER);
-        monthly.add(linePanel2,BorderLayout.CENTER);
-        Yearly.add(linePanel3,BorderLayout.CENTER);
+        Customerlabel.setText(Payment.NumOfCustomers(formatter.format(today)));
+        TotalIncomelabel.setText(Payment.TotalIncome());
+        Dailyincomelabel.setText(Payment.DailyIncome(formatter.format(today)));
         //display the contains
+        Graphs.Plot(daily, monthly, Yearly);
         daily.validate();
         monthly.validate();
         Yearly.validate();
@@ -658,38 +590,12 @@ public class Statistics extends javax.swing.JFrame {
             String todate = date.format(Dateto.getDate());
             
             //SELECT DATEDIFF('2020-12-16','2020-12-09') AS DiffDays (counting dates on sql
-            Connection conn = dbConnect.getConnection();
-            String sql = "SELECT DATEDIFF('" + todate + "','" + fromdate + "') AS days";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
             
-            rs.next();
-            
-            String sql2;
-            String sql3;
-            String sql4;
-            
-            if(rs.getInt("days")>=0 ){
-                
-                sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "'";
-                sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "'";
-                sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "'";
-            }
-            else if(rs.getInt("days")<0 ){
-                sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + todate + "' AND '" + fromdate+ "'";
-                sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "'";
-                sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "'";
-            }
-            else{
-                sql2 = "";
-                sql3 = "";
-                sql4 = "";
-            }
             //getting the date from the system
-            JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection(),sql2);
-            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
+            StatisticsData data = new StatisticsData();
+            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",data.creategraph(fromdate,todate), PlotOrientation.HORIZONTAL,true,false,true);
             //getting the line chart plot
-            CategoryPlot linechrt = linechart.getCategoryPlot();
+            CategoryPlot linechrt = linechart.getCategoryPlot(); 
             linechrt.setRangeGridlinePaint(Color.BLACK);
              //adding a new line chart to the panel
             BarRenderer render = (BarRenderer) linechrt.getRenderer();
@@ -701,28 +607,19 @@ public class Statistics extends javax.swing.JFrame {
             ChartPanel linePanel = new ChartPanel(linechart);
             SelectedDays.add(linePanel,BorderLayout.CENTER);
             SelectedDays.validate();
+            
             //counting the number of customers
-            Statement stmt2 = conn.createStatement();
-            ResultSet rs2 = stmt2.executeQuery(sql3);
-            
-            rs2.next();
-            String count = String.valueOf(rs2.getInt("count"));
-            
-            Customerlabel.setText(count);
+
+            Customerlabel.setText(customer.countCutomers(data.getCusQuery()));
  
             //Caculating the totall income
-            Statement stmt3 = conn.createStatement();
-            ResultSet rs3 = stmt3.executeQuery(sql4);
-            
-            rs3.next();
-            String total = String.valueOf(rs3.getInt("total"));
-            
-            TotalIncomelabel.setText(total);
+    
+            TotalIncomelabel.setText(String.valueOf(customer.toatllIncome(data.getTotQuery())));
             
             //Calculating daily income
-            int days = Math.abs(rs.getInt("days"))+ 1; // this is necessary to get right number of days on the given range 
+            int days = Math.abs(data.getContDays())+ 1; // this is necessary to get right number of days on the given range 
            
-            double totalincome = rs3.getInt("total");
+            double totalincome = customer.toatllIncome(data.getTotQuery());
             double dailyincome = totalincome/days; 
 
             DecimalFormat df = new DecimalFormat("0.00");
@@ -731,10 +628,9 @@ public class Statistics extends javax.swing.JFrame {
             String Dincome = String.valueOf(df.format(dailyincome));
             Dailyincomelabel.setText(Dincome);
             
-            conn.close();
+            
         }
         catch(SQLException e){
-            //e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Date range shoube be withing maximum 31 days");
             
         }
@@ -746,12 +642,11 @@ public class Statistics extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //Datefrom.removeAll();
-        //Dateto.setName("");
         try{
             defaultScreen();
         }
-        catch(SQLException e){
+        catch(SQLException|NullPointerException e){
+            new dbError().setVisible(true);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -776,6 +671,12 @@ public class Statistics extends javax.swing.JFrame {
         y=evt.getY();
         
     }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new MainMenu().setVisible(true);
+    }//GEN-LAST:event_jLabel14MouseClicked
 
     /**
      * @param args the command line arguments

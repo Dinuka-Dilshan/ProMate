@@ -40,6 +40,7 @@ public class jPanelGradient extends JPanel{
     //41,50,60,72,85,99       - 
    
    
+    @Override
     public void paintComponent(Graphics g){
        
         Graphics2D g2d = (Graphics2D) g;
