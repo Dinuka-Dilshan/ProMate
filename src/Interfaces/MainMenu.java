@@ -1342,6 +1342,7 @@ public class MainMenu extends javax.swing.JFrame {
             new InputError("Oops..!","Please select a product").setVisible(true);
         }
         
+        Product.insertDataToTable(InventoryTable, Product.getProductDetails());
     }//GEN-LAST:event_UpdatePopUpCallerActionPerformed
 
     private void ProductSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductSearchFieldActionPerformed
