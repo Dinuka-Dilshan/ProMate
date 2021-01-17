@@ -26,9 +26,9 @@ public class Supply {
         
         ResultSet rst=null;
         
-        try {
+        try(
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             rst=st.executeQuery("SELECT * FROM supply");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -43,9 +43,9 @@ public class Supply {
         
         ResultSet rst=null;
         
-        try {
+        try(
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             rst=st.executeQuery("SELECT Sup_Id FROM supplier");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -61,9 +61,9 @@ public class Supply {
         
         ResultSet rst=null;
         
-        try {
+        try (
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             rst=st.executeQuery("SELECT Pro_Code FROM product");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -90,9 +90,9 @@ public class Supply {
         boolean isDone=false;
        
         
-        try {
+        try (
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             st.execute("INSERT INTO supply(Date,quantity,Sup_Id,Pro_Code) VALUES ('"+Date+"',"+quantity+",'"+Sup_Id+"','"+Pro_Code+"');");
             st.execute("UPDATE product SET quantity=quantity+"+quantity+" WHERE Pro_Code='"+Pro_Code+"'");
             isDone=true;
@@ -109,9 +109,9 @@ public class Supply {
         keyWord="%"+keyWord+"%";
         ResultSet rst=null;
          
-         try {
+         try (
             Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();){
             rst=st.executeQuery("SELECT * FROM supply WHERE S_id LIKE '"+keyWord+"' OR  Date LIKE '"+keyWord+"' OR quantity LIKE '"+keyWord+"' OR Sup_Id LIKE '"+keyWord+"' OR Pro_Code LIKE '"+keyWord+"';");
         } catch (Exception e) {
             //e.printStackTrace();
@@ -147,9 +147,9 @@ public class Supply {
         
         boolean isDone=false;
         
-        try {
+        try (
             Connection con =dbConnect.getConnection();
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();){
             st.execute("UPDATE supply SET Date='"+Date+"',quantity="+quantity+", Sup_Id='"+Sup_Id+"', Pro_Code='"+Pro_Code+"' WHERE S_id='"+data[0]+"';");
             isDone=true;
             

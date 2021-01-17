@@ -90,6 +90,11 @@ public class Login extends javax.swing.JFrame {
                 userNameActionPerformed(evt);
             }
         });
+        userName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                userNameKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,6 +111,11 @@ public class Login extends javax.swing.JFrame {
         pw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pwActionPerformed(evt);
+            }
+        });
+        pw.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pwKeyPressed(evt);
             }
         });
 
@@ -353,6 +363,46 @@ public class Login extends javax.swing.JFrame {
     private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
        MouseEffect(jLabel1,-2);
     }//GEN-LAST:event_jLabel1MouseExited
+
+    private void pwKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER){
+            boolean pwCorrect=false;
+        String inputPw=new String(pw.getPassword());
+        String usern=userName.getText();    
+        String query = "SELECT userName,Type,Usr_NIC FROM user WHERE Password = '"+inputPw+"'  AND userName='"+usern+"';";
+        
+        try {
+            Connection con= dbConnect.getConnection();
+            Statement st=con.createStatement();
+            ResultSet rt = st.executeQuery(query);
+            rt.next();
+            try{
+                if (rt.getString("Type").equals("Admin")){ 
+                    new MainMenu(usern,rt.getString("Type")).setVisible(true);
+                }
+                else if(rt.getString("Type").equals("User")){
+                    new BillingInterface(usern,rt.getString("Usr_NIC")).setVisible(true);
+                } 
+                this.dispose();
+                con.close();
+                    
+            }catch(Exception e){
+                Toolkit.getDefaultToolkit().beep();
+                new accountDetailsMissMatchError().setVisible(true);
+                con.close();
+            }
+        } catch (Exception e) {
+            Toolkit.getDefaultToolkit().beep();
+            new dbError().setVisible(true);
+        }
+        }
+    }//GEN-LAST:event_pwKeyPressed
+
+    private void userNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER){
+            pw.requestFocus();
+        }
+    }//GEN-LAST:event_userNameKeyPressed
 
     /**
      * @param args the command line arguments
