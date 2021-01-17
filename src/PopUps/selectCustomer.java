@@ -59,23 +59,24 @@ public class selectCustomer extends javax.swing.JDialog {
 
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(62, 74, 87));
 
-        jPanel3.setBackground(new java.awt.Color(220, 255, 247));
+        jPanel3.setBackground(new java.awt.Color(62, 74, 87));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NameTxt.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        NameTxt.setForeground(new java.awt.Color(255, 255, 255));
         NameTxt.setText("Name:");
         jPanel3.add(NameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 60));
 
         NICText.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        NICText.setForeground(new java.awt.Color(255, 255, 255));
         NICText.setText("NIC:");
         jPanel3.add(NICText, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 12, 70, 23));
 
         jScrollPane3.setForeground(new java.awt.Color(255, 255, 255));
 
-        NICDisplay.setBackground(new java.awt.Color(220, 255, 247));
         NICDisplay.setColumns(5);
         NICDisplay.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         NICDisplay.setLineWrap(true);
@@ -96,7 +97,6 @@ public class selectCustomer extends javax.swing.JDialog {
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NameDisplay.setEditable(false);
-        NameDisplay.setBackground(new java.awt.Color(220, 255, 247));
         NameDisplay.setColumns(31);
         NameDisplay.setLineWrap(true);
         NameDisplay.setRows(4);
@@ -154,6 +154,7 @@ public class selectCustomer extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Select Customer");
 
         addNew.setBackground(new java.awt.Color(255, 0, 0));
