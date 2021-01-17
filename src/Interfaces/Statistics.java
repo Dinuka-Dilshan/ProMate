@@ -5,8 +5,10 @@
  */
 package Interfaces;
 
+import Errors.Inputdateerror;
 import Graphics.jPanelGradient;
 import Errors.dbError;
+import Errors.fromtodateerror;
 import Graphics.Graphs;
 import classes.Payment;
 import classes.StatisticsData;
@@ -624,11 +626,13 @@ public class Statistics extends javax.swing.JFrame {
             
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(rootPane, "Date range shoube be withing maximum 31 days");
+            //e.printStackTrace();
+            new fromtodateerror().setVisible(true);
             
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane, "Input is wrong");
+            //e.printStackTrace();
+            new Inputdateerror().setVisible(true);
         }
         
     }//GEN-LAST:event_ShowActionPerformed

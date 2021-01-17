@@ -40,9 +40,9 @@ public class StatisticsData {
                 
             }
             else if(days <0 ){
-                sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + todate + "' AND '" + fromdate+ "';";
-                sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "';";
-                sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "';";
+                sql2 = "";
+                sql3 = "";
+                sql4 = "";
                 
             }
         }
