@@ -15,7 +15,23 @@ import javax.swing.table.DefaultTableModel;
 
 public class customer {
     
+    public static void SetCustomers(JTable table) throws SQLException{
+        try (
+           Connection con= dbConnect.getConnection();
+           Statement st=con.createStatement();){
+           DefaultTableModel model = (DefaultTableModel)table.getModel();
+           ResultSet rst=st.executeQuery("SELECT * FROM customer;");
+           String[] cusData = new String[4];
+            while (rst.next()) {
+                cusData[0] = rst.getString("Cus_NIC");
+                cusData[1] = rst.getString("CName");
+                cusData[2] = rst.getString("PhoneNumber");
+                cusData[3] = rst.getString("No_Po_Box")+" "+rst.getString("Street")+" "+rst.getString("City");
+                model.addRow(cusData);
+            }
+        }
     
+    }
     public static void searchCustomer(String name,JTable list){
         name=name+"%";
        

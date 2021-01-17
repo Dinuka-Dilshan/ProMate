@@ -98,7 +98,6 @@ public class Supply {
             isDone=true;
             
         } catch (Exception e) {
-           // e.printStackTrace();
         }
         
         return isDone;
@@ -114,7 +113,6 @@ public class Supply {
             Statement st=con.createStatement();
             rst=st.executeQuery("SELECT * FROM supply WHERE S_id LIKE '"+keyWord+"' OR  Date LIKE '"+keyWord+"' OR quantity LIKE '"+keyWord+"' OR Sup_Id LIKE '"+keyWord+"' OR Pro_Code LIKE '"+keyWord+"';");
         } catch (Exception e) {
-            //e.printStackTrace();
         }
          
         

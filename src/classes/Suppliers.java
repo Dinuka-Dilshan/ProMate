@@ -81,10 +81,9 @@ public class Suppliers {
         
         name="%"+name+"%";
         ResultSet rst=null;
-         
-         try(
+         try{
              Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();){
+            Statement st=con.createStatement();
             rst=st.executeQuery("SELECT * FROM supplier WHERE Name LIKE '"+name+"' OR Sup_Id LIKE '"+name+"' OR phone_num LIKE '"+name+"';");
         } catch (Exception e) {
             

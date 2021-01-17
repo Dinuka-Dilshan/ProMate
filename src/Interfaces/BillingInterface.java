@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import Graphics.jPanelGradient;
+import PopUps.ShowCustomers;
 import PopUps.selectCustomer;
 import classes.Clock;
 import classes.Payment;
@@ -195,6 +196,9 @@ public class BillingInterface extends javax.swing.JFrame {
 
         CustomerPanel.setBackground(new java.awt.Color(99, 110, 114));
         CustomerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CustomerPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 CustomerPanelMouseEntered(evt);
             }
@@ -394,8 +398,18 @@ public class BillingInterface extends javax.swing.JFrame {
         timeLabel.setText("02:03:55 PM");
 
         homeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_home_page_32px_1.png"))); // NOI18N
+        homeIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeIconMouseClicked(evt);
+            }
+        });
 
         printIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_print_32px.png"))); // NOI18N
+        printIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                printIconMouseClicked(evt);
+            }
+        });
 
         userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_male_user_32px.png"))); // NOI18N
 
@@ -829,10 +843,12 @@ public class BillingInterface extends javax.swing.JFrame {
 
 
     private String[][] hold;
+    private String HoldCusName;
     private boolean state = false;
     private void saveData(){
        DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
        hold = new String[tb.getRowCount()][5];
+       HoldCusName = customerTxt.getText();
         for (int i=0; i<tb.getRowCount(); i++){
             for (int k=0; k<5; k++){
                 hold[i][k] = tb.getValueAt(i, k).toString();
@@ -842,6 +858,7 @@ public class BillingInterface extends javax.swing.JFrame {
     }
     private void loadData(){
         DefaultTableModel tb = (DefaultTableModel)DisplayItems.getModel();
+        customerTxt.setText(HoldCusName);
            for (String[] hold1 : hold) {
                tb.addRow(hold1);
            }
@@ -849,6 +866,7 @@ public class BillingInterface extends javax.swing.JFrame {
     }
     private  void clear(){
         ((DefaultTableModel)DisplayItems.getModel()).setRowCount(0);
+        customerTxt.setText(" ");
         ItemIDDisplay1.setText("");
         ItemNameDisplay.setText("");
         ItemTypeDisplay.setText("");
@@ -997,6 +1015,7 @@ public class BillingInterface extends javax.swing.JFrame {
             bill.setVisible(true);
             if (bill.getCompleted()){
                 clear();
+                customerTxt.setText("Guest");
                 reciptNoText.setText(Integer.toString(ID));
             }
         }catch(SQLException e){
@@ -1117,6 +1136,43 @@ public class BillingInterface extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_qtyInputLabelKeyPressed
+
+    private void CustomerPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerPanelMouseClicked
+        // TODO add your handling code here:
+        new ShowCustomers().setVisible(true);
+    }//GEN-LAST:event_CustomerPanelMouseClicked
+
+    private void printIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printIconMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
+        //reduce quantites from the product table to maintain the inventory
+        try{
+            Payment.DeductItems(saveOrder);
+            int ID = Payment.getID();
+            //allows to create an auto increment value.
+            //the same id is used to save details in the payment details table.
+            //filling the payment details table 
+            Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
+            payment_details.Update_Payment_Details(saveOrder, ID);
+            //print bill
+            PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText()+" "+timeText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
+            bill.setVisible(true);
+            if (bill.getCompleted()){
+                clear();
+                reciptNoText.setText(Integer.toString(ID));
+            }
+        }catch(SQLException e){
+            //e.printStackTrace();
+           new dbErrorNonExitOnClose().setVisible(true);
+        }
+    }//GEN-LAST:event_printIconMouseClicked
+
+    private void homeIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeIconMouseClicked
+        // TODO add your handling code here:
+        this.remove(jPanel1);
+        new logoutAlert(this,jPanel1).setVisible(true);
+    }//GEN-LAST:event_homeIconMouseClicked
 
     /**
      * @param args the command line arguments

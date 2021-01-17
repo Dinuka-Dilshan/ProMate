@@ -56,15 +56,15 @@ public class Payment{
     }
     
     public static String NumOfCustomers(String date) throws  SQLException{
-        String total;
-        try(Connection con = dbConnect.getConnection();
-        Statement stmt3 = con.createStatement();){
+        String total="";
+        try{Connection con = dbConnect.getConnection();
+        Statement stmt3 = con.createStatement();
             ResultSet rt = stmt3.executeQuery("SELECT COUNT(Pay_ID) AS COUNT FROM payment WHERE Pay_Date ='"+date+"';");
                 rt.next();
                 total = String.valueOf(rt.getInt("COUNT"));
-            return total;
+        }catch(NullPointerException e){  
         }
-        
+        return total;
     }
     public static String TotalIncome() throws  SQLException{
         String total;
