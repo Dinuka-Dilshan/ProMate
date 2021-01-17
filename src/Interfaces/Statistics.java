@@ -7,6 +7,7 @@ package Interfaces;
 
 import Graphics.jPanelGradient;
 import DB.dbConnect;
+import Errors.dbError;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.*;
@@ -46,6 +47,7 @@ public class Statistics extends javax.swing.JFrame {
         try{
         defaultScreen();
         }catch(SQLException e){
+            new dbError().setVisible(true);
         }
         //this.pack();
         
@@ -323,6 +325,11 @@ public class Statistics extends javax.swing.JFrame {
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_home_40px.png"))); // NOI18N
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/BillingIMGs/icons8_select_user_80px.png"))); // NOI18N
@@ -563,7 +570,8 @@ public class Statistics extends javax.swing.JFrame {
     }
     
     private String calTotal(String sql,String key) throws SQLException{
-        Statement stmt3 = dbConnect.getConnection().createStatement();
+        Connection con = dbConnect.getConnection();
+        Statement stmt3 = con.createStatement();
         ResultSet rt = stmt3.executeQuery(sql);
         rt.next();
         String total = String.valueOf(rt.getInt(key));
@@ -591,7 +599,6 @@ public class Statistics extends javax.swing.JFrame {
         DefaultPieDataset pieDataset = new DefaultPieDataset();
         for (int i=0; i<7; i++){
             populate(pieDataset, monday, days[i]);
-            System.out.println(monday);
             monday = monday.plusDays(1);
         }
         JFreeChart pieChart = ChartFactory.createPieChart("Weekly Sales", pieDataset);
@@ -746,12 +753,11 @@ public class Statistics extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //Datefrom.removeAll();
-        //Dateto.setName("");
         try{
             defaultScreen();
         }
-        catch(SQLException e){
+        catch(SQLException|NullPointerException e){
+            new dbError().setVisible(true);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -776,6 +782,12 @@ public class Statistics extends javax.swing.JFrame {
         y=evt.getY();
         
     }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new MainMenu().setVisible(true);
+    }//GEN-LAST:event_jLabel14MouseClicked
 
     /**
      * @param args the command line arguments
