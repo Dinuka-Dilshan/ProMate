@@ -36,23 +36,15 @@ public class Product {
     
     //get all the raws of the product table from the data base
     public static ResultSet getProductDetails(){
-
         ResultSet rst=null;
-        
-        try {
+        try (
            Connection con=dbConnect.getConnection();
-           Statement st= con.createStatement();
+           Statement st= con.createStatement();){
            rst= st.executeQuery("SELECT * FROM product;");
-           
-           
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
         return  rst;
-        
-        
     }
     
     private static boolean isExist(String code,int qty, JTable table){
@@ -72,13 +64,11 @@ public class Product {
     //returns a resultset which contains a required row by passing the product code
     public static void setProductDetails(String code, JTable table, int quantity,JTextField ItemTypeDisplay, JTextArea ItemNameDisplay){
         
-        try {
-            Connection con=dbConnect.getConnection();
-            ResultSet result;
-           Statement st= con.createStatement();
-           result= st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
-           result.next();
-           String tbData[] = new String[5];
+        try (Connection con=dbConnect.getConnection();
+            Statement st= con.createStatement();){
+            try(ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");){
+            result.next();
+            String tbData[] = new String[5];
             if (!isExist(code, quantity, table)){
                 tbData[0] = result.getString("name");
                 tbData[1] = result.getString("Pro_Code");
@@ -100,13 +90,13 @@ public class Product {
                 }
         }
         
+        }catch(SQLException e){
+    
+        }
     }
     
     //delete a product from the product table 
     public static  void deleteProduct(String Pro_Code){
-        
-        
-        
         try {
            Connection con=dbConnect.getConnection();
            Statement st=con.createStatement();
@@ -125,9 +115,9 @@ public class Product {
         
         String data[]=getClickedTableContents(myTable);
         boolean isDone=false;
-        try {
+        try (
             Connection con =dbConnect.getConnection();
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();){
             st.execute("UPDATE product SET name='"+name+"',quantity='"+Quantity+"', unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
             isDone=true;
             
@@ -140,9 +130,10 @@ public class Product {
     }
     public static void UpdateQTY(String Pro_Code,String quantity) throws SQLException{
         //deducts a given number of product related with the given pro_code
-        Connection con =dbConnect.getConnection();
-            Statement statement=con.createStatement();
+        try(Connection con =dbConnect.getConnection();
+            Statement statement=con.createStatement();){
             statement.executeUpdate("UPDATE product SET quantity = quantity-"+quantity+" WHERE Pro_Code = "+Pro_Code+";");
+        }
     }
     
     //search a product
@@ -151,9 +142,9 @@ public class Product {
         keyWord="%"+keyWord+"%";
         ResultSet rst=null;
          
-         try {
+         try (
             Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();){
             rst=st.executeQuery("SELECT * FROM product WHERE Pro_Code LIKE '"+keyWord+"' OR name LIKE '"+keyWord+"' OR quantity LIKE '"+keyWord+"' OR unit_price LIKE '"+keyWord+"' OR type LIKE '"+keyWord+"';");
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,9 +157,9 @@ public class Product {
 
     public static boolean addProduct(String Pro_Code, String name, String Quantity, String unit_price, String type){
         boolean isDone=false;
-        try {
+        try (
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             st.execute("INSERT INTO product(Pro_Code, name, quantity, unit_price, type) VALUES ('"+Pro_Code+"','"+name+"',"+Quantity+","+unit_price+",'"+type+"');");
             isDone=true;
             
