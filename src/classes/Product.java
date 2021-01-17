@@ -37,12 +37,11 @@ public class Product {
     //get all the raws of the product table from the data base
     public static ResultSet getProductDetails(){
         ResultSet rst=null;
-        try (
+        try {
            Connection con=dbConnect.getConnection();
-           Statement st= con.createStatement();){
+           Statement st= con.createStatement();
            rst= st.executeQuery("SELECT * FROM product;");
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return  rst;
     }
@@ -66,7 +65,7 @@ public class Product {
         
         try (Connection con=dbConnect.getConnection();
             Statement st= con.createStatement();){
-            try(ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");){
+            ResultSet result = st.executeQuery("SELECT * FROM product WHERE Pro_Code ='"+code+"';");
             result.next();
             String tbData[] = new String[5];
             if (!isExist(code, quantity, table)){
@@ -89,41 +88,25 @@ public class Product {
                    // new dbError().setVisible(true);
                 }
         }
-        
-        }catch(SQLException e){
-    
-        }
     }
     
-    //delete a product from the product table 
-    public static  void deleteProduct(String Pro_Code){
-        try {
-           Connection con=dbConnect.getConnection();
-           Statement st=con.createStatement();
-           st.execute("DELETE FROM product WHERE Pro_Code='"+Pro_Code+"';");
-           
-        } catch (SQLException e) {
-            new dbError().setVisible(true);
-        }
-        
-    }
     
     
     //update a product
 
-    public static boolean updateProduct(String name, String Quantity, String unit_price, String type,JTable myTable) {
+    public static boolean updateProduct(String name, String Quantity, String unit_price, String type,String data[]) {
         
-        String data[]=getClickedTableContents(myTable);
+       
         boolean isDone=false;
         try (
             Connection con =dbConnect.getConnection();
-            Statement st=con.createStatement();){
-            st.execute("UPDATE product SET name='"+name+"',quantity='"+Quantity+"', unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
+            Statement st=con.createStatement();
+            st.execute("UPDATE product SET name='"+name+"',quantity="+Quantity+", unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
             isDone=true;
             
         } catch (SQLException e) {
-            new dbError().setVisible(true);
-
+            
+            e.printStackTrace();
         }
         
         return isDone;
@@ -142,9 +125,9 @@ public class Product {
         keyWord="%"+keyWord+"%";
         ResultSet rst=null;
          
-         try (
+         try {
             Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();){
+            Statement st=con.createStatement();
             rst=st.executeQuery("SELECT * FROM product WHERE Pro_Code LIKE '"+keyWord+"' OR name LIKE '"+keyWord+"' OR quantity LIKE '"+keyWord+"' OR unit_price LIKE '"+keyWord+"' OR type LIKE '"+keyWord+"';");
         } catch (Exception e) {
             e.printStackTrace();

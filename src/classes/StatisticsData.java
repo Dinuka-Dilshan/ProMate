@@ -28,9 +28,8 @@ public class StatisticsData {
         
             //SELECT DATEDIFF('2020-12-16','2020-12-09') AS DiffDays (counting dates on sql
         try(Connection conn = dbConnect.getConnection();
-            
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);){
+            Statement stmt = conn.createStatement();){
+            ResultSet rs = stmt.executeQuery(sql);
             rs.next();
             days=rs.getInt("days");
             if(days >=0 ){

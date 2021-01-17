@@ -23,8 +23,8 @@ public class customer {
         String[] s=new String[1];
         try (
            Connection con= dbConnect.getConnection();
-           Statement st=con.createStatement();
-           ResultSet rst=st.executeQuery("SELECT Cus_NIC,CName FROM customer WHERE Cus_NIC LIKE '"+name+"';");){
+           Statement st=con.createStatement();){
+           ResultSet rst=st.executeQuery("SELECT Cus_NIC,CName FROM customer WHERE Cus_NIC LIKE '"+name+"';");
            rst.next();
            newlist.setRowCount(0);
            for (int i=0; i<8; i++){
@@ -45,11 +45,10 @@ public class customer {
     }
     public static String getName(String name){
         String output = "Guest";
-         
          try (
             Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();
-            ResultSet rst=st.executeQuery("SELECT CName FROM customer WHERE Cus_NIC= '"+name+"';");){
+            Statement st=con.createStatement();){
+            ResultSet rst=st.executeQuery("SELECT CName FROM customer WHERE Cus_NIC= '"+name+"';");
             rst.next();
            output = rst.getString("CName");
            con.close();
@@ -76,8 +75,8 @@ public class customer {
         String count="0";
         try(
             Connection con= dbConnect.getConnection();
-            Statement stmt2=con.createStatement();
-            ResultSet rs2 = stmt2.executeQuery(finalquery);){
+            Statement stmt2=con.createStatement();){
+            ResultSet rs2 = stmt2.executeQuery(finalquery);
 
             rs2.next();
             
@@ -95,14 +94,13 @@ public class customer {
         double total=0;
         try(
             Connection con= dbConnect.getConnection();
-            Statement stmt2=con.createStatement();
-            ResultSet rs2 = stmt2.executeQuery(finalquery);){
+            Statement stmt2=con.createStatement();){
+            ResultSet rs2 = stmt2.executeQuery(finalquery);
             rs2.next();
             total = rs2.getDouble("total");
             con.close();
         }
         catch(Exception e){
-            
         }
         return total;
     }
