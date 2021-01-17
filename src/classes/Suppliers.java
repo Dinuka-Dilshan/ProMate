@@ -41,16 +41,15 @@ public class Suppliers {
            
            
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return  rst;
     }
     
     //delete a supplier from the supplier table 
     public static  void deleteSupplier(String supplierId){
-        try {
+        try (
            Connection con=dbConnect.getConnection();
-           Statement st=con.createStatement();
+           Statement st=con.createStatement();){
            st.execute("DELETE FROM supplier WHERE Sup_Id='"+supplierId+"';");
            
         } catch (SQLException e) {
@@ -65,13 +64,13 @@ public class Suppliers {
         
         boolean isDone=false;
         String data[]=getClickedTableContents(myTable);
-        try {
+        try (
             Connection con =dbConnect.getConnection();
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();){
             st.execute("UPDATE supplier SET Name='"+name+"',phone_num="+phone+" WHERE Sup_Id='"+data[0]+"';");
             isDone=true;
         } catch (Exception e) {
-            e.printStackTrace();
+           
         }
         
         return isDone;
@@ -83,12 +82,12 @@ public class Suppliers {
         name="%"+name+"%";
         ResultSet rst=null;
          
-         try {
+         try(
              Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();){
             rst=st.executeQuery("SELECT * FROM supplier WHERE Name LIKE '"+name+"' OR Sup_Id LIKE '"+name+"' OR phone_num LIKE '"+name+"';");
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
          
         
@@ -100,9 +99,9 @@ public class Suppliers {
 
         boolean isDone=false;
         
-        try {
+        try (
              Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             st.execute("INSERT INTO supplier(Sup_Id, Name, phone_num) VALUES ('"+Sup_Id+"','"+name+"',"+phone+");");
             isDone=true;
   
@@ -126,7 +125,6 @@ public class Suppliers {
                 model.addRow(data);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             
         }
         

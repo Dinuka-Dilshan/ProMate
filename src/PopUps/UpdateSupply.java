@@ -200,6 +200,7 @@ public class UpdateSupply extends javax.swing.JFrame {
             new InputError("Something went wrong..!", "Please try again..!");
         }
         Supply.insertDataToTable(table, Supply.getSupplyDetails());
+        this.dispose();
     }//GEN-LAST:event_addButton1ActionPerformed
 
     private void addButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton2ActionPerformed

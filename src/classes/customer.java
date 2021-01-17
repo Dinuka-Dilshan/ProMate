@@ -18,13 +18,13 @@ public class customer {
     
     public static void searchCustomer(String name,JTable list){
         name=name+"%";
-        ResultSet rst;
+       
         DefaultTableModel newlist= (DefaultTableModel)list.getModel();
         String[] s=new String[1];
-        try {
+        try (
            Connection con= dbConnect.getConnection();
-           Statement st=con.createStatement();
-           rst=st.executeQuery("SELECT Cus_NIC,CName FROM customer WHERE Cus_NIC LIKE '"+name+"';");
+           Statement st=con.createStatement();){
+           ResultSet rst=st.executeQuery("SELECT Cus_NIC,CName FROM customer WHERE Cus_NIC LIKE '"+name+"';");
            rst.next();
            newlist.setRowCount(0);
            for (int i=0; i<8; i++){
@@ -45,12 +45,10 @@ public class customer {
     }
     public static String getName(String name){
         String output = "Guest";
-        ResultSet rst;
-         
-         try {
+         try (
             Connection con= dbConnect.getConnection();
-            Statement st=con.createStatement();
-            rst=st.executeQuery("SELECT CName FROM customer WHERE Cus_NIC= '"+name+"';");
+            Statement st=con.createStatement();){
+            ResultSet rst=st.executeQuery("SELECT CName FROM customer WHERE Cus_NIC= '"+name+"';");
             rst.next();
            output = rst.getString("CName");
            con.close();
@@ -60,9 +58,9 @@ public class customer {
          return output;
     }
     public static void NewCutomer(String cusNIC,String cusName,String cusTPNO, String addressNO, String addressStreet, String addressCity ){
-        try {
+        try (
             Connection con=dbConnect.getConnection();
-            Statement st= con.createStatement();
+            Statement st= con.createStatement();){
             st.execute("INSERT INTO customer VALUES ('"+cusNIC+"','"+cusName+"',"+cusTPNO+",'"+addressNO+"','"+addressStreet+"','"+addressCity+"');");
             con.close();
   
@@ -75,9 +73,9 @@ public class customer {
     public static String countCutomers(String finalquery){
         
         String count="0";
-        try{
+        try(
             Connection con= dbConnect.getConnection();
-            Statement stmt2=con.createStatement();
+            Statement stmt2=con.createStatement();){
             ResultSet rs2 = stmt2.executeQuery(finalquery);
 
             rs2.next();
@@ -91,21 +89,18 @@ public class customer {
         return count;
     }
     
-    public static int toatllIncome(String finalquery){
+    public static double toatllIncome(String finalquery){
         
-        int total=0;
-        try{
+        double total=0;
+        try(
             Connection con= dbConnect.getConnection();
-            Statement stmt2=con.createStatement();
+            Statement stmt2=con.createStatement();){
             ResultSet rs2 = stmt2.executeQuery(finalquery);
-
             rs2.next();
-            
-            total = rs2.getInt("total");
+            total = rs2.getDouble("total");
             con.close();
         }
         catch(Exception e){
-            
         }
         return total;
     }

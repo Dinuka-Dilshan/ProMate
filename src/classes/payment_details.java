@@ -18,14 +18,12 @@ import javax.swing.table.DefaultTableModel;
 public class payment_details {
     
     public static void Update_Payment_Details(DefaultTableModel model,int ID) throws SQLException{
-        Connection con = dbConnect.getConnection();
-        Statement statement;
-        statement = con.createStatement();
+        try(Connection con = dbConnect.getConnection();
+        Statement statement = con.createStatement();){
         for (int i=0; i < model.getRowCount(); i++){
                 statement.executeUpdate("INSERT INTO payment_details VALUES("+model.getValueAt(i, 2)+","+ID+",'"+model.getValueAt(i, 1)+"');");
         } 
 
+        }
     }
-    
-    
 }

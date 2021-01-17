@@ -10,10 +10,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import javax.swing.JOptionPane;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.general.Dataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 
@@ -28,21 +24,13 @@ public class StatisticsData {
     private String sql3=null;
     private String sql4=null;
     public  JDBCCategoryDataset creategraph(String todate, String fromdate) throws SQLException{
-
-        try{
-            
+        String sql = "SELECT DATEDIFF('" + todate + "','" + fromdate + "') AS days";
+        
             //SELECT DATEDIFF('2020-12-16','2020-12-09') AS DiffDays (counting dates on sql
-            Connection conn = dbConnect.getConnection();
-            String sql = "SELECT DATEDIFF('" + todate + "','" + fromdate + "') AS days";
-            Statement stmt = conn.createStatement();
+        try(Connection conn = dbConnect.getConnection();
+            Statement stmt = conn.createStatement();){
             ResultSet rs = stmt.executeQuery(sql);
-            
-            
-            
             rs.next();
-            
-            
-            
             days=rs.getInt("days");
             if(days >=0 ){
                 
