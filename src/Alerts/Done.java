@@ -5,15 +5,19 @@
  */
 package Alerts;
 
+import java.awt.Window;
+
 /**
  *
  * @author Dinuka
  */
-public class Done extends javax.swing.JFrame {
+public class Done extends javax.swing.JDialog {
 
    
     
     public Done() {
+        super((Window)null);
+        setModal(true);
         initComponents();
     }
     
@@ -35,15 +39,14 @@ public class Done extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         theme = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(19, 28, 54));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/img/icons8_tick_box_60px.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, 70));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Alerts/icons/doneIMG.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 60));
 
         jButton2.setBackground(new java.awt.Color(153, 0, 51));
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -55,27 +58,27 @@ public class Done extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 107, 26));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 100, 10));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 100, 10));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 107, 26));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 250, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 250, 10));
 
-        theme.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        theme.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         theme.setForeground(new java.awt.Color(255, 255, 255));
-        theme.setText("Done");
-        jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 80, 30));
+        theme.setText("Operation Successfully Completed!");
+        jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 260, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(271, 136));
+        setSize(new java.awt.Dimension(368, 129));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
