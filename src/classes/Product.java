@@ -128,7 +128,7 @@ public class Product {
         try {
             Connection con =dbConnect.getConnection();
             Statement st=con.createStatement();
-            st.execute("UPDATE product SET name='"+name+"',quantity='"+quantity+"', unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
+            st.execute("UPDATE product SET name='"+name+"',quantity='"+Quantity+"', unit_price="+unit_price+" , type='"+type+"' WHERE Pro_Code='"+data[0]+"';");
             isDone=true;
             
         } catch (SQLException e) {
