@@ -52,9 +52,10 @@ public class selectCustomer extends javax.swing.JDialog {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         NameDisplay = new javax.swing.JTextArea();
         list = new javax.swing.JTable();
-        update = new javax.swing.JButton();
-        cancel1 = new javax.swing.JButton();
+        okayButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        addNew = new javax.swing.JButton();
 
         setUndecorated(true);
 
@@ -130,41 +131,54 @@ public class selectCustomer extends javax.swing.JDialog {
 
         jPanel3.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 270, 140));
 
-        update.setBackground(new java.awt.Color(51, 153, 0));
-        update.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        update.setForeground(new java.awt.Color(255, 255, 255));
-        update.setText("OKAY");
-        update.setBorder(null);
-        update.addActionListener(new java.awt.event.ActionListener() {
+        okayButton.setBackground(new java.awt.Color(51, 153, 0));
+        okayButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        okayButton.setForeground(new java.awt.Color(255, 255, 255));
+        okayButton.setText("OKAY");
+        okayButton.setBorder(null);
+        okayButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateActionPerformed(evt);
+                okayButtonActionPerformed(evt);
             }
         });
 
-        cancel1.setBackground(new java.awt.Color(102, 153, 255));
-        cancel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cancel1.setForeground(new java.awt.Color(255, 255, 255));
-        cancel1.setText("Cancel");
-        cancel1.setBorder(null);
-        cancel1.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setBackground(new java.awt.Color(102, 153, 255));
+        cancelButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancelButton.setText("Cancel");
+        cancelButton.setBorder(null);
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancel1ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setText("Select Customer");
 
+        addNew.setBackground(new java.awt.Color(255, 0, 0));
+        addNew.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        addNew.setForeground(new java.awt.Color(255, 255, 255));
+        addNew.setText("New Cus");
+        addNew.setBorder(null);
+        addNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(cancel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(addNew, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addComponent(okayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -184,8 +198,9 @@ public class selectCustomer extends javax.swing.JDialog {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(okayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -204,7 +219,7 @@ public class selectCustomer extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+    private void okayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okayButtonActionPerformed
         cusName = customer.getName(NICDisplay.getText());
         if ("Guest".equals(cusName)){
             cusID = null;
@@ -212,11 +227,11 @@ public class selectCustomer extends javax.swing.JDialog {
             cusID = NICDisplay.getText();
         }
         this.dispose();
-    }//GEN-LAST:event_updateActionPerformed
+    }//GEN-LAST:event_okayButtonActionPerformed
 
-    private void cancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel1ActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_cancel1ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void NICDisplayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NICDisplayKeyPressed
         // TODO add your handling code here:
@@ -234,6 +249,11 @@ public class selectCustomer extends javax.swing.JDialog {
         list.setVisible(false);
         NameDisplay.setVisible(true);
     }//GEN-LAST:event_listMouseClicked
+
+    private void addNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewActionPerformed
+        // TODO add your handling code here:
+        new AddNewCustomer().setVisible(true);
+    }//GEN-LAST:event_addNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,13 +295,14 @@ public class selectCustomer extends javax.swing.JDialog {
     private javax.swing.JLabel NICText;
     private javax.swing.JTextArea NameDisplay;
     private javax.swing.JLabel NameTxt;
-    private javax.swing.JButton cancel1;
+    private javax.swing.JButton addNew;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable list;
-    private javax.swing.JButton update;
+    private javax.swing.JButton okayButton;
     // End of variables declaration//GEN-END:variables
 }

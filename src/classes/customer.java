@@ -6,16 +6,10 @@
 package classes;
 
 import DB.dbConnect;
-import static com.itextpdf.text.pdf.BidiOrder.R;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.function.Function;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,10 +35,12 @@ public class customer {
                    break;
                }
            }
-        } catch (SQLException | NullPointerException e) {
+        } catch (NullPointerException e) {
             newlist.setRowCount(0);
             s[0] = "No suggestions";
             newlist.addRow(s);
+        }catch(SQLException e){
+            
         }
     }
     public static String getName(String name){
@@ -61,5 +57,16 @@ public class customer {
         } catch (SQLException | NullPointerException e) {
         }
          return output;
+    }
+    public static void NewCutomer(String cusNIC,String cusName,String cusTPNO, String addressNO, String addressStreet, String addressCity ){
+        try {
+             Connection con=dbConnect.getConnection();
+            Statement st= con.createStatement();
+            st.execute("INSERT INTO customer VALUES ('"+cusNIC+"','"+cusName+"',"+cusTPNO+",'"+addressNO+"','"+addressStreet+"','"+addressCity+"');");
+  
+        } catch (SQLException e) {
+        }
+        
+        
     }
 }

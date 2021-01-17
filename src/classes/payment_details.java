@@ -7,6 +7,7 @@ package classes;
 
 import DB.dbConnect;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,18 +17,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class payment_details {
     
-    public static void Update_Payment_Details(DefaultTableModel model,int ID){
+    public static void Update_Payment_Details(DefaultTableModel model,int ID) throws SQLException{
         Connection con = dbConnect.getConnection();
         Statement statement;
-        try{
-            statement = con.createStatement();
-            for (int i=0; i < model.getRowCount(); i++){
-                    statement.executeUpdate("INSERT INTO payment_details VALUES("+model.getValueAt(i, 2)+","+ID+",'"+model.getValueAt(i, 1)+"');");
-            } 
-        }catch(Exception e){
-        
-        }
-    
+        statement = con.createStatement();
+        for (int i=0; i < model.getRowCount(); i++){
+                statement.executeUpdate("INSERT INTO payment_details VALUES("+model.getValueAt(i, 2)+","+ID+",'"+model.getValueAt(i, 1)+"');");
+        } 
+
     }
     
     

@@ -5,6 +5,8 @@
  */
 package Interfaces;
 import Alerts.*;
+import Errors.dbError;
+import Errors.dbErrorNonExitOnClose;
 import PopUps.ItemDetailsPopUp;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -16,6 +18,7 @@ import classes.Clock;
 import classes.Payment;
 import classes.Product;
 import classes.payment_details;
+import java.sql.SQLException;
 /**
  *
  * @author Lasith
@@ -29,9 +32,16 @@ public class BillingInterface extends javax.swing.JFrame {
     private String UsrID;
     public BillingInterface() {
         initComponents();
+        try{
+            reciptNoText.setText(Integer.toString(Payment.getID()));
+            if (reciptNoText.getText().equals("0")){
+                throw new SQLException();
+            }
+        }catch(SQLException e){
+            new dbError().setVisible(true);
+        }
         setDate();
         qtyInputLabel.setText("1");
-        reciptNoText.setText(Integer.toString(Payment.getID()));
         Clock.showTime(timeLabel,timeText);
     }
 
@@ -43,7 +53,14 @@ public class BillingInterface extends javax.swing.JFrame {
         jLabel4.setText(user);
         cashierNameText.setText(user);
         qtyInputLabel.setText("1");
-        reciptNoText.setText(Integer.toString(Payment.getID()));
+        try{
+            reciptNoText.setText(Integer.toString(Payment.getID()));
+            if (reciptNoText.getText().equals("0")){
+                throw new SQLException();
+            }
+        }catch(SQLException e){
+            new dbError().setVisible(true);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -967,20 +984,26 @@ public class BillingInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel saveOrder = (DefaultTableModel) DisplayItems.getModel();
         //reduce quantites from the product table to maintain the inventory
-        Payment.DeductItems(saveOrder);
-        int ID = Payment.getID();
-        //allows to create an auto increment value.
-        //the same id is used to save details in the payment details table.
-        //filling the payment details table 
-        Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
-        payment_details.Update_Payment_Details(saveOrder, ID);
-        //print bill
-        PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText()+" "+timeText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
-        bill.setVisible(true);
-        if (bill.getCompleted()){
-            clear();
-            reciptNoText.setText(Integer.toString(ID));
+        try{
+            Payment.DeductItems(saveOrder);
+            int ID = Payment.getID();
+            //allows to create an auto increment value.
+            //the same id is used to save details in the payment details table.
+            //filling the payment details table 
+            Payment.UpdatePayment(ID, CusID, dateText.getText(), timeText.getText(), TotalText.getText(), UsrID);
+            payment_details.Update_Payment_Details(saveOrder, ID);
+            //print bill
+            PrintBill bill = new PrintBill(reciptNoText.getText(), dateText.getText()+" "+timeText.getText(), cashierNameText.getText(), customerTxt.getText(),TotalText.getText(),DisplayItems);
+            bill.setVisible(true);
+            if (bill.getCompleted()){
+                clear();
+                reciptNoText.setText(Integer.toString(ID));
+            }
+        }catch(SQLException e){
+            //e.printStackTrace();
+           new dbErrorNonExitOnClose().setVisible(true);
         }
+        
     }//GEN-LAST:event_printPanelMouseClicked
 
     private void NewOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewOrderMouseClicked

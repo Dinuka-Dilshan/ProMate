@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package Alerts;
-import javax.swing.JPanel;
+
+import java.awt.Window;
 
 /**
  *
  * @author Dinuka
  */
-public class InputError extends javax.swing.JFrame {
+public class InputError extends javax.swing.JDialog {
 
     /**
      * Creates new form dbError
@@ -21,6 +22,8 @@ public class InputError extends javax.swing.JFrame {
     }
     
     public InputError(String theme, String msg) {
+        super((Window)null);
+        setModal(true);
         initComponents();
         this.theme.setText(theme);
         this.msg.setText(msg);
@@ -43,7 +46,6 @@ public class InputError extends javax.swing.JFrame {
         theme = new javax.swing.JLabel();
         msg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
 
@@ -69,11 +71,9 @@ public class InputError extends javax.swing.JFrame {
 
         theme.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         theme.setForeground(new java.awt.Color(255, 255, 255));
-        theme.setText("jdnfjkd");
         jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 230, 30));
 
         msg.setForeground(new java.awt.Color(255, 255, 255));
-        msg.setText("jkfsdjkfndsjf");
         jPanel1.add(msg, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -19,13 +19,13 @@ public class dbError extends javax.swing.JDialog {
      * Creates new form dbError
      */
     private  JPanel j;
-    
+ 
     public dbError() {
         super((Window)null);
         setModal(true);
         initComponents();
-        
     }
+    
     
 
     public dbError(JPanel j,Login l) {
@@ -97,7 +97,7 @@ public class dbError extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
-        //l.add(j);
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

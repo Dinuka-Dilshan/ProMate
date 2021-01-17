@@ -5,9 +5,8 @@
  */
 package classes;
 
-import Alerts.unknownError;
 import DB.dbConnect;
-import Errors.dbError;
+import Errors.dbErrorNonExitOnClose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,17 +20,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Payment{
     
-    public static void DeductItems(DefaultTableModel model){
+    public static void DeductItems(DefaultTableModel model) throws SQLException{
             for (int i=0; i < model.getRowCount(); i++){
-                    Product.UpdateQTY(model.getValueAt(i, 1).toString(),model.getValueAt(i, 2).toString());
+                   Product.UpdateQTY(model.getValueAt(i, 1).toString(),model.getValueAt(i, 2).toString());
             }
-    
     }
     
-    public static void UpdatePayment(int ID,String CusID,String date,String time,String amount,String UserID){
+    public static void UpdatePayment(int ID,String CusID,String date,String time,String amount,String UserID) throws SQLException{
         Connection con = dbConnect.getConnection();
         Statement statement;
-        try{
             statement = con.createStatement();
             if (CusID == null){
                statement.executeUpdate("INSERT INTO payment VALUES("+ID+","+ CusID+",'"+date+"','"+time+"','"+amount+"','"+UserID+"',null);");
@@ -39,34 +36,19 @@ public class Payment{
             }else{
             statement.executeUpdate("INSERT INTO payment VALUES("+ID+",'"+ CusID+"','"+date+"','"+time+"','"+amount+"','"+UserID+"',null);");
             }
-        }catch(SQLException e){
-            e.printStackTrace();
-            if ("Cannot add or update a child row: a foreign key constraint fails (`geelssuper`.`payment`, CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`Usr_NIC`) REFERENCES `user` (`Usr_NIC`))".equals(e.getMessage())){
-                new unknownError("Unknown Error!","Could not update the database.").setVisible(true);
-            }
-            else{
-                new dbError().setVisible(true);
-               
-            }
-        }
     }
-    public static int getID(){
+    public static int getID()throws SQLException{
         int payID = 0;
-        try{
-            ResultSet rt =(dbConnect.getConnection().createStatement()).executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
-            rt.next();
+            Connection con = dbConnect.getConnection();
             //getting the maxID from the payment table
             try{
+                Statement st = con.createStatement();
+                ResultSet rt =st.executeQuery("SELECT MAX(Pay_ID) as max FROM payment");
+                rt.next();
                  payID = Integer.valueOf(rt.getString("max"))+1;//refers to the max value in the payment table
             }catch(NumberFormatException e){
                 payID = 1;
-            }
-
-        }catch(SQLException e){
-            new dbError().setVisible(true);
-        }
-        catch(NullPointerException e){
-            System.exit(0);
+            }catch(NullPointerException e){
         }
         return payID;
     }
