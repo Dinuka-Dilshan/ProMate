@@ -6,26 +6,31 @@
 package Errors;
 
 import Interfaces.Login;
+import java.awt.Window;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Dinuka
  */
-public class dbError extends javax.swing.JFrame {
+public class dbError extends javax.swing.JDialog {
 
     /**
      * Creates new form dbError
      */
     private  JPanel j;
-    
+ 
     public dbError() {
+        super((Window)null);
+        setModal(true);
         initComponents();
-        
     }
+    
     
 
     public dbError(JPanel j,Login l) {
+        super((Window)null);
+        setModal(true);
         initComponents();
         this.j=j;
         l.remove(j);
@@ -46,7 +51,7 @@ public class dbError extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
 
@@ -92,7 +97,7 @@ public class dbError extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
-        //l.add(j);
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -4,14 +4,17 @@
  * and open the template in the editor.
  */
 package Alerts;
+
 import java.awt.Toolkit;
+
+import java.awt.Window;
 
 
 /**
  *
  * @author Dinuka
  */
-public class InputError extends javax.swing.JFrame {
+public class InputError extends javax.swing.JDialog {
 
     /**
      * Creates new form dbError
@@ -22,6 +25,8 @@ public class InputError extends javax.swing.JFrame {
     }
     
     public InputError(String theme, String msg) {
+        super((Window)null);
+        setModal(true);
         initComponents();
         this.theme.setText(theme);
         this.msg.setText(msg);
@@ -45,7 +50,6 @@ public class InputError extends javax.swing.JFrame {
         theme = new javax.swing.JLabel();
         msg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
 
@@ -67,26 +71,25 @@ public class InputError extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 107, 26));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 290, 10));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 290, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 290, 10));
 
         theme.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         theme.setForeground(new java.awt.Color(255, 255, 255));
         theme.setText("Something went wrong..!");
-        jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 270, 30));
+        jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 270, 30));
 
         msg.setForeground(new java.awt.Color(255, 255, 255));
-        msg.setText("jkfsdjkfndsjf");
-        jPanel1.add(msg, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 280, 20));
+        jPanel1.add(msg, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 280, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(396, 170));

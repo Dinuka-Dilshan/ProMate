@@ -1062,9 +1062,10 @@ public class MainMenu extends javax.swing.JFrame {
     public void updateUserDetailsTable(){
         //add data to the userTable
         DefaultTableModel userTableModel1 =(DefaultTableModel)userDetailsTable.getModel();
-        Connection con= dbConnect.getConnection();
+        
         userTableModel1.setRowCount(0);
         try {
+           Connection con= dbConnect.getConnection();
            Statement statement =con.createStatement();
            ResultSet rst= statement.executeQuery("SELECT * FROM user;");
            
@@ -1164,9 +1165,10 @@ public class MainMenu extends javax.swing.JFrame {
         
         //add data to the userTable
         DefaultTableModel userTableModel1 =(DefaultTableModel)userDetailsTable.getModel();
-        Connection con= dbConnect.getConnection();
+        
         userTableModel1.setRowCount(0);
         try {
+           Connection con= dbConnect.getConnection();
            Statement statement =con.createStatement();
            ResultSet rst= statement.executeQuery("SELECT * FROM user;");
            
@@ -1275,9 +1277,8 @@ public class MainMenu extends javax.swing.JFrame {
         String enteredPhone=txtPhone.getText();
         String enterdPassword=txtPassword.getText();
         String enteredType= typeComboBox.getSelectedItem().toString();
-        
-        Connection con=dbConnect.getConnection();
         try {
+            Connection con=dbConnect.getConnection();
             Statement st=con.createStatement();
             st.execute("INSERT INTO user (Password,name,phone_num,Usr_NIC,userName,Type) VALUES ('"+enterdPassword+"', '"+enteredName+"', '"+enteredPhone+"', '"+enteredNic+"', '"+enteredUserName+"', '"+enteredType+"');");
         } catch (Exception e) {
@@ -1321,8 +1322,8 @@ public class MainMenu extends javax.swing.JFrame {
         
         DefaultTableModel model= (DefaultTableModel)userDetailsTable.getModel();
         int selectedRow= userDetailsTable.getSelectedRow();
-        Connection con=dbConnect.getConnection();
         try {
+            Connection con=dbConnect.getConnection();
             Statement st=con.createStatement();
             st.execute("UPDATE user SET name='"+enteredName+"',userName='"+enteredUserName+"',Usr_NIC='"+enteredNic+"',phone_num='"+enteredPhone+"',Password='"+enterdPassword+"',Type='"+enteredType+"' WHERE Usr_NIC='"+model.getValueAt(selectedRow, 2)+"'");
         } catch (SQLException e) {
@@ -1339,8 +1340,8 @@ public class MainMenu extends javax.swing.JFrame {
         
         DefaultTableModel model= (DefaultTableModel)userDetailsTable.getModel();
         int selectedRow= userDetailsTable.getSelectedRow();
-        Connection con=dbConnect.getConnection();
         try {
+            Connection con=dbConnect.getConnection();
             Statement st=con.createStatement();
             st.execute("DELETE FROM user WHERE Usr_NIC='"+enteredNic +"'");
         } catch (SQLException e) {
@@ -1363,11 +1364,12 @@ public class MainMenu extends javax.swing.JFrame {
        
         String nameSearch=nicSearch.getText();
         nameSearch="%"+nameSearch+"%";
-        Connection con= dbConnect.getConnection();
+        
         DefaultTableModel myTable= (DefaultTableModel)userDetailsTable.getModel();
         myTable.setRowCount(0);
         int rawIndex=userDetailsTable.getSelectedRow();
         try {
+            Connection con= dbConnect.getConnection();
             Statement st= con.createStatement();
             ResultSet rst= st.executeQuery("SELECT * FROM user WHERE name LIKE'"+nameSearch+"' OR userName LIKE'"+nameSearch+"' OR Usr_NIC LIKE'"+nameSearch+"' OR phone_num LIKE'"+nameSearch+"' OR Type LIKE'"+nameSearch+"'");
             while(rst.next()){
@@ -1386,11 +1388,12 @@ public class MainMenu extends javax.swing.JFrame {
     private void nicSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nicSearchKeyTyped
          String nameSearch=nicSearch.getText();
          nameSearch="%"+nameSearch+"%";
-        Connection con= dbConnect.getConnection();
+        
         DefaultTableModel myTable= (DefaultTableModel)userDetailsTable.getModel();
         myTable.setRowCount(0);
         int rawIndex=userDetailsTable.getSelectedRow();
         try {
+            Connection con= dbConnect.getConnection();
             Statement st= con.createStatement();
             ResultSet rst= st.executeQuery("SELECT * FROM user WHERE name LIKE'"+nameSearch+"' OR userName LIKE'"+nameSearch+"' OR Usr_NIC LIKE'"+nameSearch+"' OR phone_num LIKE'"+nameSearch+"' OR Type LIKE'"+nameSearch+"'");
             while(rst.next()){
@@ -1406,11 +1409,12 @@ public class MainMenu extends javax.swing.JFrame {
          
         String nameSearch=nicSearch.getText();
         nameSearch="%"+nameSearch+"%";
-        Connection con= dbConnect.getConnection();
+        
         DefaultTableModel myTable= (DefaultTableModel)userDetailsTable.getModel();
         myTable.setRowCount(0);
         int rawIndex=userDetailsTable.getSelectedRow();
         try {
+            Connection con= dbConnect.getConnection();
             Statement st= con.createStatement();
             ResultSet rst= st.executeQuery("SELECT * FROM user WHERE name LIKE'"+nameSearch+"' OR userName LIKE'"+nameSearch+"' OR Usr_NIC LIKE'"+nameSearch+"' OR phone_num LIKE'"+nameSearch+"' OR Type LIKE'"+nameSearch+"'");
             while(rst.next()){
