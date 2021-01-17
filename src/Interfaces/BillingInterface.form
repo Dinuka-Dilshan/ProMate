@@ -141,6 +141,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CustomerPanelMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CustomerPanelMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CustomerPanelMouseExited"/>
               </Events>
@@ -559,6 +560,9 @@
                   <Image iconType="3" name="/Interfaces/BillingIMGs/icons8_home_page_32px_1.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="homeIconMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="printIcon">
               <Properties>
@@ -566,6 +570,9 @@
                   <Image iconType="3" name="/Interfaces/BillingIMGs/icons8_print_32px.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="printIconMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="userIcon">
               <Properties>

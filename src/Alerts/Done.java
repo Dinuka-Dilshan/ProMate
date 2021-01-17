@@ -58,27 +58,27 @@ public class Done extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 107, 26));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 60, 10));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 60, 10));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 107, 26));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 80, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 80, 10));
 
         theme.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         theme.setForeground(new java.awt.Color(255, 255, 255));
         theme.setText("Done");
-        jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 50, 20));
+        jPanel1.add(theme, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 50, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(368, 129));
+        setSize(new java.awt.Dimension(211, 129));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

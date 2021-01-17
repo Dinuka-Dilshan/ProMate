@@ -105,8 +105,6 @@ public class Product {
             isDone=true;
             
         } catch (SQLException e) {
-            
-            e.printStackTrace();
         }
         
         return isDone;
@@ -130,7 +128,6 @@ public class Product {
             Statement st=con.createStatement();
             rst=st.executeQuery("SELECT * FROM product WHERE Pro_Code LIKE '"+keyWord+"' OR name LIKE '"+keyWord+"' OR quantity LIKE '"+keyWord+"' OR unit_price LIKE '"+keyWord+"' OR type LIKE '"+keyWord+"';");
         } catch (Exception e) {
-            e.printStackTrace();
         }
          
         
@@ -166,7 +163,6 @@ public class Product {
                 model.addRow(data);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             
         }
         
