@@ -8,6 +8,8 @@ package Interfaces;
 import Graphics.jPanelGradient;
 import DB.dbConnect;
 import Errors.dbError;
+import classes.Satistic;
+import classes.customer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.*;
@@ -665,38 +667,12 @@ public class Statistics extends javax.swing.JFrame {
             String todate = date.format(Dateto.getDate());
             
             //SELECT DATEDIFF('2020-12-16','2020-12-09') AS DiffDays (counting dates on sql
-            Connection conn = dbConnect.getConnection();
-            String sql = "SELECT DATEDIFF('" + todate + "','" + fromdate + "') AS days";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
             
-            rs.next();
-            
-            String sql2;
-            String sql3;
-            String sql4;
-            
-            if(rs.getInt("days")>=0 ){
-                
-                sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "'";
-                sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "'";
-                sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + fromdate + "' AND '" + todate + "'";
-            }
-            else if(rs.getInt("days")<0 ){
-                sql2 = "SELECT Pay_Date,SUM(Amount) AS Amount FROM payment GROUP BY Pay_Date HAVING Pay_Date BETWEEN '" + todate + "' AND '" + fromdate+ "'";
-                sql3 = "SELECT COUNT(Pay_ID) AS count FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "'";
-                sql4 = "SELECT SUM(Amount) AS total FROM payment WHERE Pay_Date BETWEEN '" + todate + "' AND '" + fromdate + "'";
-            }
-            else{
-                sql2 = "";
-                sql3 = "";
-                sql4 = "";
-            }
             //getting the date from the system
-            JDBCCategoryDataset dataset = new JDBCCategoryDataset(dbConnect.getConnection(),sql2);
-            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",dataset, PlotOrientation.VERTICAL,true,false,true);
+            Satistic data = new Satistic();
+            JFreeChart linechart = ChartFactory.createBarChart("Sales Income","Date","Income",data.creategraph(fromdate,todate), PlotOrientation.VERTICAL,true,false,true);
             //getting the line chart plot
-            CategoryPlot linechrt = linechart.getCategoryPlot();
+            CategoryPlot linechrt = linechart.getCategoryPlot(); 
             linechrt.setRangeGridlinePaint(Color.BLACK);
              //adding a new line chart to the panel
             BarRenderer render = (BarRenderer) linechrt.getRenderer();
@@ -708,28 +684,19 @@ public class Statistics extends javax.swing.JFrame {
             ChartPanel linePanel = new ChartPanel(linechart);
             SelectedDays.add(linePanel,BorderLayout.CENTER);
             SelectedDays.validate();
+            
             //counting the number of customers
-            Statement stmt2 = conn.createStatement();
-            ResultSet rs2 = stmt2.executeQuery(sql3);
-            
-            rs2.next();
-            String count = String.valueOf(rs2.getInt("count"));
-            
-            Customerlabel.setText(count);
+
+            Customerlabel.setText(customer.countCutomers(data.getfinalquery()));
  
             //Caculating the totall income
-            Statement stmt3 = conn.createStatement();
-            ResultSet rs3 = stmt3.executeQuery(sql4);
-            
-            rs3.next();
-            String total = String.valueOf(rs3.getInt("total"));
-            
-            TotalIncomelabel.setText(total);
+    
+            TotalIncomelabel.setText(String.valueOf(customer.toatllIncome(data.getfinalquery())));
             
             //Calculating daily income
-            int days = Math.abs(rs.getInt("days"))+ 1; // this is necessary to get right number of days on the given range 
+            int days = Math.abs(data.getContDays())+ 1; // this is necessary to get right number of days on the given range 
            
-            double totalincome = rs3.getInt("total");
+            double totalincome = customer.toatllIncome(data.getfinalquery());
             double dailyincome = totalincome/days; 
 
             DecimalFormat df = new DecimalFormat("0.00");
@@ -738,7 +705,7 @@ public class Statistics extends javax.swing.JFrame {
             String Dincome = String.valueOf(df.format(dailyincome));
             Dailyincomelabel.setText(Dincome);
             
-            conn.close();
+            
         }
         catch(SQLException e){
             //e.printStackTrace();
