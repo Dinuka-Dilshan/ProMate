@@ -390,7 +390,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         updateButton.setBackground(new java.awt.Color(102, 102, 102));
         updateButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        updateButton.setText("Update Exixting User");
+        updateButton.setText("Update Existing User");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
@@ -516,7 +516,6 @@ public class MainMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        InventoryDetailsTable.setRowSelectionAllowed(true);
         InventoryDetailsTable.setShowHorizontalLines(false);
         InventoryDetailsTable.getTableHeader().setReorderingAllowed(false);
         InventoryDetailsTable.addMouseListener(new java.awt.event.MouseAdapter() {
