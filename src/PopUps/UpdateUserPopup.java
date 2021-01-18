@@ -78,6 +78,7 @@ public class UpdateUserPopup extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("NIC");
 
+        txtNic.setEditable(false);
         txtNic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNicActionPerformed(evt);
@@ -225,7 +226,7 @@ public class UpdateUserPopup extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        Boolean isDone=User.updateUser(txtNic.getText(), txtName.getText(), txtUName.getText(), txtPhone.getText(), txtPassword.getText(), typeComboBox.getSelectedItem().toString(),table);
+        Boolean isDone=User.updateUser(txtNic.getText(), txtName.getText(), txtUName.getText(), txtPhone.getText(), txtPassword.getText(), typeComboBox.getSelectedItem().toString());
         if(isDone){
             this.dispose();
             new Done().setVisible(true);
