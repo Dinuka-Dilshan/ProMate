@@ -1,7 +1,6 @@
 
 package DB;
 
-import Errors.dbError;
 import java.sql.Connection;
 import java.sql.DriverManager;
 

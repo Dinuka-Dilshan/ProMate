@@ -43,14 +43,14 @@ public class User {
     }
     
     
-    public static boolean updateUser(String Usr_NIC,String name, String userName, String phone_num, String Password, String Type,JTable myTable) {
+  public static boolean updateUser(String Usr_NIC,String name, String userName, String phone_num, String Password, String Type) {
         
-        String data[]=getClickedTableContents(myTable);
+       
         boolean isDone=false;
         try {
             Connection con =dbConnect.getConnection();
             Statement st=con.createStatement();
-            st.execute("UPDATE user SET name='"+name+"',Usr_NIC='"+Usr_NIC+"', userName='"+userName+"', phone_num="+phone_num+",Password='"+Password+"' WHERE Usr_NIC='"+data[2]+"';");
+            st.execute("UPDATE user SET name='"+name+"',Usr_NIC='"+Usr_NIC+"', userName='"+userName+"', phone_num="+phone_num+",Password='"+Password+"' WHERE Usr_NIC='"+Usr_NIC+"';");
             isDone=true;
             
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class User {
     }
     
     
-    //get data from the jtable
+      //get data from the jtable
     public static String[] getClickedTableContents(JTable table){
         
         
