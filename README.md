@@ -1,7 +1,7 @@
 # <p > <h1 >ProMate</h1></p>  
-<b><h2 style ="font-family:Lucida Calligraphy">Coding Is Life..!</i><b>
+<b><h2 style ="font-family:Lucida Calligraphy">Java & mySQL based billing system for a supermarket</i><b>
 </br>
 <hr style="color:red">
-<p >
-PLEASE DOWNLOAD THE LATEST DATABASE AND PULL THE SOURCE CODE TO YOUR BRANCHES
-  </p>
+
+
+
